@@ -6,6 +6,12 @@ import Typography from "@material-ui/core/Typography";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 
+const styles = {
+	Toolbar: {
+		padding: "5px 10px 0 10px"
+	}
+};
+
 class Header extends Component {
 	state = {
 		value: 0
@@ -19,7 +25,7 @@ class Header extends Component {
 		const { value } = this.state;
 		return (
 			<AppBar position="static" color="primary">
-				<Toolbar variant="dense">
+				<Toolbar variant="dense" style={styles.Toolbar}>
 					<Typography
 						component={Link}
 						to="/lista-piosenek"
