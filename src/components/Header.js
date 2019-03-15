@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -10,12 +11,18 @@ class Header extends Component {
 		return (
 			<AppBar position="static">
 				<Toolbar variant="dense">
-					<Typography variant="h6" color="inherit">
+					<Typography
+						component={Link}
+						to="/lista-piosenek"
+						variant="h6"
+						color="inherit"
+						style={{ textDecoration: "none" }}
+					>
 						Śpiewnik
 					</Typography>
 					<Tabs value={0}>
-						<Tab label="Lista piosenek" />
-						<Tab label="Playilisty" />
+						<Tab component={Link} to="/lista-piosenek" label="Lista piosenek" />
+						<Tab component={Link} to="/playlisty" label="Playilisty" />
 					</Tabs>
 				</Toolbar>
 			</AppBar>
