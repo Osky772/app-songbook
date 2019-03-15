@@ -7,7 +7,16 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 
 class Header extends Component {
+	state = {
+		value: 0
+	};
+
+	handleChange = (e, value) => {
+		this.setState({ value });
+	};
+
 	render() {
+		const { value } = this.state;
 		return (
 			<AppBar position="static">
 				<Toolbar variant="dense">
@@ -20,7 +29,7 @@ class Header extends Component {
 					>
 						Śpiewnik
 					</Typography>
-					<Tabs value={0}>
+					<Tabs value={value} onChange={this.handleChange}>
 						<Tab component={Link} to="/lista-piosenek" label="Lista piosenek" />
 						<Tab component={Link} to="/playlisty" label="Playilisty" />
 					</Tabs>
