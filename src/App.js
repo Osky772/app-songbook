@@ -1,29 +1,14 @@
-import React, { Component } from "react";
-
-const data = { title: "im here!!!" };
-
-async function fetchSongs() {
-	const songs = await fetch("data.json").then(res => res.json());
-	console.log(songs);
-}
+import React, { Component, Fragment } from "react";
+import Header from "./components/Header";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 class App extends Component {
-	add() {
-		fetch("http://localhost:3000/data.json", {
-			method: "POST",
-			body: JSON.stringify(data)
-		})
-			.then(res => res.json())
-			.catch(err => console.log("Error", err))
-			.then(res => console.log("Success", res));
-	}
-
 	render() {
 		return (
-			<div>
-				<button onClick={() => this.add()}>Add</button>
-				<button onClick={() => fetchSongs()}>Fetch</button>
-			</div>
+			<Fragment>
+				<CssBaseline />
+				<Header />
+			</Fragment>
 		);
 	}
 }
