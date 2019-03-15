@@ -18,7 +18,7 @@ class Header extends Component {
 	render() {
 		const { value } = this.state;
 		return (
-			<AppBar position="static">
+			<AppBar position="static" color="primary">
 				<Toolbar variant="dense">
 					<Typography
 						component={Link}

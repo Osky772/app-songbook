@@ -1,5 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import blue from "@material-ui/core/colors/blue";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const theme = createMuiTheme({
+	palette: {
+		primary: blue
+	}
+});
+
+ReactDOM.render(
+	<MuiThemeProvider theme={theme}>
+		<App />
+	</MuiThemeProvider>,
+	document.getElementById("root")
+);
