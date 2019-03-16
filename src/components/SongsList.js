@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Link } from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 
@@ -27,15 +28,19 @@ class SongsList extends Component {
 
 	render() {
 		const { songs } = this.state;
-
+		const {
+			match: { url }
+		} = this.props;
 		return (
 			<Fragment>
-				{songs.map(song => (
-					<Paper elevation={1} style={styles.paper}>
-						<Typography variant="h5" component="h3">
-							{song.performer + " - " + song.title}
-						</Typography>
-					</Paper>
+				{songs.map(({ performer, title }) => (
+					<Link to={`${url}/${performer}-${title}`}>
+						<Paper elevation={1} style={styles.paper}>
+							<Typography variant="h5" component="h3">
+								{performer + " - " + title}
+							</Typography>
+						</Paper>
+					</Link>
 				))}
 			</Fragment>
 		);
