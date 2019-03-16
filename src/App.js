@@ -13,7 +13,6 @@ class App extends Component {
 					<CssBaseline />
 					<Header />
 					<Route
-						exact
 						path="/lista-piosenek"
 						render={props => <SongsList {...props} />}
 					/>
