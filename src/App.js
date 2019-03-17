@@ -21,7 +21,6 @@ class App extends Component {
 		const song = this.state.songs.find(song => {
 			return song.id === Number(id);
 		});
-		console.log(song);
 		this.setState({ song });
 	};
 
