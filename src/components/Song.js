@@ -3,7 +3,7 @@ import { Route } from "react-router-dom";
 
 class Song extends Component {
 	render() {
-		console.log("Song here");
+		const { song } = this.props;
 		return (
 			<div>
 				<h2>Id</h2>
