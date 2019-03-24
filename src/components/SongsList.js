@@ -17,8 +17,23 @@ const styles = {
 };
 
 class SongsList extends Component {
+	state = {
+		songs: this.props.songs,
+		category: ""
+	};
+
+	handleCategorySelect = category => {
+		this.setState({ category });
+	};
+
 	render() {
 		const { songs, getSong } = this.props;
+		const { category } = this.state;
+
+		const songsList = category
+			? songs.filter(song => song.category === category)
+			: songs;
+
 		return (
 			<Fragment>
 				<PageWrapper>
@@ -34,7 +49,10 @@ class SongsList extends Component {
 									<List component="nav" style={{ background: "white" }}>
 										{songs.map(({ category }, i) =>
 											i <= 10 ? (
-												<ListItem button>
+												<ListItem
+													button
+													onClick={() => this.handleCategorySelect(category)}
+												>
 													<ListItemText primary={category} />
 												</ListItem>
 											) : null
@@ -44,7 +62,7 @@ class SongsList extends Component {
 							</div>
 						</Grid>
 						<Grid item md={8}>
-							{songs.map(({ id, performer, title }) => (
+							{songsList.map(({ id, performer, title, category }) => (
 								<Link
 									onClick={() => getSong(id)}
 									key={id}
@@ -53,6 +71,9 @@ class SongsList extends Component {
 									<Paper elevation={1} style={styles.paper}>
 										<Typography variant="h5" component="h3">
 											{performer + " - " + title}
+										</Typography>
+										<Typography variant="h6" component="h6">
+											{" " + category}
 										</Typography>
 									</Paper>
 								</Link>
