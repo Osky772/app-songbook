@@ -2,9 +2,11 @@ import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import { GiSpellBook } from "react-icons/gi";
 import PageWrapper from "./containers/PageWrapper";
 import Grid from "@material-ui/core/Grid";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
 
 const styles = {
 	paper: {
@@ -20,20 +22,28 @@ class SongsList extends Component {
 		return (
 			<Fragment>
 				<PageWrapper>
-					<Grid container>
-						<Grid item lg={4}>
+					<Grid container spacing={24}>
+						<Grid item md={4}>
 							<div
 								style={{
 									height: "100%",
-									width: "100%",
-									border: "1px solid gray"
+									width: "100%"
 								}}
 							>
-								Okey
+								<Paper>
+									<List component="nav" style={{ background: "white" }}>
+										{songs.map(({ category }, i) =>
+											i <= 10 ? (
+												<ListItem button>
+													<ListItemText primary={category} />
+												</ListItem>
+											) : null
+										)}
+									</List>
+								</Paper>
 							</div>
 						</Grid>
-						<Grid item lg={8}>
-							<GiSpellBook style={{ fontSize: "100px" }} />
+						<Grid item md={8}>
 							{songs.map(({ id, performer, title }) => (
 								<Link
 									onClick={() => getSong(id)}

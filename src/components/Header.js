@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Grid from "@material-ui/core/Grid";
+import { GiSpellBook } from "react-icons/gi";
 
 const styles = {
 	Toolbar: {
@@ -29,9 +30,10 @@ class Header extends Component {
 	render() {
 		const { value } = this.state;
 		return (
-			<AppBar position="static" color="primary">
+			<AppBar color="primary">
 				<Grid container style={styles.maxWidth}>
 					<Toolbar variant="dense" style={styles.Toolbar}>
+						<GiSpellBook style={{ fontSize: "55px", marginRight: "25px" }} />
 						<Grid item lg={4}>
 							<Typography
 								component={Link}

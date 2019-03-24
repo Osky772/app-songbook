@@ -3,7 +3,8 @@ import React from "react";
 const styles = {
 	maxWidth: "1000px",
 	margin: "0 auto",
-	display: "flex"
+	display: "flex",
+	marginTop: "80px"
 };
 
 const PageWrapper = ({ children }) => {
