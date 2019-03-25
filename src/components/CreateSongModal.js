@@ -64,9 +64,9 @@ class CreateSongModal extends Component {
 		this.setState({ open: false });
 	};
 
-	handleChange = e => {
+	handleChange = event => {
 		this.setState({
-			category: e.target.value
+			[event.currentTarget.name]: event.target.value
 		});
 	};
 
@@ -86,7 +86,10 @@ class CreateSongModal extends Component {
 							<TextField
 								id="outlined-full-width"
 								label="Tytuł"
+								name="title"
 								style={styles.textField}
+								onChange={this.handleChange}
+								value={this.state.title}
 								placeholder="Podaj nazwę utworu"
 								margin="normal"
 								variant="outlined"
@@ -97,7 +100,10 @@ class CreateSongModal extends Component {
 							<TextField
 								id="outlined-full-width"
 								label="Wykonawca"
+								name="performer"
 								style={styles.textField}
+								onChange={this.handleChange}
+								value={this.state.performer}
 								placeholder="Podaj wykonwcę"
 								margin="normal"
 								variant="outlined"
@@ -121,6 +127,9 @@ class CreateSongModal extends Component {
 							<TextField
 								id="outlined-textarea"
 								label="Multiline Placeholder"
+								name="description"
+								onChange={this.handleChange}
+								value={this.state.description}
 								placeholder="Placeholder"
 								style={styles.textField}
 								multiline
