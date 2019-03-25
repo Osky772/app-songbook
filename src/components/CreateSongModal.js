@@ -8,6 +8,8 @@ import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import NativeSelect from "@material-ui/core/NativeSelect";
 
+const BASE_URL = "https://app-songbook.firebaseio.com/";
+
 const styles = {
 	paper: {
 		position: "absolute",
@@ -50,10 +52,12 @@ const categories = [
 class CreateSongModal extends Component {
 	state = {
 		open: false,
-		title: "",
-		performer: "",
-		description: "",
-		category: ""
+		song: {
+			title: "",
+			performer: "",
+			description: "",
+			category: ""
+		}
 	};
 
 	handleOpen = () => {
@@ -66,8 +70,21 @@ class CreateSongModal extends Component {
 
 	handleChange = event => {
 		this.setState({
-			[event.currentTarget.name]: event.target.value
+			song: {
+				...this.state.song,
+				[event.currentTarget.name]: event.target.value
+			}
 		});
+	};
+
+	handleFormSubmit = e => {
+		e.preventDefault();
+		fetch(`${BASE_URL}/songs.json`, {
+			method: "POST",
+			body: JSON.stringify({ ...this.state.song })
+		})
+			.then(() => alert("Added burger successfully"))
+			.catch(() => alert("Error has occurred"));
 	};
 
 	render() {
@@ -82,7 +99,7 @@ class CreateSongModal extends Component {
 				</Button>
 				<Modal open={this.state.open} disableBackdropClick={true}>
 					<div style={styles.paper}>
-						<form style={styles.form}>
+						<form style={styles.form} onSubmit={this.handleFormSubmit}>
 							<TextField
 								id="outlined-full-width"
 								label="Tytuł"
@@ -90,6 +107,7 @@ class CreateSongModal extends Component {
 								style={styles.textField}
 								onChange={this.handleChange}
 								value={this.state.title}
+								autoComplete="off"
 								placeholder="Podaj nazwę utworu"
 								margin="normal"
 								variant="outlined"
@@ -104,6 +122,7 @@ class CreateSongModal extends Component {
 								style={styles.textField}
 								onChange={this.handleChange}
 								value={this.state.performer}
+								autoComplete="off"
 								placeholder="Podaj wykonwcę"
 								margin="normal"
 								variant="outlined"
