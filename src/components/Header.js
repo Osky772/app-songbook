@@ -7,7 +7,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Grid from "@material-ui/core/Grid";
 import { GiSpellBook } from "react-icons/gi";
-import Button from "@material-ui/core/Button";
+import CreateSongModal from "./CreateSongModal";
 
 const styles = {
 	Toolbar: {
@@ -58,9 +58,7 @@ class Header extends Component {
 							</Tabs>
 						</Grid>
 					</Toolbar>
-					<Button variant="outlined" style={{ height: "40px" }}>
-						Dodaj utwór
-					</Button>
+					<CreateSongModal />
 				</Grid>
 			</AppBar>
 		);
