@@ -32,7 +32,7 @@ class App extends Component {
 
 	getSong = id => {
 		const song = this.state.songs.find(song => {
-			return song.id === Number(id);
+			return song.id === id;
 		});
 		this.setState({ song });
 	};

@@ -47,7 +47,7 @@ class SongsList extends Component {
 											button
 											onClick={() => this.handleCategorySelect("")}
 										>
-											<ListItemText primary={"Wszystkie"} />
+											<ListItemText primary={"WSZYSTKIE"} />
 										</ListItem>
 									}
 									{uniqueCategories.map(category => {
@@ -57,7 +57,7 @@ class SongsList extends Component {
 												onClick={() => this.handleCategorySelect(category)}
 												key={category}
 											>
-												<ListItemText primary={category} />
+												<ListItemText primary={category.toUpperCase()} />
 											</ListItem>
 										);
 									})}
