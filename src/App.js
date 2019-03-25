@@ -10,30 +10,10 @@ const BASE_URL = "https://app-songbook.firebaseio.com/";
 
 class App extends Component {
 	state = {
-		songs: [],
 		song: {}
 	};
 
-	componentDidMount() {
-		fetch(`${BASE_URL}/songs.json`)
-			.then(r => r.json())
-			.then(songs => {
-				console.log(songs);
-				console.log(Object.keys(songs));
-				const arraySongs =
-					songs &&
-					Object.keys(songs).map(key => ({
-						id: key,
-						...songs[key]
-					}));
-				this.setState({ songs: arraySongs || [] });
-			});
-	}
-
-	getSong = id => {
-		const song = this.state.songs.find(song => {
-			return song.id === id;
-		});
+	getSong = song => {
 		this.setState({ song });
 	};
 
@@ -51,9 +31,7 @@ class App extends Component {
 					<Route
 						exact
 						path="/lista-piosenek"
-						render={props => (
-							<SongsList getSong={this.getSong} {...props} songs={songs} />
-						)}
+						render={props => <SongsList getSong={this.getSong} {...props} />}
 					/>
 					<Route path="/playlisty" render={() => <Playlists />} />
 				</Fragment>

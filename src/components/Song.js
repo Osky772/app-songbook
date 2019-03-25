@@ -6,6 +6,9 @@ class Song extends Component {
 		let {
 			song: { performer, title, description, category }
 		} = this.props;
+
+		console.log(description);
+
 		return (
 			<div>
 				<h2>{performer + " - " + title}</h2>

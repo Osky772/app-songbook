@@ -8,6 +8,8 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 
+const BASE_URL = "https://app-songbook.firebaseio.com/";
+
 const styles = {
 	paper: {
 		padding: "15px 20px",
@@ -18,17 +20,38 @@ const styles = {
 
 class SongsList extends Component {
 	state = {
-		songs: this.props.songs,
+		songs: [],
 		category: ""
 	};
+
+	componentDidMount() {
+		fetch(`${BASE_URL}/songs.json`)
+			.then(r => r.json())
+			.then(songs => {
+				const arraySongs =
+					songs &&
+					Object.keys(songs).map(key => ({
+						id: key,
+						...songs[key]
+					}));
+				this.setState({ songs: arraySongs || [] });
+			});
+	}
 
 	handleCategorySelect = category => {
 		this.setState({ category });
 	};
 
+	handleSelectSong = id => {
+		const { getSong } = this.props;
+		const song = this.state.songs.find(song => {
+			return song.id === id;
+		});
+		getSong(song);
+	};
+
 	render() {
-		const { songs, getSong } = this.props;
-		const { category } = this.state;
+		const { songs, category } = this.state;
 
 		const songsList = category
 			? songs.filter(song => song.category === category)
@@ -67,7 +90,7 @@ class SongsList extends Component {
 						<Grid item md={8}>
 							{songsList.map(({ id, performer, title, category }) => (
 								<Link
-									onClick={() => getSong(id)}
+									onClick={() => this.handleSelectSong(id)}
 									key={id}
 									to={`/lista-piosenek/${id}`}
 								>
