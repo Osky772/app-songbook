@@ -7,6 +7,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Grid from "@material-ui/core/Grid";
 import { GiSpellBook } from "react-icons/gi";
+import Button from "@material-ui/core/Button";
 
 const styles = {
 	Toolbar: {
@@ -14,7 +15,8 @@ const styles = {
 	},
 	maxWidth: {
 		maxWidth: 1030,
-		margin: "0 auto"
+		margin: "0 auto",
+		alignItems: "center"
 	}
 };
 
@@ -52,10 +54,13 @@ class Header extends Component {
 									to="/lista-piosenek"
 									label="Lista piosenek"
 								/>
-								<Tab component={Link} to="/playlisty" label="Playilisty" />
+								<Tab component={Link} to="/playlisty" label="Playlisty" />
 							</Tabs>
 						</Grid>
 					</Toolbar>
+					<Button variant="outlined" style={{ height: "40px" }}>
+						Dodaj utwór
+					</Button>
 				</Grid>
 			</AppBar>
 		);

@@ -39,27 +39,21 @@ class SongsList extends Component {
 				<PageWrapper>
 					<Grid container spacing={24}>
 						<Grid item md={4}>
-							<div
-								style={{
-									height: "100%",
-									width: "100%"
-								}}
-							>
-								<Paper>
-									<List component="nav" style={{ background: "white" }}>
-										{songs.map(({ category }, i) =>
-											i <= 10 ? (
-												<ListItem
-													button
-													onClick={() => this.handleCategorySelect(category)}
-												>
-													<ListItemText primary={category} />
-												</ListItem>
-											) : null
-										)}
-									</List>
-								</Paper>
-							</div>
+							<Paper>
+								<List component="nav" style={{ background: "white" }}>
+									{songs.map(({ category }, i) =>
+										i <= 10 ? (
+											<ListItem
+												button
+												onClick={() => this.handleCategorySelect(category)}
+												key={category}
+											>
+												<ListItemText primary={category} />
+											</ListItem>
+										) : null
+									)}
+								</List>
+							</Paper>
 						</Grid>
 						<Grid item md={8}>
 							{songsList.map(({ id, performer, title, category }) => (
