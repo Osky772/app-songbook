@@ -34,6 +34,7 @@ class SongsList extends Component {
 			? songs.filter(song => song.category === category)
 			: songs;
 
+		const uniqueCategories = [...new Set(songs.map(song => song.category))];
 		return (
 			<Fragment>
 				<PageWrapper>
@@ -41,8 +42,16 @@ class SongsList extends Component {
 						<Grid item md={4}>
 							<Paper>
 								<List component="nav" style={{ background: "white" }}>
-									{songs.map(({ category }, i) =>
-										i <= 10 ? (
+									{
+										<ListItem
+											button
+											onClick={() => this.handleCategorySelect("")}
+										>
+											<ListItemText primary={"Wszystkie"} />
+										</ListItem>
+									}
+									{uniqueCategories.map(category => {
+										return (
 											<ListItem
 												button
 												onClick={() => this.handleCategorySelect(category)}
@@ -50,8 +59,8 @@ class SongsList extends Component {
 											>
 												<ListItemText primary={category} />
 											</ListItem>
-										) : null
-									)}
+										);
+									})}
 								</List>
 							</Paper>
 						</Grid>

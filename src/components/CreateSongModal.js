@@ -1,12 +1,9 @@
 import React, { Component, Fragment } from "react";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import Modal from "@material-ui/core/Modal";
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import NativeSelect from "@material-ui/core/NativeSelect";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -116,8 +113,9 @@ class CreateSongModal extends Component {
 								onChange={this.handleChange}
 								value={this.state.title}
 								autoComplete="off"
-								placeholder="Podaj nazwę utworu"
+								placeholder="Wpisz nazwę utworu"
 								margin="normal"
+								fullWidth
 								variant="outlined"
 								InputLabelProps={{
 									shrink: true
@@ -131,8 +129,9 @@ class CreateSongModal extends Component {
 								onChange={this.handleChange}
 								value={this.state.performer}
 								autoComplete="off"
-								placeholder="Podaj wykonwcę"
+								placeholder="Wpisz wykonawcę utworu"
 								margin="normal"
+								fullWidth
 								variant="outlined"
 								InputLabelProps={{
 									shrink: true
@@ -157,11 +156,11 @@ class CreateSongModal extends Component {
 							</FormControl>
 							<TextField
 								id="outlined-textarea"
-								label="Multiline Placeholder"
+								label="Tekst piosenki"
 								name="description"
 								onChange={this.handleChange}
 								value={this.state.description}
-								placeholder="Placeholder"
+								placeholder="Tutaj wpisz tekst piosenki oraz chwyty"
 								style={styles.textField}
 								multiline
 								rows="18"
