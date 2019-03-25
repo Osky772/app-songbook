@@ -83,11 +83,19 @@ class CreateSongModal extends Component {
 			method: "POST",
 			body: JSON.stringify({ ...this.state.song })
 		})
-			.then(() => alert("Added burger successfully"))
+			.then(() => {
+				alert("Added song successfully");
+				this.setState({
+					...(this.state.song = "")
+				});
+			})
 			.catch(() => alert("Error has occurred"));
 	};
 
 	render() {
+		const {
+			song: { category }
+		} = this.state;
 		return (
 			<Fragment>
 				<Button
@@ -131,17 +139,21 @@ class CreateSongModal extends Component {
 								}}
 							/>
 							<FormControl>
-								<NativeSelect
+								<Select
+									native
 									value={this.state.age}
 									onChange={this.handleChange}
 									name="category"
 								>
+									{category ? null : (
+										<option value="">Wybierz kategorię...</option>
+									)}
 									{categories.map(category => (
 										<option key={category} value={category}>
 											{category}
 										</option>
 									))}
-								</NativeSelect>
+								</Select>
 							</FormControl>
 							<TextField
 								id="outlined-textarea"
