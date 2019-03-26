@@ -24,7 +24,7 @@ class SongsList extends Component {
 		category: ""
 	};
 
-	componentDidMount() {
+	componentWillMount() {
 		fetch(`${BASE_URL}/songs.json`)
 			.then(r => r.json())
 			.then(songs => {
@@ -85,11 +85,7 @@ class SongsList extends Component {
 						</Grid>
 						<Grid item md={8}>
 							{songsList.map(({ id, performer, title, category }) => (
-								<Link
-									// onClick={() => this.handleSelectSong(id)}
-									key={id}
-									to={`/lista-piosenek/${id}`}
-								>
+								<Link key={id} to={`/lista-piosenek/${id}`}>
 									<Paper elevation={1} style={styles.paper}>
 										<Typography variant="h5" component="h3">
 											{performer + " - " + title}
