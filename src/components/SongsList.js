@@ -13,7 +13,7 @@ const BASE_URL = "https://app-songbook.firebaseio.com/";
 const styles = {
 	paper: {
 		padding: "15px 20px",
-		margin: "10px 10px",
+		margin: "0px 10px 15px 10px",
 		borderRadius: 0
 	}
 };
@@ -41,10 +41,6 @@ class SongsList extends Component {
 	handleCategorySelect = category => {
 		this.setState({ category });
 	};
-
-	// handleSelectSong = id => {
-	// 	this.props.getSong(id);
-	// };
 
 	render() {
 		const { songs, category } = this.state;
