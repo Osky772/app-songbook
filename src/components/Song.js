@@ -6,8 +6,10 @@ class Song extends Component {
 		let {
 			song: { performer, title, description, category }
 		} = this.props;
-
 		console.log(description);
+
+		// const text = description.split("\n");
+		// console.log(text);
 
 		return (
 			<div>

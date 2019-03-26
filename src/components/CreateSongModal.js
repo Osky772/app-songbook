@@ -72,21 +72,30 @@ class CreateSongModal extends Component {
 				[event.currentTarget.name]: event.target.value
 			}
 		});
+		console.log(event.target.value);
+		const verses = event.target.value.split("\n");
+		const textWithChords = verses.map(verse => {
+			const text = verse.split("<")[0];
+			const chords = verse.split("<")[1] && verse.split("<")[1].slice(0, -1);
+			return { text, chords };
+		});
+		console.log(verses);
+		console.log(textWithChords);
 	};
 
 	handleFormSubmit = e => {
 		e.preventDefault();
-		fetch(`${BASE_URL}/songs.json`, {
-			method: "POST",
-			body: JSON.stringify({ ...this.state.song })
-		})
-			.then(() => {
-				alert("Added song successfully");
-				this.setState({
-					...(this.state.song = "")
-				});
-			})
-			.catch(() => alert("Error has occurred"));
+		// fetch(`${BASE_URL}/songs.json`, {
+		// 	method: "POST",
+		// 	body: JSON.stringify({ ...this.state.song })
+		// })
+		// 	.then(() => {
+		// 		alert("Added song successfully");
+		// 		this.setState({
+		// 			...(this.state.song = "")
+		// 		});
+		// 	})
+		// 	.catch(() => alert("Error has occurred"));
 	};
 
 	render() {
