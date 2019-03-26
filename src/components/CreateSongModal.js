@@ -101,7 +101,6 @@ class CreateSongModal extends Component {
 		})
 			.then(() => {
 				alert("Added song successfully");
-				this.setState(...(this.state.song = ""));
 			})
 			.catch(() => alert("Error has occurred"));
 	};

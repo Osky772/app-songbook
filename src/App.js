@@ -10,12 +10,15 @@ const BASE_URL = "https://app-songbook.firebaseio.com/";
 
 class App extends Component {
 	state = {
-		song: {}
+		song: ""
 	};
 
-	getSong = song => {
-		this.setState({ song });
-	};
+	// getSong = id => {
+	// 	const song = this.state.songs.find(song => {
+	// 		return song.id === id;
+	// 	});
+	// 	this.setState({ song });
+	// };
 
 	render() {
 		const { songs, song } = this.state;
@@ -26,12 +29,13 @@ class App extends Component {
 					<Header />
 					<Route
 						path={"/lista-piosenek/:songId"}
-						render={props => <Song song={song} {...props} />}
+						component={Song}
+						// render={props => <Song />}
 					/>
 					<Route
 						exact
 						path="/lista-piosenek"
-						render={props => <SongsList getSong={this.getSong} {...props} />}
+						render={props => <SongsList {...props} />}
 					/>
 					<Route path="/playlisty" render={() => <Playlists />} />
 				</Fragment>

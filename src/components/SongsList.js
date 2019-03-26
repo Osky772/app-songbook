@@ -42,13 +42,9 @@ class SongsList extends Component {
 		this.setState({ category });
 	};
 
-	handleSelectSong = id => {
-		const { getSong } = this.props;
-		const song = this.state.songs.find(song => {
-			return song.id === id;
-		});
-		getSong(song);
-	};
+	// handleSelectSong = id => {
+	// 	this.props.getSong(id);
+	// };
 
 	render() {
 		const { songs, category } = this.state;
@@ -90,7 +86,7 @@ class SongsList extends Component {
 						<Grid item md={8}>
 							{songsList.map(({ id, performer, title, category }) => (
 								<Link
-									onClick={() => this.handleSelectSong(id)}
+									// onClick={() => this.handleSelectSong(id)}
 									key={id}
 									to={`/lista-piosenek/${id}`}
 								>
