@@ -13,7 +13,10 @@ class Song extends Component {
 		const textWithChords = verses.map(verse => {
 			const text = verse.split("<")[0] ? verse.split("<")[0].trim() : null;
 			const chords = verse.split("<")[1]
-				? verse.split("<")[1].slice(0, -1)
+				? verse
+						.split("<")[1]
+						.trim()
+						.slice(0, -1)
 				: null;
 			return { text, chords };
 		});
