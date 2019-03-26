@@ -72,30 +72,60 @@ class CreateSongModal extends Component {
 				[event.currentTarget.name]: event.target.value
 			}
 		});
+	};
+
+	handleChangeSongText = event => {
 		console.log(event.target.value);
-		const verses = event.target.value.split("\n");
-		const textWithChords = verses.map(verse => {
-			const text = verse.split("<")[0];
-			const chords = verse.split("<")[1] && verse.split("<")[1].slice(0, -1);
-			return { text, chords };
+		let inputValue = event.target.value;
+		inputValue = inputValue.startsWith("\n")
+			? inputValue.substr(1)
+			: inputValue;
+
+		inputValue = inputValue.endsWith("\n\n\n")
+			? inputValue.substr(0, inputValue.length - 1)
+			: inputValue;
+
+		this.setState({
+			song: {
+				...this.state.song,
+				[event.currentTarget.name]: inputValue
+			}
 		});
-		console.log(verses);
-		console.log(textWithChords);
 	};
 
 	handleFormSubmit = e => {
 		e.preventDefault();
-		// fetch(`${BASE_URL}/songs.json`, {
-		// 	method: "POST",
-		// 	body: JSON.stringify({ ...this.state.song })
-		// })
-		// 	.then(() => {
-		// 		alert("Added song successfully");
-		// 		this.setState({
-		// 			...(this.state.song = "")
-		// 		});
-		// 	})
-		// 	.catch(() => alert("Error has occurred"));
+
+		let verses = this.state.song.description.split("\n");
+
+		const textWithChords = verses.map(verse => {
+			const text = verse.split("<")[0].trim();
+			const chords = verse.split("<")[1] && verse.split("<")[1].slice(0, -1);
+			return { text, chords };
+		});
+
+		if (
+			textWithChords[textWithChords.length - 1].text === "" &&
+			textWithChords[textWithChords.length - 2].text === ""
+		) {
+			console.log("pops");
+			textWithChords.pop();
+			textWithChords.pop();
+		}
+
+		if (textWithChords[textWithChords.length - 1].text === "") {
+			console.log("pops");
+			textWithChords.pop();
+		}
+		console.log(textWithChords);
+		fetch(`${BASE_URL}/songs.json`, {
+			method: "POST",
+			body: JSON.stringify({ ...this.state.song })
+		})
+			.then(() => {
+				alert("Added song successfully");
+			})
+			.catch(() => alert("Error has occurred"));
 	};
 
 	render() {
@@ -120,7 +150,7 @@ class CreateSongModal extends Component {
 								name="title"
 								style={styles.textField}
 								onChange={this.handleChange}
-								value={this.state.title}
+								value={this.state.song.title}
 								autoComplete="off"
 								placeholder="Wpisz nazwę utworu"
 								margin="normal"
@@ -136,7 +166,7 @@ class CreateSongModal extends Component {
 								name="performer"
 								style={styles.textField}
 								onChange={this.handleChange}
-								value={this.state.performer}
+								value={this.state.song.performer}
 								autoComplete="off"
 								placeholder="Wpisz wykonawcę utworu"
 								margin="normal"
@@ -149,7 +179,7 @@ class CreateSongModal extends Component {
 							<FormControl>
 								<Select
 									native
-									value={this.state.age}
+									value={this.state.song.category}
 									onChange={this.handleChange}
 									name="category"
 								>
@@ -167,8 +197,8 @@ class CreateSongModal extends Component {
 								id="outlined-textarea"
 								label="Tekst piosenki"
 								name="description"
-								onChange={this.handleChange}
-								value={this.state.description}
+								onChange={this.handleChangeSongText}
+								value={this.state.song.description}
 								placeholder="Tutaj wpisz tekst piosenki oraz chwyty"
 								style={styles.textField}
 								multiline

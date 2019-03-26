@@ -35,6 +35,9 @@ class SongsList extends Component {
 						...songs[key]
 					}));
 				this.setState({ songs: arraySongs || [] });
+			})
+			.catch(err => {
+				alert("Error message " + err);
 			});
 	}
 
