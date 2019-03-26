@@ -95,35 +95,13 @@ class CreateSongModal extends Component {
 
 	handleFormSubmit = e => {
 		e.preventDefault();
-
-		let verses = this.state.song.description.split("\n");
-
-		const textWithChords = verses.map(verse => {
-			const text = verse.split("<")[0].trim();
-			const chords = verse.split("<")[1] && verse.split("<")[1].slice(0, -1);
-			return { text, chords };
-		});
-
-		if (
-			textWithChords[textWithChords.length - 1].text === "" &&
-			textWithChords[textWithChords.length - 2].text === ""
-		) {
-			console.log("pops");
-			textWithChords.pop();
-			textWithChords.pop();
-		}
-
-		if (textWithChords[textWithChords.length - 1].text === "") {
-			console.log("pops");
-			textWithChords.pop();
-		}
-		console.log(textWithChords);
 		fetch(`${BASE_URL}/songs.json`, {
 			method: "POST",
 			body: JSON.stringify({ ...this.state.song })
 		})
 			.then(() => {
 				alert("Added song successfully");
+				this.setState(...(this.state.song = ""));
 			})
 			.catch(() => alert("Error has occurred"));
 	};
