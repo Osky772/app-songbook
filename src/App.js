@@ -20,6 +20,7 @@ class App extends Component {
 				<Route exact path="/" render={props => <InitPage {...props} />} />
 				<Route path={"/lista-piosenek/:songId"} component={Song} />
 				<Route
+					exact
 					path="/lista-piosenek"
 					render={props => <SongsList {...props} />}
 				/>
