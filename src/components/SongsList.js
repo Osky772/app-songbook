@@ -8,6 +8,10 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import SearchForm from "./SearchForm";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
+import { GiFlexibleStar } from "react-icons/gi";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -15,7 +19,8 @@ const styles = {
 	paper: {
 		padding: "15px 20px",
 		margin: "0px 10px 15px 10px",
-		borderRadius: 0
+		borderRadius: 0,
+		display: "flex"
 	}
 };
 
@@ -96,16 +101,26 @@ class SongsList extends Component {
 						<Grid item md={8}>
 							<SearchForm handleChange={this.handleChangeForm} />
 							{songsList.map(({ id, performer, title, category }) => (
-								<Link key={id} to={`/lista-piosenek/${id}`}>
-									<Paper elevation={1} style={styles.paper}>
+								<Paper elevation={1} style={styles.paper}>
+									<FormControlLabel
+										control={
+											<Checkbox
+												color="primary"
+												icon={<MdCheckBoxOutlineBlank fontSize="big" />}
+												checkedIcon={<MdCheckBox fontSize="big" />}
+												value="checkedI"
+											/>
+										}
+									/>
+									<Link key={id} to={`/lista-piosenek/${id}`}>
 										<Typography variant="h5" component="h3">
 											{performer ? performer + " - " + title : title}
 										</Typography>
 										<Typography variant="h6" component="h6">
 											{" " + category}
 										</Typography>
-									</Paper>
-								</Link>
+									</Link>
+								</Paper>
 							))}
 						</Grid>
 					</Grid>
