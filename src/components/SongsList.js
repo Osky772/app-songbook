@@ -7,6 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import SearchForm from "./SearchForm";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -80,6 +81,7 @@ class SongsList extends Component {
 							</Paper>
 						</Grid>
 						<Grid item md={8}>
+							<SearchForm />
 							{songsList.map(({ id, performer, title, category }) => (
 								<Link key={id} to={`/lista-piosenek/${id}`}>
 									<Paper elevation={1} style={styles.paper}>

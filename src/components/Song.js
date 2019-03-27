@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Paper from "@material-ui/core/Paper";
+import PageWrapper from "./containers/PageWrapper";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -47,22 +49,24 @@ class Song extends Component {
 		}
 
 		return (
-			<div>
-				<h2>{performer + " - " + title}</h2>
-				<h4>{category}</h4>
-				{textWithChords.map((verse, i) => {
-					return verse.text !== null ? (
-						<p key={i}>
-							{verse.text}
-							<span className="chords">
-								{verse.chords ? verse.chords : null}
-							</span>
-						</p>
-					) : (
-						<br key={i} />
-					);
-				})}
-			</div>
+			<PageWrapper>
+				<Paper style={{ width: "100%" }}>
+					<h2>{performer + " - " + title}</h2>
+					<h4>{category}</h4>
+					{textWithChords.map((verse, i) => {
+						return verse.text !== null ? (
+							<p key={i}>
+								{verse.text}
+								<span className="chords">
+									{verse.chords ? verse.chords : null}
+								</span>
+							</p>
+						) : (
+							<br key={i} />
+						);
+					})}
+				</Paper>
+			</PageWrapper>
 		);
 	}
 }
