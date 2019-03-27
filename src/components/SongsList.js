@@ -45,7 +45,7 @@ class SongsList extends Component {
 	};
 
 	handleChangeForm = e => {
-		this.setState({ searchText: e.target.value });
+		this.setState({ searchText: e.target.value.toLowerCase() });
 	};
 
 	render() {
@@ -57,7 +57,8 @@ class SongsList extends Component {
 
 		songsList = searchText
 			? songsList.filter(song => {
-					const songTitle = song.performer + song.title;
+					const songTitle =
+						song.performer.toLowerCase() + song.title.toLowerCase();
 					return songTitle.includes(searchText);
 			  })
 			: songsList;
