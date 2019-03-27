@@ -51,7 +51,7 @@ class Song extends Component {
 		return (
 			<PageWrapper>
 				<Paper style={{ width: "100%" }}>
-					<h2>{performer + " - " + title}</h2>
+					<h2>{performer ? performer + " - " + title : title}</h2>
 					<h4>{category}</h4>
 					{textWithChords.map((verse, i) => {
 						return verse.text !== null ? (
