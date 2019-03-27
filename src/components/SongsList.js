@@ -131,6 +131,9 @@ class SongsList extends Component {
 										color="primary"
 										icon={<MdCheckBoxOutlineBlank fontSize="big" />}
 										checkedIcon={<MdCheckBox fontSize="big" />}
+										checked={
+											this.state.checked[id] ? this.state.checked[id] : false
+										}
 										onChange={this.handleCheckboxSelect}
 									/>
 									<Link key={id} to={`/lista-piosenek/${id}`}>
