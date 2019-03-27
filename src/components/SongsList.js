@@ -22,7 +22,8 @@ const styles = {
 class SongsList extends Component {
 	state = {
 		songs: [],
-		category: ""
+		category: "",
+		searchText: ""
 	};
 
 	componentWillMount() {
@@ -43,12 +44,23 @@ class SongsList extends Component {
 		this.setState({ category });
 	};
 
-	render() {
-		const { songs, category } = this.state;
+	handleChangeForm = e => {
+		this.setState({ searchText: e.target.value });
+	};
 
-		const songsList = category
+	render() {
+		const { songs, category, searchText } = this.state;
+
+		let songsList = category
 			? songs.filter(song => song.category === category)
 			: songs;
+
+		songsList = searchText
+			? songsList.filter(song => {
+					const songTitle = song.performer + song.title;
+					return songTitle.includes(searchText);
+			  })
+			: songsList;
 
 		const uniqueCategories = [...new Set(songs.map(song => song.category))];
 		return (
@@ -81,7 +93,7 @@ class SongsList extends Component {
 							</Paper>
 						</Grid>
 						<Grid item md={8}>
-							<SearchForm />
+							<SearchForm handleChange={this.handleChangeForm} />
 							{songsList.map(({ id, performer, title, category }) => (
 								<Link key={id} to={`/lista-piosenek/${id}`}>
 									<Paper elevation={1} style={styles.paper}>
