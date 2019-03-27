@@ -5,26 +5,19 @@ import SongsList from "./components/SongsList";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Route } from "react-router-dom";
 import Song from "./components/Song";
+import InitPage from "./components/InitPage";
 
 class App extends Component {
 	state = {
 		song: ""
 	};
 
-	componentDidMount() {
-		console.log(window.location);
-		// const initialPage = window.location.origin;
-		// const originalPagePathname = "/lista-piosenek";
-		// if (window.location.pathname === "/") {
-		// 	window.location.pathname = originalPagePathname;
-		// }
-	}
-
 	render() {
 		return (
 			<Fragment>
 				<CssBaseline />
 				<Header />
+				<Route exact path="/" render={props => <InitPage {...props} />} />
 				<Route path={"/lista-piosenek/:songId"} component={Song} />
 				<Route
 					path="/lista-piosenek"
