@@ -11,7 +11,6 @@ import SearchForm from "./SearchForm";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
-import { GiFlexibleStar } from "react-icons/gi";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -28,7 +27,9 @@ class SongsList extends Component {
 	state = {
 		songs: [],
 		category: "",
-		searchText: ""
+		searchText: "",
+		selectedSongs: [],
+		checked: {}
 	};
 
 	componentWillMount() {
@@ -42,6 +43,15 @@ class SongsList extends Component {
 						...songs[key]
 					}));
 				this.setState({ songs: arraySongs || [] });
+				this.setState({
+					checked: arraySongs.reduce(
+						(options, song) => ({
+							...options,
+							[song.id]: false
+						}),
+						{}
+					)
+				});
 			});
 	}
 
@@ -51,6 +61,19 @@ class SongsList extends Component {
 
 	handleChangeForm = e => {
 		this.setState({ searchText: e.target.value.toLowerCase() });
+	};
+
+	handleCheckboxSelect = e => {
+		const { name } = e.target;
+
+		this.setState(prevState => ({
+			checked: {
+				...prevState.checked,
+				[name]: !prevState.checked[name]
+			}
+		}));
+
+		// console.log(Object.keys(this.state.checked));
 	};
 
 	render() {
@@ -69,6 +92,7 @@ class SongsList extends Component {
 			: songsList;
 
 		const uniqueCategories = [...new Set(songs.map(song => song.category))];
+
 		return (
 			<Fragment>
 				<PageWrapper>
@@ -102,15 +126,12 @@ class SongsList extends Component {
 							<SearchForm handleChange={this.handleChangeForm} />
 							{songsList.map(({ id, performer, title, category }) => (
 								<Paper elevation={1} style={styles.paper}>
-									<FormControlLabel
-										control={
-											<Checkbox
-												color="primary"
-												icon={<MdCheckBoxOutlineBlank fontSize="big" />}
-												checkedIcon={<MdCheckBox fontSize="big" />}
-												value="checkedI"
-											/>
-										}
+									<Checkbox
+										name={id}
+										color="primary"
+										icon={<MdCheckBoxOutlineBlank fontSize="big" />}
+										checkedIcon={<MdCheckBox fontSize="big" />}
+										onChange={this.handleCheckboxSelect}
 									/>
 									<Link key={id} to={`/lista-piosenek/${id}`}>
 										<Typography variant="h5" component="h3">
