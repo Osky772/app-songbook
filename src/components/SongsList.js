@@ -99,7 +99,7 @@ class SongsList extends Component {
 								<Link key={id} to={`/lista-piosenek/${id}`}>
 									<Paper elevation={1} style={styles.paper}>
 										<Typography variant="h5" component="h3">
-											{performer + " - " + title}
+											{performer ? performer + " - " + title : title}
 										</Typography>
 										<Typography variant="h6" component="h6">
 											{" " + category}
