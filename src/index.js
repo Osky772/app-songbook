@@ -4,6 +4,7 @@ import App from "./App";
 import "./App.css";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import blue from "@material-ui/core/colors/blue";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const theme = createMuiTheme({
 	palette: {
@@ -15,8 +16,10 @@ const theme = createMuiTheme({
 });
 
 ReactDOM.render(
-	<MuiThemeProvider theme={theme}>
-		<App />
-	</MuiThemeProvider>,
+	<Router>
+		<MuiThemeProvider theme={theme}>
+			<App />
+		</MuiThemeProvider>
+	</Router>,
 	document.getElementById("root")
 );
