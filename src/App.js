@@ -9,7 +9,12 @@ import InitPage from "./components/InitPage";
 
 class App extends Component {
 	state = {
-		song: ""
+		song: "",
+		selectedSongs: []
+	};
+
+	handleSelectSongs = selectedSong => {
+		this.setState({ selectedSong });
 	};
 
 	render() {
@@ -22,7 +27,14 @@ class App extends Component {
 				<Route
 					exact
 					path="/lista-piosenek"
-					render={props => <SongsList {...props} />}
+					render={props => (
+						<SongsList
+							onCheckboxSelect={this.handleCheckboxSelect}
+							// checked={selectedSongs}
+							handleSelectSongs={this.handleSelectSongs}
+							{...props}
+						/>
+					)}
 				/>
 				<Route path="/playlisty" render={() => <Playlists />} />
 			</Fragment>

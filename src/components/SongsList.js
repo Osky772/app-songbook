@@ -43,15 +43,17 @@ class SongsList extends Component {
 						...songs[key]
 					}));
 				this.setState({ songs: arraySongs || [] });
-				this.setState({
-					checked: arraySongs.reduce(
-						(options, song) => ({
-							...options,
-							[song.id]: false
-						}),
-						{}
-					)
-				});
+				const checked = arraySongs.reduce(
+					(options, song) => ({
+						...options,
+						[song.id]: false
+					}),
+					{}
+				);
+				this.setState({ checked });
+
+				console.log(checked);
+				// this.props.handleSetState(checked);
 			});
 	}
 
@@ -66,19 +68,23 @@ class SongsList extends Component {
 	handleCheckboxSelect = e => {
 		const { name } = e.target;
 
+		const selectedSong = this.state.songs.find(song => song.id === name);
+
+		if (this.state.checked[name] === false) {
+			console.log(this.state.checked[name], [selectedSong]);
+		}
+
 		this.setState(prevState => ({
 			checked: {
 				...prevState.checked,
 				[name]: !prevState.checked[name]
 			}
 		}));
-
-		// console.log(Object.keys(this.state.checked));
+		// this.props.onCheckboxSelect(name);
 	};
 
 	render() {
-		const { songs, category, searchText } = this.state;
-
+		const { songs, category, searchText, checked } = this.state;
 		let songsList = category
 			? songs.filter(song => song.category === category)
 			: songs;
@@ -125,18 +131,16 @@ class SongsList extends Component {
 						<Grid item md={8}>
 							<SearchForm handleChange={this.handleChangeForm} />
 							{songsList.map(({ id, performer, title, category }) => (
-								<Paper elevation={1} style={styles.paper}>
+								<Paper key={id} elevation={1} style={styles.paper}>
 									<Checkbox
 										name={id}
 										color="primary"
 										icon={<MdCheckBoxOutlineBlank fontSize="big" />}
 										checkedIcon={<MdCheckBox fontSize="big" />}
-										checked={
-											this.state.checked[id] ? this.state.checked[id] : false
-										}
+										checked={checked[id] ? checked[id] : false}
 										onChange={this.handleCheckboxSelect}
 									/>
-									<Link key={id} to={`/lista-piosenek/${id}`}>
+									<Link to={`/lista-piosenek/${id}`}>
 										<Typography variant="h5" component="h3">
 											{performer ? performer + " - " + title : title}
 										</Typography>
