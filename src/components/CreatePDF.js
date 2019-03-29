@@ -21,7 +21,10 @@ class CreatePDF extends Component {
 	createPDF = () => {
 		const song = this.state.songs[0];
 
-		const text = song.description;
+		const text = song.description
+			.split("\n")
+			.map(verse => (verse.split("<")[0] ? verse.split("<")[0].trim() : ""))
+			.join("\n");
 
 		const chords = song.description
 			.split("\n")
@@ -47,7 +50,7 @@ class CreatePDF extends Component {
 					columns: [
 						{
 							width: "75%",
-							text: song.description
+							text: text
 						},
 						{
 							width: "20%",
