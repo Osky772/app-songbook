@@ -8,7 +8,6 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import SearchForm from "./SearchForm";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 
@@ -53,7 +52,6 @@ class SongsList extends Component {
 				this.setState({ checked });
 
 				console.log(checked);
-				// this.props.handleSetState(checked);
 			});
 	}
 
@@ -68,24 +66,27 @@ class SongsList extends Component {
 	handleCheckboxSelect = e => {
 		const { name } = e.target;
 
-		const song = this.state.songs.find(song => song.id === name);
+		const checkedSong = this.state.songs.find(song => song.id === name);
 
 		if (this.state.checked[name] === false) {
-			console.log(this.state.checked[name], [song]);
-			
+			this.setState(prevState => ({
+				checked: {
+					...prevState.checked,
+					[name]: !prevState.checked[name]
+				},
+				selectedSongs: [...prevState.selectedSongs, checkedSong]
+			}));
+		} else {
 			this.setState(prevState => ({
 				checked: {
 					...prevState.checked,
 					[name]: !prevState.checked[name]
 				},
 				selectedSongs: [
-					...prevState.selectedSongs,
-					song
+					...prevState.selectedSongs.filter(song => song.id !== checkedSong.id)
 				]
-
 			}));
 		}
-
 		// this.props.onCheckboxSelect(name);
 	};
 
