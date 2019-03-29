@@ -32,6 +32,8 @@ class Header extends Component {
 
 	render() {
 		const { value } = this.state;
+		const { selectedSongs } = this.props;
+
 		return (
 			<AppBar color="primary">
 				<Grid container style={styles.maxWidth}>
@@ -60,7 +62,7 @@ class Header extends Component {
 						</Grid>
 					</Toolbar>
 					<CreateSongModal />
-					<CreatePDF />
+					<CreatePDF selectedSongs={selectedSongs} />
 				</Grid>
 			</AppBar>
 		);

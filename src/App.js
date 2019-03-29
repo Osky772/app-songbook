@@ -18,10 +18,12 @@ class App extends Component {
 	};
 
 	render() {
+		const { selectedSongs } = this.state;
+
 		return (
 			<Fragment>
 				<CssBaseline />
-				<Header />
+				<Header selectedSongs={selectedSongs} />
 				<Route exact path="/" render={props => <InitPage {...props} />} />
 				<Route path={"/lista-piosenek/:songId"} component={Song} />
 				<Route
