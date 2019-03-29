@@ -31,6 +31,8 @@ class CreatePDF extends Component {
 							.split("<")[1]
 							.trim()
 							.slice(0, -1)
+							.split(", ")
+							.join(" ")
 					: ""
 			)
 			.join("\n");
