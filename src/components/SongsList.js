@@ -68,18 +68,24 @@ class SongsList extends Component {
 	handleCheckboxSelect = e => {
 		const { name } = e.target;
 
-		const selectedSong = this.state.songs.find(song => song.id === name);
+		const song = this.state.songs.find(song => song.id === name);
 
 		if (this.state.checked[name] === false) {
-			console.log(this.state.checked[name], [selectedSong]);
+			console.log(this.state.checked[name], [song]);
+			
+			this.setState(prevState => ({
+				checked: {
+					...prevState.checked,
+					[name]: !prevState.checked[name]
+				},
+				selectedSongs: [
+					...prevState.selectedSongs,
+					song
+				]
+
+			}));
 		}
 
-		this.setState(prevState => ({
-			checked: {
-				...prevState.checked,
-				[name]: !prevState.checked[name]
-			}
-		}));
 		// this.props.onCheckboxSelect(name);
 	};
 
