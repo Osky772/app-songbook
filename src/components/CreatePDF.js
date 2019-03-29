@@ -43,26 +43,51 @@ class CreatePDF extends Component {
 				)
 				.join("\n");
 
-			const header = {
-				text: title,
-				style: "header"
-			};
+			// const header = {
+			// 	text: title,
+			// 	style: "header"
+			// };
 
-			const columns = [
+			// const columns = [
+			// 	{
+			// 		width: "75%",
+			// 		text: text
+			// 	},
+			// 	{
+			// 		width: "20%",
+			// 		text: chords
+			// 	}
+			// ];
+
+			return [
 				{
-					width: "75%",
-					text: text
+					text: title,
+					style: "header"
 				},
 				{
-					width: "20%",
-					text: chords
+					columns: [
+						{
+							width: "75%",
+							text: text
+						},
+						{
+							width: "20%",
+							text: chords
+						}
+					]
 				}
 			];
-
-			return [header, { columns }];
 		});
 
 		var dd = {
+			footer: function(currentPage, pageCount) {
+				return [
+					{
+						text: currentPage.toString() + " z " + pageCount,
+						alignment: "center"
+					}
+				];
+			},
 			content: ddContent,
 			styles: {
 				header: {
