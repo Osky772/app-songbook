@@ -50,8 +50,6 @@ class SongsList extends Component {
 					{}
 				);
 				this.setState({ checked });
-
-				console.log(checked);
 			});
 	}
 

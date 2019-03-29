@@ -80,6 +80,12 @@ class CreatePDF extends Component {
 		});
 
 		var dd = {
+			header: {
+				text: "app.spiewnik - największa podręczna baza piosenek",
+				marginLeft: 40,
+				marginTop: 10,
+				fontSize: 8
+			},
 			footer: function(currentPage, pageCount) {
 				return [
 					{
