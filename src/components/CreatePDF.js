@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 class CreatePDF extends Component {
 	state = {
@@ -15,12 +18,22 @@ class CreatePDF extends Component {
 		return null;
 	}
 
+	createPDF = () => {
+		var dd = {
+			content: [
+				"First paragraph",
+				"Another paragraph, this time a little bit longer to make sure, this line will be divided into at least two lines"
+			]
+		};
+		pdfMake.createPdf(dd).open();
+	};
+
 	render() {
 		return (
 			<Button
 				variant="outlined"
 				style={{ height: "40px" }}
-				onClick={() => console.log(this.state.songs)}
+				onClick={this.createPDF}
 			>
 				Create PDF
 			</Button>
