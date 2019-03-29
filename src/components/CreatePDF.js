@@ -43,22 +43,6 @@ class CreatePDF extends Component {
 				)
 				.join("\n");
 
-			// const header = {
-			// 	text: title,
-			// 	style: "header"
-			// };
-
-			// const columns = [
-			// 	{
-			// 		width: "75%",
-			// 		text: text
-			// 	},
-			// 	{
-			// 		width: "20%",
-			// 		text: chords
-			// 	}
-			// ];
-
 			return [
 				{
 					text: title,
@@ -109,11 +93,13 @@ class CreatePDF extends Component {
 	};
 
 	render() {
+		const { songs } = this.state;
+
 		return (
 			<Button
 				variant="outlined"
 				style={{ height: "40px" }}
-				onClick={this.createPDF}
+				onClick={songs.length ? this.createPDF : null}
 			>
 				Create PDF
 			</Button>
