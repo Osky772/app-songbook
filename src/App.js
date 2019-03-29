@@ -13,8 +13,8 @@ class App extends Component {
 		selectedSongs: []
 	};
 
-	handleSelectSongs = selectedSong => {
-		this.setState({ selectedSong });
+	handleSelectSongs = selectedSongs => {
+		this.setState({ selectedSongs });
 	};
 
 	render() {
@@ -29,7 +29,7 @@ class App extends Component {
 					path="/lista-piosenek"
 					render={props => (
 						<SongsList
-							onCheckboxSelect={this.handleCheckboxSelect}
+							// onCheckboxSelect={this.handleCheckboxSelect}
 							// checked={selectedSongs}
 							handleSelectSongs={this.handleSelectSongs}
 							{...props}
