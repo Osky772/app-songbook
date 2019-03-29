@@ -19,53 +19,61 @@ class CreatePDF extends Component {
 	}
 
 	createPDF = () => {
-		const song = this.state.songs[0];
+		const { songs } = this.state;
 
-		const text = song.description
-			.split("\n")
-			.map(verse => (verse.split("<")[0] ? verse.split("<")[0].trim() : ""))
-			.join("\n");
+		const ddContent = songs.map(song => {
+			const title = song.title;
 
-		const chords = song.description
-			.split("\n")
-			.map(verse =>
-				verse.split("<")[1]
-					? verse
-							.split("<")[1]
-							.trim()
-							.slice(0, -1)
-							.split(", ")
-							.join(" ")
-					: ""
-			)
-			.join("\n");
+			const text = song.description
+				.split("\n")
+				.map(verse => (verse.split("<")[0] ? verse.split("<")[0].trim() : ""))
+				.join("\n");
 
-		var dd = {
-			content: [
+			const chords = song.description
+				.split("\n")
+				.map(verse =>
+					verse.split("<")[1]
+						? verse
+								.split("<")[1]
+								.trim()
+								.slice(0, -1)
+								.split(", ")
+								.join(" ")
+						: ""
+				)
+				.join("\n");
+
+			const header = {
+				text: title,
+				style: "header"
+			};
+
+			const columns = [
 				{
-					text: song.title,
-					style: "header"
+					width: "75%",
+					text: text
 				},
 				{
-					columns: [
-						{
-							width: "75%",
-							text: text
-						},
-						{
-							width: "20%",
-							text: chords
-						}
-					]
+					width: "20%",
+					text: chords
 				}
-			],
+			];
+
+			return [header, { columns }];
+		});
+
+		var dd = {
+			content: ddContent,
 			styles: {
 				header: {
 					fontSize: 18,
-					bold: true
+					bold: true,
+					marginBottom: 6,
+					marginTop: 15
 				}
 			}
 		};
+
 		pdfMake.createPdf(dd).open();
 	};
 
