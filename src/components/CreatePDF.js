@@ -19,11 +19,47 @@ class CreatePDF extends Component {
 	}
 
 	createPDF = () => {
+		const song = this.state.songs[0];
+
+		const text = song.description;
+
+		const chords = song.description
+			.split("\n")
+			.map(verse =>
+				verse.split("<")[1]
+					? verse
+							.split("<")[1]
+							.trim()
+							.slice(0, -1)
+					: ""
+			)
+			.join("\n");
+
 		var dd = {
 			content: [
-				"First paragraph",
-				"Another paragraph, this time a little bit longer to make sure, this line will be divided into at least two lines"
-			]
+				{
+					text: song.title,
+					style: "header"
+				},
+				{
+					columns: [
+						{
+							width: "75%",
+							text: song.description
+						},
+						{
+							width: "20%",
+							text: chords
+						}
+					]
+				}
+			],
+			styles: {
+				header: {
+					fontSize: 18,
+					bold: true
+				}
+			}
 		};
 		pdfMake.createPdf(dd).open();
 	};
