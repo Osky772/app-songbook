@@ -51,13 +51,13 @@ class CreatePlaylist extends Component {
 							<form>
 								<TextField
 									id="outlined-full-width"
-									label="Tytuł"
-									name="title"
+									label="Nazwa"
+									name="nazwa"
 									// style={styles.textField}
 									// onChange={this.handleChange}
 									// value={this.state.song.title}
 									autoComplete="off"
-									placeholder="Wpisz nazwę utworu"
+									placeholder="Podaj nazwę dla playlisty"
 									margin="normal"
 									fullWidth
 									variant="outlined"
@@ -65,17 +65,16 @@ class CreatePlaylist extends Component {
 										shrink: true
 									}}
 								/>
-								{songs.map(({ id, performer, title, category }, nr) => (
+								<Typography variant="h5" style={{ margin: "10px 0 25px 0" }}>
+									Wybrane piosenki
+								</Typography>
+								{songs.map(({ id, performer, title }, nr) => (
 									<SongsListRow key={id} elevation={1}>
-										<Typography
-											variant="h5"
-											component="h3"
-											style={{ marginRight: 15 }}
-										>
+										<Typography variant="h5" style={{ marginRight: 15 }}>
 											{nr + 1}.
 										</Typography>
 										<div>
-											<Typography variant="h5" component="h3">
+											<Typography variant="h5">
 												{performer ? performer + " - " + title : title}
 											</Typography>
 										</div>

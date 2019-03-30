@@ -140,12 +140,10 @@ class SongsList extends Component {
 										onChange={this.handleCheckboxSelect}
 									/>
 									<Link to={`/lista-piosenek/${id}`}>
-										<Typography variant="h5" component="h3">
+										<Typography variant="h5">
 											{performer ? performer + " - " + title : title}
 										</Typography>
-										<Typography variant="h6" component="h6">
-											{" " + category}
-										</Typography>
+										<Typography variant="h6">{" " + category}</Typography>
 									</Link>
 								</SongsListRow>
 							))}
