@@ -2,7 +2,13 @@ import React, { Component, Fragment } from "react";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import TextField from "@material-ui/core/TextField";
-import { WrapperInModal, FormWrapper } from "./containers/StyledContainers";
+import Typography from "@material-ui/core/Typography";
+
+import {
+	WrapperInModal,
+	FormWrapper,
+	SongsListRow
+} from "./containers/StyledContainers";
 
 class CreatePlaylist extends Component {
 	state = {
@@ -28,6 +34,8 @@ class CreatePlaylist extends Component {
 	};
 
 	render() {
+		const { songs } = this.state;
+
 		return (
 			<Fragment>
 				<Button
@@ -57,6 +65,22 @@ class CreatePlaylist extends Component {
 										shrink: true
 									}}
 								/>
+								{songs.map(({ id, performer, title, category }, nr) => (
+									<SongsListRow key={id} elevation={1}>
+										<Typography
+											variant="h5"
+											component="h3"
+											style={{ marginRight: 15 }}
+										>
+											{nr + 1}.
+										</Typography>
+										<div>
+											<Typography variant="h5" component="h3">
+												{performer ? performer + " - " + title : title}
+											</Typography>
+										</div>
+									</SongsListRow>
+								))}
 								<Button type="submit">Zatwierdź</Button>
 								<Button onClick={this.handleClose}>Wyjdź</Button>
 							</form>
