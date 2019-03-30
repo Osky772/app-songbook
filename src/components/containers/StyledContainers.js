@@ -13,9 +13,13 @@ export const SongsListRow = styled(PaperContainer)`
 	display: flex;
 `;
 
-// export const SongsListRow = styled.Paper`
-// padding: "15px 20px";
-// margin: "0px 10px 15px 10px";
-// border-radius: 0;
-// display: flex
-// `
+export const WrapperInModal = styled.div`
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 50%;
+	height: 90%;
+	background: white;
+	outline: none;
+`;

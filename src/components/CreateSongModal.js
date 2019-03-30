@@ -6,6 +6,7 @@ import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import { MdError as ErrorIcon } from "react-icons/md";
+import { WrapperInModal } from "./containers/StyledContainers";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -124,7 +125,7 @@ class CreateSongModal extends Component {
 					Dodaj utwór
 				</Button>
 				<Modal open={this.state.open} disableBackdropClick={true}>
-					<div style={styles.paper}>
+					<WrapperInModal>
 						<form style={styles.form} onSubmit={this.handleFormSubmit}>
 							<TextField
 								id="outlined-full-width"
@@ -217,7 +218,7 @@ class CreateSongModal extends Component {
 							<Button type="submit">Zatwierdź</Button>
 							<Button onClick={this.handleClose}>Wyjdź</Button>
 						</form>
-					</div>
+					</WrapperInModal>
 				</Modal>
 			</Fragment>
 		);

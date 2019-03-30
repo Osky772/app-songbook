@@ -14,15 +14,6 @@ import { SongsListRow } from "./containers/StyledContainers";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
-const styles = {
-	paper: {
-		padding: "15px 20px",
-		margin: "0px 10px 15px 10px",
-		borderRadius: 0,
-		display: "flex"
-	}
-};
-
 class SongsList extends Component {
 	state = {
 		songs: [],
