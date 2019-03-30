@@ -4,6 +4,8 @@ import Modal from "@material-ui/core/Modal";
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
+import SnackbarContent from "@material-ui/core/SnackbarContent";
+import { MdError as ErrorIcon } from "react-icons/md";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -13,8 +15,8 @@ const styles = {
 		top: "50%",
 		left: "50%",
 		transform: "translate(-50%, -50%)",
-		width: "60%",
-		height: "70%",
+		width: "50%",
+		height: "90%",
 		backgroundColor: "white",
 		outline: "none"
 	},
@@ -24,7 +26,10 @@ const styles = {
 	},
 	textField: {
 		display: "block",
-		margin: 8
+		marginBottom: 15
+	},
+	select: {
+		marginBottom: 15
 	},
 	textFieldMultiline: {
 		display: "block",
@@ -159,6 +164,7 @@ class CreateSongModal extends Component {
 									value={this.state.song.category}
 									onChange={this.handleChange}
 									name="category"
+									style={styles.select}
 								>
 									{category ? null : (
 										<option value="">Wybierz kategorię...</option>
@@ -170,6 +176,34 @@ class CreateSongModal extends Component {
 									))}
 								</Select>
 							</FormControl>
+							<SnackbarContent
+								//   className={classNames(classes[variant], className)}
+								style={{
+									backgroundColor: "#fca525",
+									margin: "15px 0 35px 0",
+									maxWidth: "100%"
+								}}
+								message={
+									<span style={{ display: "flex" }}>
+										<ErrorIcon
+											style={{ fontSize: 50, height: "100%", marginRight: 10 }}
+										/>
+
+										<span>
+											<div style={{ fontWeight: "bold" }}>{"Uwaga!"}</div>
+											{
+												"Kolejne wersy oddzielaj enterem. Chwyty przypisane do danego wersu dodawaj w tej samej linii w nawiasach ostrych, oddzielonymi przecinkami, np. <G, d, C>."
+											}
+										</span>
+									</span>
+								}
+								// {
+								// 		<ErrorIcon style={{ fontSize: 25 }} />
+								// 	<span id="client-snackbar">
+
+								// 	</span>
+								// }
+							/>
 							<TextField
 								id="outlined-textarea"
 								label="Tekst piosenki"
