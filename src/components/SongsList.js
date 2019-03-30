@@ -10,6 +10,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import SearchForm from "./SearchForm";
 import Checkbox from "@material-ui/core/Checkbox";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
+import { SongsListRow } from "./containers/StyledContainers";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -138,7 +139,7 @@ class SongsList extends Component {
 						<Grid item md={8}>
 							<SearchForm handleChange={this.handleChangeForm} />
 							{songsList.map(({ id, performer, title, category }) => (
-								<Paper key={id} elevation={1} style={styles.paper}>
+								<SongsListRow key={id} elevation={1}>
 									<Checkbox
 										name={id}
 										color="primary"
@@ -155,7 +156,7 @@ class SongsList extends Component {
 											{" " + category}
 										</Typography>
 									</Link>
-								</Paper>
+								</SongsListRow>
 							))}
 						</Grid>
 					</Grid>
