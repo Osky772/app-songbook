@@ -3,17 +3,19 @@ import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-
 import {
 	WrapperInModal,
 	FormWrapper,
 	SongsListRow
 } from "./containers/StyledContainers";
 
+const BASE_URL = "https://app-songbook.firebaseio.com/";
+
 class CreatePlaylist extends Component {
 	state = {
 		open: false,
-		songs: []
+		songs: [],
+		title: ""
 	};
 
 	static getDerivedStateFromProps(props, state) {
@@ -24,6 +26,27 @@ class CreatePlaylist extends Component {
 		}
 		return null;
 	}
+
+	handleChange = e => {
+		this.setState({
+			title: e.target.value
+		});
+	};
+
+	handleFormSubmit = e => {
+		e.preventDefault();
+		fetch(`${BASE_URL}/playlists.json`, {
+			method: "POST",
+			body: JSON.stringify({
+				title: this.state.title,
+				songs: this.state.songs
+			})
+		})
+			.then(() => {
+				alert("Added playlist successfully");
+			})
+			.catch(() => alert("Error has occurred"));
+	};
 
 	handleOpen = () => {
 		this.setState({ open: true });
@@ -48,14 +71,13 @@ class CreatePlaylist extends Component {
 				<Modal open={this.state.open} disableBackdropClick={true}>
 					<WrapperInModal>
 						<FormWrapper>
-							<form>
+							<form onSubmit={this.handleFormSubmit}>
 								<TextField
 									id="outlined-full-width"
 									label="Nazwa"
 									name="nazwa"
-									// style={styles.textField}
-									// onChange={this.handleChange}
-									// value={this.state.song.title}
+									onChange={this.handleChange}
+									value={this.state.title}
 									autoComplete="off"
 									placeholder="Podaj nazwę dla playlisty"
 									margin="normal"
