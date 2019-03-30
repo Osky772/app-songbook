@@ -184,7 +184,7 @@ class CreateSongModal extends Component {
 									maxWidth: "100%"
 								}}
 								message={
-									<span style={{ display: "flex" }}>
+									<span style={{ display: "flex", marginLeft: "-5px" }}>
 										<ErrorIcon
 											style={{ fontSize: 50, height: "100%", marginRight: 10 }}
 										/>
@@ -192,17 +192,11 @@ class CreateSongModal extends Component {
 										<span>
 											<div style={{ fontWeight: "bold" }}>{"Uwaga!"}</div>
 											{
-												"Kolejne wersy oddzielaj enterem. Chwyty przypisane do danego wersu dodawaj w tej samej linii w nawiasach ostrych, oddzielonymi przecinkami, np. <G, d, C>."
+												"Kolejne wersy oddzielaj enterem. Chwyty przypisane do danego wersu dodawaj w tej samej linii w nawiasach ostrych, oddzielonymi przecinkami, np. Tak, tak, tam w lustrze... <G, d, C>."
 											}
 										</span>
 									</span>
 								}
-								// {
-								// 		<ErrorIcon style={{ fontSize: 25 }} />
-								// 	<span id="client-snackbar">
-
-								// 	</span>
-								// }
 							/>
 							<TextField
 								id="outlined-textarea"

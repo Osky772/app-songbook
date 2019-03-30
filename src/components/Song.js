@@ -4,6 +4,26 @@ import PageWrapper from "./containers/PageWrapper";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
+const styles = {
+	paper: {
+		width: "80%",
+		padding: "20px 60px 20px 60px",
+		marginBottom: 60,
+		fontSize: 16
+	},
+	verse: {
+		display: "flex",
+		// justifyContent: "space-between",
+		margin: "10px 0"
+	},
+	text: {
+		width: "75%"
+	},
+	chords: {
+		width: "20%"
+	}
+};
+
 class Song extends Component {
 	state = {
 		song: {}
@@ -50,14 +70,14 @@ class Song extends Component {
 
 		return (
 			<PageWrapper>
-				<Paper style={{ width: "100%" }}>
+				<Paper style={styles.paper}>
 					<h2>{performer ? performer + " - " + title : title}</h2>
 					<h4>{category}</h4>
 					{textWithChords.map((verse, i) => {
 						return verse.text !== null ? (
-							<p key={i}>
-								{verse.text}
-								<span className="chords">
+							<p key={i} style={styles.verse}>
+								<span style={styles.text}>{verse.text}</span>
+								<span style={styles.chords}>
 									{verse.chords ? verse.chords : null}
 								</span>
 							</p>
