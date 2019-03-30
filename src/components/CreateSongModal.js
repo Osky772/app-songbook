@@ -177,7 +177,6 @@ class CreateSongModal extends Component {
 								</Select>
 							</FormControl>
 							<SnackbarContent
-								//   className={classNames(classes[variant], className)}
 								style={{
 									backgroundColor: "#fca525",
 									margin: "15px 0 35px 0",

@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import { GiSpellBook } from "react-icons/gi";
 import CreateSongModal from "./CreateSongModal";
 import CreatePDF from "./CreatePDF";
+import CreatePlaylist from "./CreatePlaylist";
 
 const styles = {
 	Toolbar: {
@@ -63,6 +64,7 @@ class Header extends Component {
 					</Toolbar>
 					<CreateSongModal />
 					<CreatePDF selectedSongs={selectedSongs} />
+					<CreatePlaylist />
 				</Grid>
 			</AppBar>
 		);
