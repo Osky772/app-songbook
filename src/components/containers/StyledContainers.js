@@ -23,3 +23,8 @@ export const WrapperInModal = styled.div`
 	background: white;
 	outline: none;
 `;
+
+export const FormWrapper = styled.div`
+	padding: 25px;
+	height: 100%;
+`;

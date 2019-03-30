@@ -6,25 +6,11 @@ import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import { MdError as ErrorIcon } from "react-icons/md";
-import { WrapperInModal } from "./containers/StyledContainers";
+import { WrapperInModal, FormWrapper } from "./containers/StyledContainers";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
 const styles = {
-	paper: {
-		position: "absolute",
-		top: "50%",
-		left: "50%",
-		transform: "translate(-50%, -50%)",
-		width: "50%",
-		height: "90%",
-		backgroundColor: "white",
-		outline: "none"
-	},
-	form: {
-		padding: "25px",
-		height: "100%"
-	},
 	textField: {
 		display: "block",
 		marginBottom: 15
@@ -126,98 +112,104 @@ class CreateSongModal extends Component {
 				</Button>
 				<Modal open={this.state.open} disableBackdropClick={true}>
 					<WrapperInModal>
-						<form style={styles.form} onSubmit={this.handleFormSubmit}>
-							<TextField
-								id="outlined-full-width"
-								label="Tytuł"
-								name="title"
-								style={styles.textField}
-								onChange={this.handleChange}
-								value={this.state.song.title}
-								autoComplete="off"
-								placeholder="Wpisz nazwę utworu"
-								margin="normal"
-								fullWidth
-								variant="outlined"
-								InputLabelProps={{
-									shrink: true
-								}}
-							/>
-							<TextField
-								id="outlined-full-width"
-								label="Wykonawca"
-								name="performer"
-								style={styles.textField}
-								onChange={this.handleChange}
-								value={this.state.song.performer}
-								autoComplete="off"
-								placeholder="Wpisz wykonawcę utworu"
-								margin="normal"
-								fullWidth
-								variant="outlined"
-								InputLabelProps={{
-									shrink: true
-								}}
-							/>
-							<FormControl>
-								<Select
-									native
-									value={this.state.song.category}
+						<FormWrapper>
+							<form onSubmit={this.handleFormSubmit}>
+								<TextField
+									id="outlined-full-width"
+									label="Tytuł"
+									name="title"
+									style={styles.textField}
 									onChange={this.handleChange}
-									name="category"
-									style={styles.select}
-								>
-									{category ? null : (
-										<option value="">Wybierz kategorię...</option>
-									)}
-									{categories.map(category => (
-										<option key={category} value={category}>
-											{category}
-										</option>
-									))}
-								</Select>
-							</FormControl>
-							<SnackbarContent
-								style={{
-									backgroundColor: "#fca525",
-									margin: "15px 0 35px 0",
-									maxWidth: "100%"
-								}}
-								message={
-									<span style={{ display: "flex", marginLeft: "-5px" }}>
-										<ErrorIcon
-											style={{ fontSize: 50, height: "100%", marginRight: 10 }}
-										/>
+									value={this.state.song.title}
+									autoComplete="off"
+									placeholder="Wpisz nazwę utworu"
+									margin="normal"
+									fullWidth
+									variant="outlined"
+									InputLabelProps={{
+										shrink: true
+									}}
+								/>
+								<TextField
+									id="outlined-full-width"
+									label="Wykonawca"
+									name="performer"
+									style={styles.textField}
+									onChange={this.handleChange}
+									value={this.state.song.performer}
+									autoComplete="off"
+									placeholder="Wpisz wykonawcę utworu"
+									margin="normal"
+									fullWidth
+									variant="outlined"
+									InputLabelProps={{
+										shrink: true
+									}}
+								/>
+								<FormControl>
+									<Select
+										native
+										value={this.state.song.category}
+										onChange={this.handleChange}
+										name="category"
+										style={styles.select}
+									>
+										{category ? null : (
+											<option value="">Wybierz kategorię...</option>
+										)}
+										{categories.map(category => (
+											<option key={category} value={category}>
+												{category}
+											</option>
+										))}
+									</Select>
+								</FormControl>
+								<SnackbarContent
+									style={{
+										backgroundColor: "#fca525",
+										margin: "15px 0 35px 0",
+										maxWidth: "100%"
+									}}
+									message={
+										<span style={{ display: "flex", marginLeft: "-5px" }}>
+											<ErrorIcon
+												style={{
+													fontSize: 50,
+													height: "100%",
+													marginRight: 10
+												}}
+											/>
 
-										<span>
-											<div style={{ fontWeight: "bold" }}>{"Uwaga!"}</div>
-											{
-												"Kolejne wersy oddzielaj enterem. Chwyty przypisane do danego wersu dodawaj w tej samej linii w nawiasach ostrych, oddzielonymi przecinkami, np. Tak, tak, tam w lustrze... <G, d, C>."
-											}
+											<span>
+												<div style={{ fontWeight: "bold" }}>{"Uwaga!"}</div>
+												{
+													"Kolejne wersy oddzielaj enterem. Chwyty przypisane do danego wersu dodawaj w tej samej linii w nawiasach ostrych, oddzielonymi przecinkami, np. Tak, tak, tam w lustrze... <G, d, C>."
+												}
+											</span>
 										</span>
-									</span>
-								}
-							/>
-							<TextField
-								id="outlined-textarea"
-								label="Tekst piosenki"
-								name="description"
-								onChange={this.handleChangeSongText}
-								value={this.state.song.description}
-								placeholder="Tutaj wpisz tekst piosenki oraz chwyty"
-								style={styles.textField}
-								multiline
-								rows="18"
-								fullWidth
-								margin="normal"
-								variant="outlined"
-								InputLabelProps={{
-									shrink: true
-								}}
-							/>
-							<Button type="submit">Zatwierdź</Button>
-							<Button onClick={this.handleClose}>Wyjdź</Button>
-						</form>
+									}
+								/>
+								<TextField
+									id="outlined-textarea"
+									label="Tekst piosenki"
+									name="description"
+									onChange={this.handleChangeSongText}
+									value={this.state.song.description}
+									placeholder="Tutaj wpisz tekst piosenki oraz chwyty"
+									style={styles.textField}
+									multiline
+									rows="18"
+									fullWidth
+									margin="normal"
+									variant="outlined"
+									InputLabelProps={{
+										shrink: true
+									}}
+								/>
+								<Button type="submit">Zatwierdź</Button>
+								<Button onClick={this.handleClose}>Wyjdź</Button>
+							</form>
+						</FormWrapper>
 					</WrapperInModal>
 				</Modal>
 			</Fragment>
