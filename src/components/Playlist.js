@@ -8,6 +8,7 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { formatSongDescription, styles as songStyles } from "./Song";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -28,6 +29,7 @@ class Playlist extends Component {
 
 	render() {
 		const { title, songs = [] } = this.state.playlist;
+		// const textWithChords = formatSongDescription(song);
 		return (
 			<PageWrapper>
 				<PlaylistPaper>
@@ -37,8 +39,19 @@ class Playlist extends Component {
 							<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
 								<Typography>{song.title}</Typography>
 							</ExpansionPanelSummary>
-							<ExpansionPanelDetails>
-								<Typography>{song.description}</Typography>
+							<ExpansionPanelDetails style={{ display: "block" }}>
+								{formatSongDescription(song).map((verse, i) => {
+									return verse.text !== null ? (
+										<p key={i} style={songStyles.verse}>
+											<span style={songStyles.text}>{verse.text}</span>
+											<span style={songStyles.chords}>
+												{verse.chords ? verse.chords : null}
+											</span>
+										</p>
+									) : (
+										<br key={i} />
+									);
+								})}
 							</ExpansionPanelDetails>
 						</ExpansionPanel>
 					))}
