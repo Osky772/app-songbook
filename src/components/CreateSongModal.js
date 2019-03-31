@@ -67,7 +67,6 @@ class CreateSongModal extends Component {
 	};
 
 	handleChangeSongText = event => {
-		console.log(event.target.value);
 		let inputValue = event.target.value;
 		inputValue = inputValue.startsWith("\n")
 			? inputValue.substr(1)
@@ -93,13 +92,16 @@ class CreateSongModal extends Component {
 		})
 			.then(() => {
 				alert("Added song successfully");
+				this.setState({
+					song: {}
+				});
 			})
 			.catch(() => alert("Error has occurred"));
 	};
 
 	render() {
 		const {
-			song: { category }
+			song: { category = "", title = "", performer = "", description = "" }
 		} = this.state;
 		return (
 			<Fragment>
@@ -120,7 +122,7 @@ class CreateSongModal extends Component {
 									name="title"
 									style={styles.textField}
 									onChange={this.handleChange}
-									value={this.state.song.title}
+									value={title}
 									autoComplete="off"
 									placeholder="Wpisz nazwę utworu"
 									margin="normal"
@@ -136,7 +138,7 @@ class CreateSongModal extends Component {
 									name="performer"
 									style={styles.textField}
 									onChange={this.handleChange}
-									value={this.state.song.performer}
+									value={performer}
 									autoComplete="off"
 									placeholder="Wpisz wykonawcę utworu"
 									margin="normal"
@@ -149,7 +151,7 @@ class CreateSongModal extends Component {
 								<FormControl>
 									<Select
 										native
-										value={this.state.song.category}
+										value={category}
 										onChange={this.handleChange}
 										name="category"
 										style={styles.select}
@@ -194,7 +196,7 @@ class CreateSongModal extends Component {
 									label="Tekst piosenki"
 									name="description"
 									onChange={this.handleChangeSongText}
-									value={this.state.song.description}
+									value={description}
 									placeholder="Tutaj wpisz tekst piosenki oraz chwyty"
 									style={styles.textField}
 									multiline
