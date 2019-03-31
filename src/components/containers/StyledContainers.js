@@ -13,6 +13,15 @@ export const SongsListRow = styled(PaperContainer)`
 	display: flex;
 `;
 
+export const PlaylistItem = styled(PaperContainer)``;
+
+export const SongPaper = styled(PaperContainer)`
+	width: 80%;
+	padding: 20px 60px 20px 60px;
+	margin-bottom: 60;
+	font-size: 16;
+`;
+
 export const WrapperInModal = styled.div`
 	position: absolute;
 	top: 50%;

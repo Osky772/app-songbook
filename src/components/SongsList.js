@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
@@ -99,58 +99,56 @@ class SongsList extends Component {
 		const uniqueCategories = [...new Set(songs.map(song => song.category))];
 
 		return (
-			<Fragment>
-				<PageWrapper>
-					<Grid container spacing={24}>
-						<Grid item md={4}>
-							<Paper>
-								<List component="nav" style={{ background: "white" }}>
-									{
+			<PageWrapper>
+				<Grid container spacing={24}>
+					<Grid item md={4}>
+						<Paper>
+							<List component="nav" style={{ background: "white" }}>
+								{
+									<ListItem
+										button
+										onClick={() => this.handleCategorySelect("")}
+									>
+										<ListItemText primary={"WSZYSTKIE"} />
+									</ListItem>
+								}
+								{uniqueCategories.map(category => {
+									return (
 										<ListItem
 											button
-											onClick={() => this.handleCategorySelect("")}
+											onClick={() => this.handleCategorySelect(category)}
+											key={category}
 										>
-											<ListItemText primary={"WSZYSTKIE"} />
+											<ListItemText primary={category.toUpperCase()} />
 										</ListItem>
-									}
-									{uniqueCategories.map(category => {
-										return (
-											<ListItem
-												button
-												onClick={() => this.handleCategorySelect(category)}
-												key={category}
-											>
-												<ListItemText primary={category.toUpperCase()} />
-											</ListItem>
-										);
-									})}
-								</List>
-							</Paper>
-						</Grid>
-						<Grid item md={8}>
-							<SearchForm handleChange={this.handleChangeForm} />
-							{songsList.map(({ id, performer, title, category }) => (
-								<SongsListRow key={id} elevation={1}>
-									<Checkbox
-										name={id}
-										color="primary"
-										icon={<MdCheckBoxOutlineBlank fontSize="big" />}
-										checkedIcon={<MdCheckBox fontSize="big" />}
-										checked={checked[id] ? checked[id] : false}
-										onChange={this.handleCheckboxSelect}
-									/>
-									<Link to={`/lista-piosenek/${id}`}>
-										<Typography variant="h5">
-											{performer ? performer + " - " + title : title}
-										</Typography>
-										<Typography variant="h6">{" " + category}</Typography>
-									</Link>
-								</SongsListRow>
-							))}
-						</Grid>
+									);
+								})}
+							</List>
+						</Paper>
 					</Grid>
-				</PageWrapper>
-			</Fragment>
+					<Grid item md={8}>
+						<SearchForm handleChange={this.handleChangeForm} />
+						{songsList.map(({ id, performer, title, category }) => (
+							<SongsListRow key={id} elevation={1}>
+								<Checkbox
+									name={id}
+									color="primary"
+									icon={<MdCheckBoxOutlineBlank fontSize="big" />}
+									checkedIcon={<MdCheckBox fontSize="big" />}
+									checked={checked[id] ? checked[id] : false}
+									onChange={this.handleCheckboxSelect}
+								/>
+								<Link to={`/lista-piosenek/${id}`}>
+									<Typography variant="h5">
+										{performer ? performer + " - " + title : title}
+									</Typography>
+									<Typography variant="h6">{" " + category}</Typography>
+								</Link>
+							</SongsListRow>
+						))}
+					</Grid>
+				</Grid>
+			</PageWrapper>
 		);
 	}
 }

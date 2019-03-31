@@ -1,19 +1,13 @@
 import React, { Component } from "react";
 import Paper from "@material-ui/core/Paper";
 import PageWrapper from "./containers/PageWrapper";
+import { SongPaper } from "./containers/StyledContainers";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
 const styles = {
-	paper: {
-		width: "80%",
-		padding: "20px 60px 20px 60px",
-		marginBottom: 60,
-		fontSize: 16
-	},
 	verse: {
 		display: "flex",
-		// justifyContent: "space-between",
 		margin: "10px 0"
 	},
 	text: {
@@ -70,7 +64,7 @@ class Song extends Component {
 
 		return (
 			<PageWrapper>
-				<Paper style={styles.paper}>
+				<SongPaper>
 					<h2>{performer ? performer + " - " + title : title}</h2>
 					<h4>{category}</h4>
 					{textWithChords.map((verse, i) => {
@@ -85,7 +79,7 @@ class Song extends Component {
 							<br key={i} />
 						);
 					})}
-				</Paper>
+				</SongPaper>
 			</PageWrapper>
 		);
 	}
