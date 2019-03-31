@@ -3,6 +3,40 @@ import { PageWrapper, SongPaper } from "./containers/StyledContainers";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
+const formatSongDescription = ({
+	performer = "",
+	title = "",
+	description = "",
+	category = ""
+}) => {
+	let verses = description.split("\n");
+
+	const textWithChords = verses.map(verse => {
+		const text = verse.split("<")[0] ? verse.split("<")[0].trim() : null;
+		const chords = verse.split("<")[1]
+			? verse
+					.split("<")[1]
+					.trim()
+					.slice(0, -1)
+			: null;
+		return { text, chords };
+	});
+
+	if (
+		textWithChords[textWithChords.length - 1].text === "" &&
+		textWithChords[textWithChords.length - 2].text === ""
+	) {
+		textWithChords.pop();
+		textWithChords.pop();
+	}
+
+	if (textWithChords[textWithChords.length - 1].text === "") {
+		textWithChords.pop();
+	}
+
+	return textWithChords;
+};
+
 const styles = {
 	verse: {
 		display: "flex",
@@ -32,33 +66,36 @@ class Song extends Component {
 
 	render() {
 		let {
+			song,
 			song: { performer = "", title = "", description = "", category = "" }
 		} = this.state;
 
-		let verses = description.split("\n");
+		const textWithChords = formatSongDescription(song);
 
-		const textWithChords = verses.map(verse => {
-			const text = verse.split("<")[0] ? verse.split("<")[0].trim() : null;
-			const chords = verse.split("<")[1]
-				? verse
-						.split("<")[1]
-						.trim()
-						.slice(0, -1)
-				: null;
-			return { text, chords };
-		});
+		// let verses = description.split("\n");
 
-		if (
-			textWithChords[textWithChords.length - 1].text === "" &&
-			textWithChords[textWithChords.length - 2].text === ""
-		) {
-			textWithChords.pop();
-			textWithChords.pop();
-		}
+		// const textWithChords = verses.map(verse => {
+		// 	const text = verse.split("<")[0] ? verse.split("<")[0].trim() : null;
+		// 	const chords = verse.split("<")[1]
+		// 		? verse
+		// 				.split("<")[1]
+		// 				.trim()
+		// 				.slice(0, -1)
+		// 		: null;
+		// 	return { text, chords };
+		// });
 
-		if (textWithChords[textWithChords.length - 1].text === "") {
-			textWithChords.pop();
-		}
+		// if (
+		// 	textWithChords[textWithChords.length - 1].text === "" &&
+		// 	textWithChords[textWithChords.length - 2].text === ""
+		// ) {
+		// 	textWithChords.pop();
+		// 	textWithChords.pop();
+		// }
+
+		// if (textWithChords[textWithChords.length - 1].text === "") {
+		// 	textWithChords.pop();
+		// }
 
 		return (
 			<PageWrapper>
