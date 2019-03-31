@@ -14,14 +14,18 @@ const BASE_URL = "https://app-songbook.firebaseio.com/";
 class CreatePlaylist extends Component {
 	state = {
 		open: false,
-		songs: [],
-		title: ""
+		playlist: {
+			title: "",
+			songs: []
+		}
 	};
 
 	static getDerivedStateFromProps(props, state) {
-		if (props.selectedSongs.length !== state.songs.length) {
+		if (props.selectedSongs.length !== state.playlist.songs.length) {
 			return {
-				songs: props.selectedSongs
+				playlist: {
+					songs: props.selectedSongs
+				}
 			};
 		}
 		return null;
@@ -29,7 +33,10 @@ class CreatePlaylist extends Component {
 
 	handleChange = e => {
 		this.setState({
-			title: e.target.value
+			playlist: {
+				...this.state.playlist,
+				title: e.target.value
+			}
 		});
 	};
 
@@ -37,10 +44,7 @@ class CreatePlaylist extends Component {
 		e.preventDefault();
 		fetch(`${BASE_URL}/playlists.json`, {
 			method: "POST",
-			body: JSON.stringify({
-				title: this.state.title,
-				songs: this.state.songs
-			})
+			body: JSON.stringify({ ...this.state.playlist })
 		})
 			.then(() => {
 				alert("Added playlist successfully");
@@ -57,7 +61,9 @@ class CreatePlaylist extends Component {
 	};
 
 	render() {
-		const { songs } = this.state;
+		const {
+			playlist: { songs = [], title = "" }
+		} = this.state;
 
 		return (
 			<Fragment>
@@ -77,7 +83,7 @@ class CreatePlaylist extends Component {
 									label="Nazwa"
 									name="nazwa"
 									onChange={this.handleChange}
-									value={this.state.title}
+									value={title}
 									autoComplete="off"
 									placeholder="Podaj nazwę dla playlisty"
 									margin="normal"

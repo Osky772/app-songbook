@@ -13,7 +13,10 @@ export const SongsListRow = styled(PaperContainer)`
 	display: flex;
 `;
 
-export const PlaylistItem = styled(PaperContainer)``;
+export const PlaylistItem = styled(PaperContainer)`
+	width: 80%;
+	margin-bottom: 20px;
+`;
 
 export const SongPaper = styled(PaperContainer)`
 	width: 80%;
