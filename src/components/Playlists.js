@@ -2,17 +2,11 @@ import React, { Component } from "react";
 import {
 	SongsListRow,
 	PlaylistItem,
-	PageWrapper
+	PlaylistContainer
 } from "./containers/StyledContainers";
 import Typography from "@material-ui/core/Typography";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
-
-const styles = {
-	flexWrapper: {
-		flexDirection: "column"
-	}
-};
 
 class Playlists extends Component {
 	state = {
@@ -37,7 +31,7 @@ class Playlists extends Component {
 		const { playlists = [] } = this.state;
 		console.log(playlists);
 		return (
-			<PageWrapper>
+			<PlaylistContainer>
 				{playlists.map(({ songs, title, id }) => (
 					<PlaylistItem key={id}>
 						<h1>{title}</h1>
@@ -55,7 +49,7 @@ class Playlists extends Component {
 						))}
 					</PlaylistItem>
 				))}
-			</PageWrapper>
+			</PlaylistContainer>
 		);
 	}
 }

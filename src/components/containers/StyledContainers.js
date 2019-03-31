@@ -17,6 +17,10 @@ export const PageWrapper = styled(Wrapper)`
 	justify-content: center;
 `;
 
+export const PlaylistContainer = styled(PageWrapper)`
+	flex-direction: column;
+`;
+
 export const SongsListRow = styled(PaperContainer)`
 	padding: 15px 20px;
 	margin: 0px 10px 15px 10px;
@@ -27,6 +31,7 @@ export const SongsListRow = styled(PaperContainer)`
 export const PlaylistItem = styled(PaperContainer)`
 	width: 80%;
 	margin-bottom: 20px;
+	margin: 0 auto 20px auto;
 `;
 
 export const SongPaper = styled(PaperContainer)`
