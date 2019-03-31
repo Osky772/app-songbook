@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PageWrapper from "./containers/PageWrapper";
-import { PlaylistItem } from "./containers/StyledContainers";
+import { SongsListRow, PlaylistItem } from "./containers/StyledContainers";
+import Typography from "@material-ui/core/Typography";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -28,9 +29,23 @@ class Playlists extends Component {
 		console.log(playlists);
 		return (
 			<PageWrapper>
-				<PlaylistItem>
-					<h1>Hello</h1>
-				</PlaylistItem>
+				{playlists.map(({ songs, title, id }) => (
+					<PlaylistItem key={id}>
+						<h1>{title}</h1>
+						{songs.map(({ performer, title, id }, nr) => (
+							<SongsListRow key={id} elevation={1}>
+								<Typography variant="h5" style={{ marginRight: 15 }}>
+									{nr + 1}.
+								</Typography>
+								<div>
+									<Typography variant="h5">
+										{performer ? performer + " - " + title : title}
+									</Typography>
+								</div>
+							</SongsListRow>
+						))}
+					</PlaylistItem>
+				))}
 			</PageWrapper>
 		);
 	}
