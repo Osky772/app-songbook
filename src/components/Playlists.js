@@ -30,11 +30,10 @@ class Playlists extends Component {
 
 	render() {
 		const { playlists = [] } = this.state;
-		console.log(playlists);
 		return (
 			<PlaylistContainer>
 				{playlists.map(({ songs, title, id }) => (
-					<Link to={`/playlisty/${id}`}>
+					<Link key={id} to={`/playlisty/${id}`}>
 						<PlaylistItem key={id}>
 							<h1>{title}</h1>
 							{songs.map(({ performer, title, id }, nr) => (
