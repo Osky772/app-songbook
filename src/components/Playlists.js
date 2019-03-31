@@ -1,9 +1,18 @@
 import React, { Component } from "react";
-import PageWrapper from "./containers/PageWrapper";
-import { SongsListRow, PlaylistItem } from "./containers/StyledContainers";
+import {
+	SongsListRow,
+	PlaylistItem,
+	PageWrapper
+} from "./containers/StyledContainers";
 import Typography from "@material-ui/core/Typography";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
+
+const styles = {
+	flexWrapper: {
+		flexDirection: "column"
+	}
+};
 
 class Playlists extends Component {
 	state = {

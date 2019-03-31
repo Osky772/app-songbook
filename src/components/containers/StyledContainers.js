@@ -6,6 +6,17 @@ const PaperContainer = ({ className, children }) => (
 	<Paper className={className}>{children}</Paper>
 );
 
+const Wrapper = ({ className, children }) => (
+	<div className={className}>{children}</div>
+);
+
+export const PageWrapper = styled(Wrapper)`
+	max-width: 1000px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+`;
+
 export const SongsListRow = styled(PaperContainer)`
 	padding: 15px 20px;
 	margin: 0px 10px 15px 10px;

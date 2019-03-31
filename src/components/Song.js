@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import Paper from "@material-ui/core/Paper";
-import PageWrapper from "./containers/PageWrapper";
-import { SongPaper } from "./containers/StyledContainers";
+import { PageWrapper, SongPaper } from "./containers/StyledContainers";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
