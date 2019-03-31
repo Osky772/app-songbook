@@ -6,6 +6,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { Route } from "react-router-dom";
 import Song from "./components/Song";
 import InitPage from "./components/InitPage";
+import Playlist from "./components/Playlist";
 
 class App extends Component {
 	state = {
@@ -34,10 +35,7 @@ class App extends Component {
 					)}
 				/>
 				<Route exact path="/playlisty" render={() => <Playlists />} />
-				<Route
-					path={"/playlisty/:playlistId"}
-					render={() => <h1>Playlista 1</h1>}
-				/>
+				<Route path={"/playlisty/:playlistId"} component={Playlist} />
 			</Fragment>
 		);
 	}
