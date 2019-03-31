@@ -30,15 +30,14 @@ class App extends Component {
 					exact
 					path="/lista-piosenek"
 					render={props => (
-						<SongsList
-							// onCheckboxSelect={this.handleCheckboxSelect}
-							// checked={selectedSongs}
-							handleSelectSongs={this.handleSelectSongs}
-							{...props}
-						/>
+						<SongsList handleSelectSongs={this.handleSelectSongs} {...props} />
 					)}
 				/>
-				<Route path="/playlisty" render={() => <Playlists />} />
+				<Route exact path="/playlisty" render={() => <Playlists />} />
+				<Route
+					path={"/playlisty/:playlistId"}
+					render={() => <h1>Playlista 1</h1>}
+				/>
 			</Fragment>
 		);
 	}

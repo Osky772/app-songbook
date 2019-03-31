@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import {
 	SongsListRow,
 	PlaylistItem,
@@ -33,21 +34,23 @@ class Playlists extends Component {
 		return (
 			<PlaylistContainer>
 				{playlists.map(({ songs, title, id }) => (
-					<PlaylistItem key={id}>
-						<h1>{title}</h1>
-						{songs.map(({ performer, title, id }, nr) => (
-							<SongsListRow key={id} elevation={1}>
-								<Typography variant="h5" style={{ marginRight: 15 }}>
-									{nr + 1}.
-								</Typography>
-								<div>
-									<Typography variant="h5">
-										{performer ? performer + " - " + title : title}
+					<Link to={`/playlisty/${id}`}>
+						<PlaylistItem key={id}>
+							<h1>{title}</h1>
+							{songs.map(({ performer, title, id }, nr) => (
+								<SongsListRow key={id} elevation={1}>
+									<Typography variant="h5" style={{ marginRight: 15 }}>
+										{nr + 1}.
 									</Typography>
-								</div>
-							</SongsListRow>
-						))}
-					</PlaylistItem>
+									<div>
+										<Typography variant="h5">
+											{performer ? performer + " - " + title : title}
+										</Typography>
+									</div>
+								</SongsListRow>
+							))}
+						</PlaylistItem>
+					</Link>
 				))}
 			</PlaylistContainer>
 		);
