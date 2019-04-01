@@ -19,7 +19,6 @@ class Playlist extends Component {
 
 	componentDidMount() {
 		const { playlistId } = this.props.match.params;
-		console.log(playlistId);
 		fetch(`${BASE_URL}/playlists/${playlistId}.json`)
 			.then(r => r.json())
 			.then(playlist => {
@@ -29,7 +28,6 @@ class Playlist extends Component {
 
 	render() {
 		const { title, songs = [] } = this.state.playlist;
-		// const textWithChords = formatSongDescription(song);
 		return (
 			<PageWrapper>
 				<PlaylistPaper>
