@@ -15,6 +15,8 @@ const BASE_URL = "https://app-songbook.firebaseio.com/";
 class CreatePlaylist extends Component {
 	state = {
 		open: false,
+		isEditing: false,
+		editedPlaylist: "",
 		playlist: {
 			title: "",
 			songs: []
@@ -25,10 +27,20 @@ class CreatePlaylist extends Component {
 		if (props.selectedSongs.length !== state.playlist.songs.length) {
 			return {
 				playlist: {
+					title: props.title,
 					songs: props.selectedSongs
 				}
 			};
 		}
+		console.log(props.editedPlaylist !== Boolean(state.editedPlaylist));
+		if (props.editedPlaylist !== state.editedPlaylist) {
+			return {
+				...state,
+				editedPlaylist: props.editedPlaylist,
+				isEditing: true
+			};
+		}
+
 		return null;
 	}
 
@@ -58,7 +70,11 @@ class CreatePlaylist extends Component {
 	};
 
 	handleClose = () => {
-		this.setState({ open: false });
+		const { closeEditedPlaylist } = this.props;
+		this.setState({ open: false, isEditing: false, editedPlaylist: "" });
+
+		console.log(closeEditedPlaylist);
+		closeEditedPlaylist();
 	};
 
 	onDragEnd = result => {
@@ -74,15 +90,12 @@ class CreatePlaylist extends Component {
 		}
 
 		const newSongsIds = Array.from(this.state.playlist.songs);
-		console.log(newSongsIds);
 		newSongsIds.splice(source.index, 1);
 		newSongsIds.splice(
 			destination.index,
 			0,
 			songs.find(song => song.id === draggableId)
 		);
-
-		console.log(newSongsIds);
 
 		this.setState({
 			playlist: {
@@ -97,6 +110,8 @@ class CreatePlaylist extends Component {
 			playlist: { songs = [], title = "" }
 		} = this.state;
 
+		console.log(this.state.isEditing);
+
 		return (
 			<Fragment>
 				<DragDropContext onDragEnd={this.onDragEnd}>
@@ -107,7 +122,10 @@ class CreatePlaylist extends Component {
 					>
 						DODAJ PLAYLISTĘ
 					</Button>
-					<Modal open={this.state.open} disableBackdropClick={true}>
+					<Modal
+						open={this.state.open || this.state.isEditing}
+						disableBackdropClick={true}
+					>
 						<ContainerCreatePlaylist>
 							<WrapperInModal>
 								<FormWrapper>

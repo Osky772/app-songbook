@@ -11,20 +11,33 @@ import Playlist from "./components/Playlist";
 class App extends Component {
 	state = {
 		song: "",
-		selectedSongs: []
+		selectedSongs: [],
+		editedPlaylist: ""
 	};
 
 	handleSelectSongs = selectedSongs => {
 		this.setState({ selectedSongs });
 	};
 
+	editPlaylist = id => {
+		this.setState({ ...this.state, editedPlaylist: id });
+	};
+
+	closeEditedPlaylist = () => {
+		this.setState({ editedPlaylist: "" });
+	};
+
 	render() {
-		const { selectedSongs } = this.state;
+		const { selectedSongs, editedPlaylist } = this.state;
 
 		return (
 			<Fragment>
 				<CssBaseline />
-				<Header selectedSongs={selectedSongs} />
+				<Header
+					editedPlaylist={editedPlaylist}
+					selectedSongs={selectedSongs}
+					closeEditedPlaylist={this.closeEditedPlaylist}
+				/>
 				<Route exact path="/" render={props => <InitPage {...props} />} />
 				<Route path={"/lista-piosenek/:songId"} component={Song} />
 				<Route
@@ -34,7 +47,11 @@ class App extends Component {
 						<SongsList handleSelectSongs={this.handleSelectSongs} {...props} />
 					)}
 				/>
-				<Route exact path="/playlisty" render={() => <Playlists />} />
+				<Route
+					exact
+					path="/playlisty"
+					render={() => <Playlists editPlaylist={this.editPlaylist} />}
+				/>
 				<Route path={"/playlisty/:playlistId"} component={Playlist} />
 			</Fragment>
 		);
