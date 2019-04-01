@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import { WrapperInModal, FormWrapper } from "../containers/StyledContainers";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import PlaylistSong from "./PlaylistSong";
+import PlaylistSongList from "./PlaylistSongList";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -99,9 +99,8 @@ class CreatePlaylist extends Component {
 									<Typography variant="h5" style={{ margin: "10px 0 25px 0" }}>
 										Wybrane piosenki
 									</Typography>
-									{songs.map((song, nr) => (
-										<PlaylistSong key={nr} song={song} nr={nr} />
-									))}
+									<PlaylistSongList songs={songs} />
+
 									<Button type="submit">Zatwierdź</Button>
 									<Button onClick={this.handleClose}>Wyjdź</Button>
 								</form>
