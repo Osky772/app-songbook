@@ -71,18 +71,21 @@ class CreatePlaylist extends Component {
 	handleFormSubmit = e => {
 		e.preventDefault();
 
-		// if (this.state.playlist.id) {
-		// 	fetch;
-		// }
-
-		fetch(`${BASE_URL}/playlists.json`, {
-			method: "POST",
-			body: JSON.stringify({ ...this.state.playlist })
-		})
-			.then(() => {
-				alert("Added playlist successfully");
+		if (this.state.playlist.id) {
+			fetch(`${BASE_URL}/playlists/${this.state.playlist.id}.json`, {
+				method: "PUT",
+				body: JSON.stringify(this.state.playlist)
+			}).then(() => alert("Playlist edited successfully"));
+		} else {
+			fetch(`${BASE_URL}/playlists.json`, {
+				method: "POST",
+				body: JSON.stringify({ ...this.state.playlist })
 			})
-			.catch(() => alert("Error has occurred"));
+				.then(() => {
+					alert("Added playlist successfully");
+				})
+				.catch(() => alert("Error has occurred"));
+		}
 	};
 
 	handleOpen = () => {
