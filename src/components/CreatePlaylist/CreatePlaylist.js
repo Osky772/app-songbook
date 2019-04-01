@@ -2,7 +2,11 @@ import React, { Component, Fragment } from "react";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import TextField from "@material-ui/core/TextField";
-import { WrapperInModal, FormWrapper, ContainerCreatePlaylist } from "../containers/StyledContainers";
+import {
+	WrapperInModal,
+	FormWrapper,
+	ContainerCreatePlaylist
+} from "../containers/StyledContainers";
 import { DragDropContext } from "react-beautiful-dnd";
 import SongsContainer from "./SongsContainer";
 
@@ -58,7 +62,34 @@ class CreatePlaylist extends Component {
 	};
 
 	onDragEnd = result => {
-		console.log(result);
+		const { destination, source, draggableId } = result;
+		const { songs } = this.state.playlist;
+
+		if (!destination) {
+			return;
+		}
+
+		if (destination.index === source.index) {
+			return;
+		}
+
+		const newSongsIds = Array.from(this.state.playlist.songs);
+		console.log(newSongsIds);
+		newSongsIds.splice(source.index, 1);
+		newSongsIds.splice(
+			destination.index,
+			0,
+			songs.find(song => song.id === draggableId)
+		);
+
+		console.log(newSongsIds);
+
+		this.setState({
+			playlist: {
+				...this.state.playlist,
+				songs: newSongsIds
+			}
+		});
 	};
 
 	render() {
@@ -95,7 +126,7 @@ class CreatePlaylist extends Component {
 											InputLabelProps={{
 												shrink: true
 											}}
-											/>
+										/>
 										<SongsContainer songs={songs} />
 
 										<Button type="submit">Zatwierdź</Button>
@@ -103,7 +134,7 @@ class CreatePlaylist extends Component {
 									</form>
 								</FormWrapper>
 							</WrapperInModal>
-					</ContainerCreatePlaylist>
+						</ContainerCreatePlaylist>
 					</Modal>
 				</DragDropContext>
 			</Fragment>

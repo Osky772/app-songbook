@@ -19,10 +19,9 @@ class SongsContainer extends Component {
 					{provided => (
 						<SongsList ref={provided.innerRef} {...provided.droppableProps}>
 							{songs.map(({ id, performer, title }, nr) => (
-								<Draggable draggableId={id} index={nr}>
+								<Draggable key={id} draggableId={id} index={nr}>
 									{provided => (
 										<Container
-											key={id}
 											{...provided.draggableProps}
 											{...provided.dragHandleProps}
 											ref={provided.innerRef}
