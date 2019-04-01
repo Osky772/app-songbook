@@ -28,6 +28,16 @@ export const SongsListRow = styled(PaperContainer)`
 	display: flex;
 `;
 
+export const SongsList = styled.div``;
+
+export const ContainerCreatePlaylist = styled.div`
+	width: 100%;
+	display: flex;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+`;
+
 export const PlaylistItem = styled(PaperContainer)`
 	width: 80%;
 	margin-bottom: 20px;
@@ -42,10 +52,6 @@ export const SongPaper = styled(PaperContainer)`
 `;
 
 export const WrapperInModal = styled.div`
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
 	width: 50%;
 	height: 90%;
 	background: white;

@@ -2,10 +2,9 @@ import React, { Component, Fragment } from "react";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
-import { WrapperInModal, FormWrapper } from "../containers/StyledContainers";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import PlaylistSongList from "./PlaylistSongList";
+import { WrapperInModal, FormWrapper, ContainerCreatePlaylist } from "../containers/StyledContainers";
+import { DragDropContext } from "react-beautiful-dnd";
+import SongsContainer from "./SongsContainer";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -78,34 +77,33 @@ class CreatePlaylist extends Component {
 						DODAJ PLAYLISTĘ
 					</Button>
 					<Modal open={this.state.open} disableBackdropClick={true}>
-						<WrapperInModal>
-							<FormWrapper>
-								<form onSubmit={this.handleFormSubmit}>
-									<TextField
-										id="outlined-full-width"
-										label="Nazwa"
-										name="nazwa"
-										onChange={this.handleChange}
-										value={title}
-										autoComplete="off"
-										placeholder="Podaj nazwę dla playlisty"
-										margin="normal"
-										fullWidth
-										variant="outlined"
-										InputLabelProps={{
-											shrink: true
-										}}
-									/>
-									<Typography variant="h5" style={{ margin: "10px 0 25px 0" }}>
-										Wybrane piosenki
-									</Typography>
-									<PlaylistSongList songs={songs} />
+						<ContainerCreatePlaylist>
+							<WrapperInModal>
+								<FormWrapper>
+									<form onSubmit={this.handleFormSubmit}>
+										<TextField
+											id="outlined-full-width"
+											label="Nazwa"
+											name="nazwa"
+											onChange={this.handleChange}
+											value={title}
+											autoComplete="off"
+											placeholder="Podaj nazwę dla playlisty"
+											margin="normal"
+											fullWidth
+											variant="outlined"
+											InputLabelProps={{
+												shrink: true
+											}}
+											/>
+										<SongsContainer songs={songs} />
 
-									<Button type="submit">Zatwierdź</Button>
-									<Button onClick={this.handleClose}>Wyjdź</Button>
-								</form>
-							</FormWrapper>
-						</WrapperInModal>
+										<Button type="submit">Zatwierdź</Button>
+										<Button onClick={this.handleClose}>Wyjdź</Button>
+									</form>
+								</FormWrapper>
+							</WrapperInModal>
+					</ContainerCreatePlaylist>
 					</Modal>
 				</DragDropContext>
 			</Fragment>
