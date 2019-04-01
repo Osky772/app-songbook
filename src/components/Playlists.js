@@ -38,12 +38,14 @@ class Playlists extends Component {
 		const { playlists = [] } = this.state;
 		return (
 			<PlaylistContainer>
-				{playlists.map(({ songs, title, id }) => (
-					<PlaylistItem key={id}>
-						<h1>{title}</h1>
-						<Button onClick={() => this.handleEditPlaylist(id)}>Edytuj</Button>
-						<Link key={id} to={`/playlisty/${id}`}>
-							{songs.map(({ performer, title, id }, nr) => (
+				{playlists.map(playlist => (
+					<PlaylistItem key={playlist.id}>
+						<h1>{playlist.title}</h1>
+						<Button onClick={() => this.handleEditPlaylist(playlist)}>
+							Edytuj
+						</Button>
+						<Link key={playlist.id} to={`/playlisty/${playlist.id}`}>
+							{playlist.songs.map(({ performer, title, id }, nr) => (
 								<SongsListRow key={id} elevation={1}>
 									<Typography variant="h5" style={{ marginRight: 15 }}>
 										{nr + 1}.

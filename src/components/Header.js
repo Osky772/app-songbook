@@ -34,7 +34,6 @@ class Header extends Component {
 	render() {
 		const { value } = this.state;
 		const { selectedSongs, editedPlaylist, closeEditedPlaylist } = this.props;
-		console.log(closeEditedPlaylist);
 
 		return (
 			<AppBar color="primary">

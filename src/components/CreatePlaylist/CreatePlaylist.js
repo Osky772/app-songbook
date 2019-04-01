@@ -16,7 +16,6 @@ class CreatePlaylist extends Component {
 	state = {
 		open: false,
 		isEditing: false,
-		editedPlaylist: "",
 		playlist: {
 			title: "",
 			songs: []
@@ -24,7 +23,11 @@ class CreatePlaylist extends Component {
 	};
 
 	static getDerivedStateFromProps(props, state) {
-		if (props.selectedSongs.length !== state.playlist.songs.length) {
+		if (
+			props.selectedSongs.length !== state.playlist.songs.length &&
+			props.selectedSongs.length !== 0
+		) {
+			console.log("here props");
 			return {
 				playlist: {
 					title: props.title,
@@ -32,11 +35,11 @@ class CreatePlaylist extends Component {
 				}
 			};
 		}
-		console.log(props.editedPlaylist !== Boolean(state.editedPlaylist));
-		if (props.editedPlaylist !== state.editedPlaylist) {
+
+		if (Boolean(props.editedPlaylist.id) !== state.isEditing) {
 			return {
 				...state,
-				editedPlaylist: props.editedPlaylist,
+				playlist: props.editedPlaylist,
 				isEditing: true
 			};
 		}
@@ -45,16 +48,33 @@ class CreatePlaylist extends Component {
 	}
 
 	handleChange = e => {
-		this.setState({
-			playlist: {
-				...this.state.playlist,
-				title: e.target.value
-			}
-		});
+		if (this.props.editedPlaylist.id) {
+			console.log("here");
+			this.setState({
+				...this.state,
+				playlist: {
+					...this.props.editedPlaylist,
+					title: e.target.value
+				}
+			});
+		} else {
+			this.setState({
+				...this.state,
+				playlist: {
+					...this.state.playlist,
+					title: e.target.value
+				}
+			});
+		}
 	};
 
 	handleFormSubmit = e => {
 		e.preventDefault();
+
+		// if (this.state.playlist.id) {
+		// 	fetch;
+		// }
+
 		fetch(`${BASE_URL}/playlists.json`, {
 			method: "POST",
 			body: JSON.stringify({ ...this.state.playlist })
@@ -73,7 +93,6 @@ class CreatePlaylist extends Component {
 		const { closeEditedPlaylist } = this.props;
 		this.setState({ open: false, isEditing: false, editedPlaylist: "" });
 
-		console.log(closeEditedPlaylist);
 		closeEditedPlaylist();
 	};
 
@@ -109,8 +128,6 @@ class CreatePlaylist extends Component {
 		const {
 			playlist: { songs = [], title = "" }
 		} = this.state;
-
-		console.log(this.state.isEditing);
 
 		return (
 			<Fragment>

@@ -19,8 +19,8 @@ class App extends Component {
 		this.setState({ selectedSongs });
 	};
 
-	editPlaylist = id => {
-		this.setState({ ...this.state, editedPlaylist: id });
+	editPlaylist = playlist => {
+		this.setState({ ...this.state, editedPlaylist: playlist });
 	};
 
 	closeEditedPlaylist = () => {
