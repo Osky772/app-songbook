@@ -34,6 +34,12 @@ class Playlists extends Component {
 		editPlaylist(id);
 	};
 
+	handleRemovePlaylist = playlistId => {
+		fetch(`${BASE_URL}/playlists/${playlistId}.json`, {
+			method: "DELETE"
+		}).then(() => alert("Removed playlist successfully"));
+	};
+
 	render() {
 		const { playlists = [] } = this.state;
 		return (
@@ -43,6 +49,9 @@ class Playlists extends Component {
 						<h1>{playlist.title}</h1>
 						<Button onClick={() => this.handleEditPlaylist(playlist)}>
 							Edytuj
+						</Button>
+						<Button onClick={() => this.handleRemovePlaylist(playlist.id)}>
+							Usuń
 						</Button>
 						<Link key={playlist.id} to={`/playlisty/${playlist.id}`}>
 							{playlist.songs.map(({ performer, title, id }, nr) => (
