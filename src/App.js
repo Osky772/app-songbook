@@ -34,7 +34,11 @@ class App extends Component {
 					exact
 					path="/lista-piosenek"
 					render={props => (
-						<SongsList handleSelectSongs={this.handleSelectSongs} {...props} />
+						<SongsList
+							handleSelectSongs={this.handleSelectSongs}
+							selectedSongs={selectedSongs}
+							{...props}
+						/>
 					)}
 				/>
 				<Route exact path="/playlisty" render={() => <Playlists />} />

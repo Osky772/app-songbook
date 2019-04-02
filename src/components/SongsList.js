@@ -33,6 +33,7 @@ class SongsList extends Component {
 						...songs[key]
 					}));
 				this.setState({ songs: arraySongs || [] });
+
 				const checked = arraySongs.reduce(
 					(options, song) => ({
 						...options,
@@ -40,7 +41,20 @@ class SongsList extends Component {
 					}),
 					{}
 				);
-				this.setState({ checked });
+
+				const { selectedSongs } = this.props;
+				console.log(selectedSongs);
+				const songsIds = selectedSongs.map(song => song.id);
+				const checkedSelectedSongs = songsIds.reduce(
+					(acc, next) => ({ ...acc, [next]: true }),
+					{}
+				);
+
+				this.setState({
+					...this.state,
+					selectedSongs,
+					checked: Object.assign(checked, checkedSelectedSongs)
+				});
 			});
 	}
 
