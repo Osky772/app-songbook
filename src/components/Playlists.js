@@ -7,12 +7,15 @@ import {
 } from "./containers/StyledContainers";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import ModalCreatePlaylist from "./ModalCreatePlaylist/ModalCreatePlaylist";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
 class Playlists extends Component {
 	state = {
-		playlists: []
+		playlists: [],
+		editedPlaylist: {},
+		isEditing: false
 	};
 
 	getPlaylists = () => {
@@ -33,9 +36,8 @@ class Playlists extends Component {
 		this.getPlaylists();
 	}
 
-	handleEditPlaylist = id => {
-		const { editPlaylist } = this.props;
-		editPlaylist(id);
+	handleEditPlaylist = playlist => {
+		this.setState({ editedPlaylist: playlist, isEditing: true });
 	};
 
 	handleRemovePlaylist = playlistId => {
@@ -46,10 +48,21 @@ class Playlists extends Component {
 			.then(() => this.getPlaylists());
 	};
 
+	handleCloseEditing = () => {
+		this.setState({ editedPlaylist: {}, isEditing: false });
+	};
+
 	render() {
-		const { playlists = [] } = this.state;
+		const { playlists = [], isEditing, editedPlaylist } = this.state;
 		return (
 			<PlaylistContainer>
+				{isEditing && (
+					<ModalCreatePlaylist
+						isEditing={isEditing}
+						editedPlaylist={editedPlaylist}
+						handleClose={this.handleCloseEditing}
+					/>
+				)}
 				{playlists.map(playlist => (
 					<PlaylistItem key={playlist.id}>
 						<h1>{playlist.title}</h1>

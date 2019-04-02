@@ -24,6 +24,7 @@ class ModalCreatePlaylist extends Component {
 
 	static getDerivedStateFromProps(props, state) {
 		if (
+			props.selectedSongs !== undefined &&
 			props.selectedSongs.length !== state.playlist.songs.length &&
 			props.selectedSongs.length !== 0 &&
 			props.isCreating !== state.isCreating
@@ -51,7 +52,6 @@ class ModalCreatePlaylist extends Component {
 
 	handleChange = e => {
 		if (this.props.editedPlaylist.id) {
-			console.log("here");
 			this.setState({
 				...this.state,
 				playlist: {

@@ -2,8 +2,6 @@ import React, { Component, Fragment } from "react";
 import Button from "@material-ui/core/Button";
 import ModalCreatePlaylist from "../ModalCreatePlaylist/ModalCreatePlaylist";
 
-const BASE_URL = "https://app-songbook.firebaseio.com/";
-
 class CreatePlaylist extends Component {
 	state = {
 		isCreating: false
