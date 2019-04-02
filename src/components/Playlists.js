@@ -61,6 +61,7 @@ class Playlists extends Component {
 						isEditing={isEditing}
 						editedPlaylist={editedPlaylist}
 						handleClose={this.handleCloseEditing}
+						getPlaylists={this.getPlaylists}
 					/>
 				)}
 				{playlists.map(playlist => (

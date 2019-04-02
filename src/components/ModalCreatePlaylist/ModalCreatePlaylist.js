@@ -77,7 +77,9 @@ class ModalCreatePlaylist extends Component {
 			fetch(`${BASE_URL}/playlists/${this.state.playlist.id}.json`, {
 				method: "PUT",
 				body: JSON.stringify(this.state.playlist)
-			}).then(() => alert("Playlist edited successfully"));
+			})
+				.then(() => alert("Playlist edited successfully"))
+				.then(() => this.props.getPlaylists());
 		} else {
 			fetch(`${BASE_URL}/playlists.json`, {
 				method: "POST",
@@ -129,8 +131,6 @@ class ModalCreatePlaylist extends Component {
 		const {
 			playlist: { songs = [], title = "" }
 		} = this.state;
-
-		console.log(this.state.isCreating);
 
 		return (
 			<DragDropContext onDragEnd={this.onDragEnd}>
