@@ -15,7 +15,7 @@ class Playlists extends Component {
 		playlists: []
 	};
 
-	componentDidMount() {
+	getPlaylists = () => {
 		fetch(`${BASE_URL}/playlists.json`)
 			.then(r => r.json())
 			.then(playlists => {
@@ -27,6 +27,10 @@ class Playlists extends Component {
 					}));
 				this.setState({ playlists: arrayPlaylists || [] });
 			});
+	};
+
+	componentDidMount() {
+		this.getPlaylists();
 	}
 
 	handleEditPlaylist = id => {
@@ -37,7 +41,9 @@ class Playlists extends Component {
 	handleRemovePlaylist = playlistId => {
 		fetch(`${BASE_URL}/playlists/${playlistId}.json`, {
 			method: "DELETE"
-		}).then(() => alert("Removed playlist successfully"));
+		})
+			.then(() => alert("Removed playlist successfully"))
+			.then(() => this.getPlaylists());
 	};
 
 	render() {
