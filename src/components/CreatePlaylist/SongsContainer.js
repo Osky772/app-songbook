@@ -1,10 +1,13 @@
 import React, { Component, Fragment } from "react";
-import { SongsListRow, SongsList } from "../containers/StyledContainers";
+import {
+	SongsListRow,
+	SongsList,
+	Container
+} from "../containers/StyledContainers";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
-
-const Container = styled.div``;
+import Paper from "@material-ui/core/Paper";
 
 class SongsContainer extends Component {
 	state = {};
@@ -26,7 +29,14 @@ class SongsContainer extends Component {
 											{...provided.dragHandleProps}
 											ref={provided.innerRef}
 										>
-											<SongsListRow elevation={1}>
+											<Paper
+												style={{
+													width: "100%",
+													padding: "10px",
+													display: "flex"
+												}}
+												elevation={1}
+											>
 												<Typography variant="h5" style={{ marginRight: 15 }}>
 													{nr + 1}.
 												</Typography>
@@ -35,7 +45,7 @@ class SongsContainer extends Component {
 														{performer ? performer + " - " + title : title}
 													</Typography>
 												</div>
-											</SongsListRow>
+											</Paper>
 										</Container>
 									)}
 								</Draggable>

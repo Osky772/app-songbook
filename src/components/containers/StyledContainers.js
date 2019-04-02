@@ -28,6 +28,11 @@ export const SongsListRow = styled(PaperContainer)`
 	display: flex;
 `;
 
+export const Container = styled.div`
+	margin: 0px 10px 15px 10px;
+	border-radius: 0;
+`;
+
 export const SongsList = styled.div``;
 
 export const ContainerCreatePlaylist = styled.div`
