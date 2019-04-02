@@ -23,13 +23,11 @@ class ModalCreatePlaylist extends Component {
 	};
 
 	static getDerivedStateFromProps(props, state) {
-		console.log(props.selectedSongs);
 		if (
 			props.selectedSongs.length !== state.playlist.songs.length &&
 			props.selectedSongs.length !== 0 &&
 			props.isCreating !== state.isCreating
 		) {
-			console.log(props);
 			return {
 				...state,
 				isCreating: props.isCreating,
@@ -93,10 +91,10 @@ class ModalCreatePlaylist extends Component {
 	};
 
 	handleClose = () => {
-		const { closeEditedPlaylist } = this.props;
+		const { handleClose } = this.props;
 		this.setState({ open: false, isEditing: false, editedPlaylist: "" });
 
-		closeEditedPlaylist();
+		handleClose();
 	};
 
 	onDragEnd = result => {
