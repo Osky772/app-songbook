@@ -41,7 +41,11 @@ class App extends Component {
 						/>
 					)}
 				/>
-				<Route exact path="/playlisty" render={() => <Playlists />} />
+				<Route
+					exact
+					path="/playlisty"
+					render={() => <Playlists selectedSongs={selectedSongs} />}
+				/>
 				<Route path={"/playlisty/:playlistId"} component={Playlist} />
 			</Fragment>
 		);

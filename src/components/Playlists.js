@@ -54,6 +54,9 @@ class Playlists extends Component {
 
 	render() {
 		const { playlists = [], isEditing, editedPlaylist } = this.state;
+		const { selectedSongs } = this.props;
+		console.log(isEditing);
+
 		return (
 			<PlaylistContainer>
 				{isEditing && (
@@ -62,6 +65,7 @@ class Playlists extends Component {
 						editedPlaylist={editedPlaylist}
 						handleClose={this.handleCloseEditing}
 						getPlaylists={this.getPlaylists}
+						selectedSongs={selectedSongs}
 					/>
 				)}
 				{playlists.map(playlist => (
@@ -75,7 +79,7 @@ class Playlists extends Component {
 						</Button>
 						<Link key={playlist.id} to={`/playlisty/${playlist.id}`}>
 							{playlist.songs.map(({ performer, title, id }, nr) => (
-								<SongsListRow key={id} elevation={1}>
+								<SongsListRow key={nr} elevation={1}>
 									<Typography variant="h5" style={{ marginRight: 15 }}>
 										{nr + 1}.
 									</Typography>

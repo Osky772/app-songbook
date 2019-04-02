@@ -7,7 +7,10 @@ import Paper from "@material-ui/core/Paper";
 class SongsContainer extends Component {
 	state = {};
 	render() {
-		const { songs } = this.props;
+		const { songs = [], selectedSongs = [] } = this.props;
+		// const songsList = songs.concat(selectedSongs);
+		// console.log(selectedSongs);
+
 		return (
 			<Fragment>
 				<Typography variant="h5" style={{ margin: "10px 0 25px 0" }}>
@@ -17,7 +20,7 @@ class SongsContainer extends Component {
 					{provided => (
 						<SongsList ref={provided.innerRef} {...provided.droppableProps}>
 							{songs.map(({ id, performer, title }, nr) => (
-								<Draggable key={id} draggableId={id} index={nr}>
+								<Draggable key={nr} draggableId={id} index={nr}>
 									{provided => (
 										<Container
 											{...provided.draggableProps}

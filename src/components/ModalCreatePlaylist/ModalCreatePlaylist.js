@@ -27,8 +27,10 @@ class ModalCreatePlaylist extends Component {
 			props.selectedSongs !== undefined &&
 			props.selectedSongs.length !== state.playlist.songs.length &&
 			props.selectedSongs.length !== 0 &&
-			props.isCreating !== state.isCreating
+			props.isCreating !== state.isCreating &&
+			props.isEditing !== true
 		) {
+			console.log(props);
 			return {
 				...state,
 				isCreating: props.isCreating,
@@ -40,9 +42,13 @@ class ModalCreatePlaylist extends Component {
 		}
 
 		if (Boolean(props.editedPlaylist.id) !== state.isEditing) {
+			console.log(props);
 			return {
 				...state,
-				playlist: props.editedPlaylist,
+				playlist: {
+					...props.editedPlaylist,
+					songs: [...props.editedPlaylist.songs].concat(props.selectedSongs)
+				},
 				isEditing: true
 			};
 		}
@@ -131,6 +137,8 @@ class ModalCreatePlaylist extends Component {
 		const {
 			playlist: { songs = [], title = "" }
 		} = this.state;
+		const { selectedSongs } = this.props;
+		console.log(this.state.isEditing);
 
 		return (
 			<DragDropContext onDragEnd={this.onDragEnd}>
@@ -157,7 +165,7 @@ class ModalCreatePlaylist extends Component {
 											shrink: true
 										}}
 									/>
-									<SongsContainer songs={songs} />
+									<SongsContainer songs={songs} selectedSongs={selectedSongs} />
 									<Button type="submit">Zatwierdź</Button>
 									<Button onClick={this.handleClose}>Wyjdź</Button>
 								</form>
