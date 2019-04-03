@@ -71,7 +71,10 @@ class CreateSongModal extends Component {
 
 	handleSongPreview = () => {
 		const { isPreviewed } = this.state;
-		this.setState({ isPreviewed: !isPreviewed });
+		this.setState({
+			...this.state,
+			isPreviewed: !isPreviewed
+		});
 	};
 
 	render() {
@@ -102,6 +105,7 @@ class CreateSongModal extends Component {
 				<ModalPreviewSong
 					isPreviewed={isPreviewed}
 					handleSongPreview={this.handleSongPreview}
+					song={song}
 				/>
 			</Fragment>
 		);
