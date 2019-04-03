@@ -12,6 +12,7 @@ class CreatePDF extends Component {
 	static getDerivedStateFromProps(props, state) {
 		if (props.songs.length !== state.songs.length) {
 			return {
+				title: props.title,
 				songs: props.songs
 			};
 		}
@@ -19,7 +20,7 @@ class CreatePDF extends Component {
 	}
 
 	createPDF = () => {
-		const { songs } = this.state;
+		const { title = "", songs } = this.state;
 
 		const ddContent = songs.map(song => {
 			const title = song.title;
@@ -66,9 +67,7 @@ class CreatePDF extends Component {
 		var dd = {
 			header: {
 				text: "app.spiewnik - największa podręczna baza piosenek",
-				marginLeft: 40,
-				marginTop: 10,
-				fontSize: 8
+				style: "watermark"
 			},
 			footer: function(currentPage, pageCount) {
 				return [
@@ -78,13 +77,29 @@ class CreatePDF extends Component {
 					}
 				];
 			},
-			content: ddContent,
+			content: [
+				{
+					text: title,
+					style: "title"
+				},
+				...ddContent
+			],
 			styles: {
+				title: {
+					marginBottom: 15,
+					fontSize: 25,
+					bold: true
+				},
 				header: {
 					fontSize: 18,
 					bold: true,
 					marginBottom: 6,
 					marginTop: 15
+				},
+				watermark: {
+					marginLeft: 40,
+					marginTop: 15,
+					fontSize: 8
 				}
 			}
 		};

@@ -33,7 +33,7 @@ class Playlist extends Component {
 			<PageWrapper>
 				<PlaylistPaper>
 					<h1>{title}</h1>
-					<CreatePDF songs={songs} />
+					<CreatePDF title={title} songs={songs} />
 					{songs.map(song => (
 						<ExpansionPanel key={song.id}>
 							<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
