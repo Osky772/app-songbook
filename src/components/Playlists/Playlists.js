@@ -4,9 +4,9 @@ import {
 	SongsListRow,
 	PlaylistItem,
 	PlaylistContainer
-} from "./containers/StyledContainers";
+} from "../containers/StyledContainers";
 import Typography from "@material-ui/core/Typography";
-import SearchForm from "./SearchForm";
+import SearchForm from "../SearchForm";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -88,14 +88,8 @@ class Playlists extends Component {
 				/>
 				{searchedPlaylists.map(playlist => (
 					<PlaylistItem key={playlist.id}>
-						<h1>{playlist.title}</h1>
-						{/* <Button onClick={() => this.handleEditPlaylist(playlist)}>
-							Edytuj
-						</Button>
-						<Button onClick={() => this.handleRemovePlaylist(playlist.id)}>
-							Usuń
-						</Button> */}
 						<Link key={playlist.id} to={`/playlisty/${playlist.id}`}>
+							<h1>{playlist.title}</h1>
 							{playlist.songs !== undefined &&
 								playlist.songs.map(({ performer, title, id }, nr) => (
 									<SongsListRow key={id} elevation={1}>

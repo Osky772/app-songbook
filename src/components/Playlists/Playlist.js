@@ -11,7 +11,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { formatSongDescription, styles as songStyles } from "../Song";
 import CreatePDF from "../CreatePDF";
 import Button from "@material-ui/core/Button";
-import EditPlaylistModal from "../PlaylistModals/EditPlaylist/EditPlaylistModal";
+import EditPlaylistModal from "./ModalCreatePlaylist";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 

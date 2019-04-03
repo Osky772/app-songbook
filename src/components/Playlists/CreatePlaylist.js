@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import Button from "@material-ui/core/Button";
-import ModalCreatePlaylist from "../PlaylistModals/CreatePlaylist/ModalCreatePlaylist";
+import ModalCreatePlaylist from "./ModalCreatePlaylist";
 
 class CreatePlaylist extends Component {
 	state = {

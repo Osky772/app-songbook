@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from "react";
 import Header from "./components/Header";
-import Playlists from "./components/Playlists";
+import Playlists from "./components/Playlists/Playlists";
 import SongsList from "./components/SongsList/SongsList";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Route } from "react-router-dom";
 import Song from "./components/Song";
 import InitPage from "./components/InitPage";
-import Playlist from "./components/Playlist/Playlist";
+import Playlist from "./components/Playlists/Playlist";
 
 class App extends Component {
 	state = {

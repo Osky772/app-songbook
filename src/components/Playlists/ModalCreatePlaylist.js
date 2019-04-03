@@ -6,10 +6,10 @@ import {
 	WrapperInModal,
 	FormWrapper,
 	ContainerModal
-} from "../../containers/StyledContainers";
+} from "../containers/StyledContainers";
 import { DragDropContext } from "react-beautiful-dnd";
-import SongsContainer from "../SongsContainer";
-import InfoSnackBar from "../../InfoSnackBar";
+import SongsContainer from "./SongsContainer";
+import InfoSnackBar from "../InfoSnackBar";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -25,34 +25,40 @@ class ModalCreatePlaylist extends Component {
 	};
 
 	static getDerivedStateFromProps(props, state) {
+		// To create new playlist
 		if (
+			props.isCreating &&
 			props.selectedSongs !== undefined &&
-			state.playlist.songs !== undefined &&
-			props.selectedSongs.length !== state.playlist.songs.length &&
+			state.playlist.songs.length === 0 &&
 			props.selectedSongs.length !== 0 &&
-			props.isCreating !== state.isCreating &&
 			props.isEditing !== true &&
 			state.isEditing !== true
 		) {
 			console.log("here");
+			console.log(props);
 			return {
 				...state,
-				isCreating: props.isCreating,
+				isCreating: true,
 				playlist: {
-					title: props.title,
+					title: "",
 					songs: props.selectedSongs
 				}
 			};
 		}
 
+		// To update playlist with selected songs
 		if (
-			Boolean(props.editedPlaylist.id) !== state.isEditing &&
-			props.editedPlaylist.songs !== undefined &&
+			Boolean(props.editedPlaylist.id) &&
+			props.isEditing &&
 			state.isEditing !== true
 		) {
 			console.log("here2");
+			const playListSongsArray =
+				props.editedPlaylist.songs === undefined
+					? []
+					: props.editedPlaylist.songs;
 
-			const songs = [...props.editedPlaylist.songs].concat(props.selectedSongs);
+			const songs = [...playListSongsArray].concat(props.selectedSongs);
 			const unique = songs
 				.map(e => e["id"])
 				.map((e, i, final) => final.indexOf(e) === i && i)
@@ -63,36 +69,6 @@ class ModalCreatePlaylist extends Component {
 				playlist: {
 					...props.editedPlaylist,
 					songs: unique
-				},
-				isEditing: true
-			};
-		}
-
-		if (
-			props.editedPlaylist.songs === undefined &&
-			props.selectedSongs !== undefined &&
-			props.selectedSongs.length > 0 &&
-			state.isEditing !== true &&
-			props.isCreating !== true
-		) {
-			console.log("here3");
-
-			return {
-				...state,
-				playlist: {
-					...props.editedPlaylist,
-					songs: props.selectedSongs
-				},
-				isEditing: true
-			};
-		}
-
-		if (props.editedPlaylist.songs === undefined && state.isEditing !== true) {
-			console.log("here4");
-			return {
-				...state,
-				playlist: {
-					...props.editedPlaylist
 				},
 				isEditing: true
 			};
@@ -114,22 +90,23 @@ class ModalCreatePlaylist extends Component {
 	handleFormSubmit = e => {
 		e.preventDefault();
 
-		// if (this.state.playlist.id) {
-		// 	fetch(`${BASE_URL}/playlists/${this.state.playlist.id}.json`, {
-		// 		method: "PUT",
-		// 		body: JSON.stringify(this.state.playlist)
-		// 	})
-		// 		.then(() => alert("Playlist edited successfully"))
-		// 		.then(() => this.props.fetchData());
-		// } else {
-		fetch(`${BASE_URL}/playlists.json`, {
-			method: "POST",
-			body: JSON.stringify(this.state.playlist)
-		})
-			.then(() => {
-				alert("Added playlist successfully");
+		if (this.state.playlist.id) {
+			fetch(`${BASE_URL}/playlists/${this.state.playlist.id}.json`, {
+				method: "PUT",
+				body: JSON.stringify(this.state.playlist)
 			})
-			.catch(() => alert("Error has occurred"));
+				.then(() => alert("Playlist edited successfully"))
+				.then(() => this.props.fetchData());
+		} else {
+			fetch(`${BASE_URL}/playlists.json`, {
+				method: "POST",
+				body: JSON.stringify(this.state.playlist)
+			})
+				.then(() => {
+					alert("Added playlist successfully");
+				})
+				.catch(() => alert("Error has occurred"));
+		}
 	};
 
 	handleClose = () => {
@@ -215,7 +192,7 @@ class ModalCreatePlaylist extends Component {
 										removeSong={this.handleRemovePlaylistSong}
 									/>
 									{isEditing && (
-										<InfoSnackBar message="Jesli chcesz dodać kolejne utwory, wróć do listy piosenek, zaznacz utwory i wróć tutaj ponownie. Wybrane piosenki pojawią się na dole listy. Pamiętaj, że nie pojawi się piosenka, która już znajduje się na liście. " />
+										<InfoSnackBar message="Jesli chcesz dodać utwory, wróć do listy piosenek, zaznacz utwory i wróć tutaj ponownie. Wybrane piosenki pojawią się na dole listy. Pamiętaj, że nie pojawi się piosenka, która już znajduje się na liście. " />
 									)}
 									<Button type="submit">Zatwierdź</Button>
 									<Button onClick={this.handleClose}>Wyjdź</Button>

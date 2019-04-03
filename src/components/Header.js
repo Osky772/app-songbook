@@ -9,7 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import { GiSpellBook } from "react-icons/gi";
 import ModalCreateSong from "./CreateSongModal/ModalCreateSong";
 import CreatePDF from "./CreatePDF";
-import CreatePlaylist from "./CreatePlaylist/CreatePlaylist";
+import CreatePlaylist from "./Playlists/CreatePlaylist";
 
 const styles = {
 	Toolbar: {
