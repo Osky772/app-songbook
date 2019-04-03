@@ -42,12 +42,17 @@ class ModalCreatePlaylist extends Component {
 		}
 
 		if (Boolean(props.editedPlaylist.id) !== state.isEditing) {
-			console.log(props);
+			const songs = [...props.editedPlaylist.songs].concat(props.selectedSongs);
+			const unique = songs
+				.map(e => e["id"])
+				.map((e, i, final) => final.indexOf(e) === i && i)
+				.filter(e => songs[e])
+				.map(e => songs[e]);
 			return {
 				...state,
 				playlist: {
 					...props.editedPlaylist,
-					songs: [...props.editedPlaylist.songs].concat(props.selectedSongs)
+					songs: unique
 				},
 				isEditing: true
 			};

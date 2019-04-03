@@ -7,9 +7,8 @@ import Paper from "@material-ui/core/Paper";
 class SongsContainer extends Component {
 	state = {};
 	render() {
-		const { songs = [], selectedSongs = [] } = this.props;
-		// const songsList = songs.concat(selectedSongs);
-		// console.log(selectedSongs);
+		const { songs = [] } = this.props;
+		console.log(songs);
 
 		return (
 			<Fragment>
