@@ -26,7 +26,12 @@ class Playlist extends Component {
 		fetch(`${BASE_URL}/playlists/${playlistId}.json`)
 			.then(r => r.json())
 			.then(playlist => {
-				this.setState({ playlist });
+				this.setState({
+					playlist: {
+						...playlist,
+						id: playlistId
+					}
+				});
 			});
 	};
 
@@ -47,7 +52,7 @@ class Playlist extends Component {
 			method: "DELETE"
 		})
 			.then(() => alert("Removed playlist successfully"))
-			.then(() => this.getPlaylists());
+			.then(() => this.props.history.push("/playlisty"));
 	};
 
 	render() {
@@ -57,8 +62,7 @@ class Playlist extends Component {
 			playlist: { title, songs = [] }
 		} = this.state;
 		const { selectedSongs } = this.props;
-		console.log(this.props);
-		console.log(this.state);
+
 		return (
 			<PageWrapper>
 				{isEditing && (

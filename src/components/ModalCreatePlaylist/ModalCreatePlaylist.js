@@ -17,6 +17,7 @@ class ModalCreatePlaylist extends Component {
 		isCreating: false,
 		isEditing: false,
 		playlist: {
+			id: null,
 			title: "",
 			songs: []
 		}
@@ -43,10 +44,10 @@ class ModalCreatePlaylist extends Component {
 
 		if (
 			Boolean(props.editedPlaylist.id) !== state.isEditing &&
-			props.editedPlaylist.songs !== undefined
+			props.editedPlaylist.songs !== undefined &&
+			state.isEditing !== true
 		) {
 			const songs = [...props.editedPlaylist.songs].concat(props.selectedSongs);
-			console.log(songs);
 			const unique = songs
 				.map(e => e["id"])
 				.map((e, i, final) => final.indexOf(e) === i && i)
@@ -92,23 +93,13 @@ class ModalCreatePlaylist extends Component {
 	}
 
 	handleChange = e => {
-		if (this.props.editedPlaylist.id) {
-			this.setState({
-				...this.state,
-				playlist: {
-					...this.props.editedPlaylist,
-					title: e.target.value
-				}
-			});
-		} else {
-			this.setState({
-				...this.state,
-				playlist: {
-					...this.state.playlist,
-					title: e.target.value
-				}
-			});
-		}
+		this.setState({
+			...this.state,
+			playlist: {
+				...this.state.playlist,
+				title: e.target.value
+			}
+		});
 	};
 
 	handleFormSubmit = e => {
@@ -124,7 +115,7 @@ class ModalCreatePlaylist extends Component {
 		} else {
 			fetch(`${BASE_URL}/playlists.json`, {
 				method: "POST",
-				body: JSON.stringify({ ...this.state.playlist })
+				body: JSON.stringify(this.state.playlist)
 			})
 				.then(() => {
 					alert("Added playlist successfully");
