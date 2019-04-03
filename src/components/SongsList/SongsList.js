@@ -1,15 +1,12 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import SearchForm from "./SearchForm";
-import Checkbox from "@material-ui/core/Checkbox";
-import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
-import { SongsListRow, PageWrapper } from "./containers/StyledContainers";
+import SearchForm from "../SearchForm";
+import { PageWrapper } from "../containers/StyledContainers";
+import SongElement from "./SongElement";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -139,24 +136,18 @@ class SongsList extends Component {
 						</Paper>
 					</Grid>
 					<Grid item md={8}>
-						<SearchForm handleChange={this.handleChangeForm} placeholder="Wpisz nazwę artysty lub tytuł piosenki..." label="Wyszukaj piosenkę" />
-						{songsList.map(({ id, performer, title, category }) => (
-							<SongsListRow key={id} elevation={1}>
-								<Checkbox
-									name={id}
-									color="primary"
-									icon={<MdCheckBoxOutlineBlank fontSize="big" />}
-									checkedIcon={<MdCheckBox fontSize="big" />}
-									checked={checked[id] ? checked[id] : false}
-									onChange={this.handleCheckboxSelect}
-								/>
-								<Link to={`/lista-piosenek/${id}`}>
-									<Typography variant="h5">
-										{performer ? performer + " - " + title : title}
-									</Typography>
-									<Typography variant="h6">{" " + category}</Typography>
-								</Link>
-							</SongsListRow>
+						<SearchForm
+							handleChange={this.handleChangeForm}
+							placeholder="Wpisz nazwę artysty lub tytuł piosenki..."
+							label="Wyszukaj piosenkę"
+						/>
+						{songsList.map(song => (
+							<SongElement
+								key={song.id}
+								song={song}
+								checked={checked}
+								handleCheckboxSelect={this.handleCheckboxSelect}
+							/>
 						))}
 					</Grid>
 				</Grid>

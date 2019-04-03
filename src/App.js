@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Header from "./components/Header";
 import Playlists from "./components/Playlists";
-import SongsList from "./components/SongsList";
+import SongsList from "./components/SongsList/SongsList";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Route } from "react-router-dom";
 import Song from "./components/Song";
