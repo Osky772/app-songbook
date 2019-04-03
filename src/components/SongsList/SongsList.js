@@ -109,6 +109,18 @@ class SongsList extends Component {
 		this.props.handleSelectSongs(songs);
 	};
 
+	handleClearSelectAll = () => {
+		const { checked } = this.state;
+		const unChecked = Object.keys(checked).reduce((acc, next) => {
+			return {
+				...acc,
+				[next]: false
+			};
+		}, {});
+		this.setState({ checked: unChecked, selectedSongs: [] });
+		this.props.handleSelectSongs([]);
+	};
+
 	render() {
 		const { songs, category, searchText, checked } = this.state;
 		let songsList = category
@@ -163,7 +175,7 @@ class SongsList extends Component {
 						<Button onClick={() => this.handleSelectAll(songsList)}>
 							Zaznacz wszystkie
 						</Button>
-						<Button>Wyczyść</Button>
+						<Button onClick={this.handleClearSelectAll}>Wyczyść</Button>
 						{songsList.map(song => (
 							<SongElement
 								key={song.id}
