@@ -6,8 +6,6 @@ import {
 	PlaylistContainer
 } from "./containers/StyledContainers";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import ModalCreatePlaylist from "./ModalCreatePlaylist/ModalCreatePlaylist";
 import SearchForm from "./SearchForm";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
@@ -38,21 +36,21 @@ class Playlists extends Component {
 		this.getPlaylists();
 	}
 
-	handleEditPlaylist = playlist => {
-		this.setState({ editedPlaylist: playlist, isEditing: true });
-	};
+	// handleEditPlaylist = playlist => {
+	// 	this.setState({ editedPlaylist: playlist, isEditing: true });
+	// };
 
-	handleRemovePlaylist = playlistId => {
-		fetch(`${BASE_URL}/playlists/${playlistId}.json`, {
-			method: "DELETE"
-		})
-			.then(() => alert("Removed playlist successfully"))
-			.then(() => this.getPlaylists());
-	};
+	// handleRemovePlaylist = playlistId => {
+	// 	fetch(`${BASE_URL}/playlists/${playlistId}.json`, {
+	// 		method: "DELETE"
+	// 	})
+	// 		.then(() => alert("Removed playlist successfully"))
+	// 		.then(() => this.getPlaylists());
+	// };
 
-	handleCloseEditing = () => {
-		this.setState({ editedPlaylist: {}, isEditing: false });
-	};
+	// handleCloseEditing = () => {
+	// 	this.setState({ editedPlaylist: {}, isEditing: false });
+	// };
 
 	handleInputChange = e => {
 		this.setState({ inputValue: e.target.value });
@@ -74,7 +72,7 @@ class Playlists extends Component {
 
 		return (
 			<PlaylistContainer>
-				{isEditing && (
+				{/* {isEditing && (
 					<ModalCreatePlaylist
 						isEditing={isEditing}
 						editedPlaylist={editedPlaylist}
@@ -82,7 +80,7 @@ class Playlists extends Component {
 						getPlaylists={this.getPlaylists}
 						selectedSongs={selectedSongs}
 					/>
-				)}
+				)} */}
 				<SearchForm
 					handleChange={this.handleInputChange}
 					label="Wyszukaj playlistę"
@@ -91,12 +89,12 @@ class Playlists extends Component {
 				{searchedPlaylists.map(playlist => (
 					<PlaylistItem key={playlist.id}>
 						<h1>{playlist.title}</h1>
-						<Button onClick={() => this.handleEditPlaylist(playlist)}>
+						{/* <Button onClick={() => this.handleEditPlaylist(playlist)}>
 							Edytuj
 						</Button>
 						<Button onClick={() => this.handleRemovePlaylist(playlist.id)}>
 							Usuń
-						</Button>
+						</Button> */}
 						<Link key={playlist.id} to={`/playlisty/${playlist.id}`}>
 							{playlist.songs !== undefined &&
 								playlist.songs.map(({ performer, title, id }, nr) => (

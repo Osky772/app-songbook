@@ -46,6 +46,7 @@ class ModalCreatePlaylist extends Component {
 			props.editedPlaylist.songs !== undefined
 		) {
 			const songs = [...props.editedPlaylist.songs].concat(props.selectedSongs);
+			console.log(songs);
 			const unique = songs
 				.map(e => e["id"])
 				.map((e, i, final) => final.indexOf(e) === i && i)
@@ -119,7 +120,7 @@ class ModalCreatePlaylist extends Component {
 				body: JSON.stringify(this.state.playlist)
 			})
 				.then(() => alert("Playlist edited successfully"))
-				.then(() => this.props.getPlaylists());
+				.then(() => this.props.fetchData());
 		} else {
 			fetch(`${BASE_URL}/playlists.json`, {
 				method: "POST",
