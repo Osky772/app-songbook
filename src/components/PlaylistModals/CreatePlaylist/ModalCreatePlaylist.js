@@ -6,10 +6,10 @@ import {
 	WrapperInModal,
 	FormWrapper,
 	ContainerModal
-} from "../containers/StyledContainers";
+} from "../../containers/StyledContainers";
 import { DragDropContext } from "react-beautiful-dnd";
-import SongsContainer from "./SongsContainer";
-import InfoSnackBar from "../InfoSnackBar";
+import SongsContainer from "../SongsContainer";
+import InfoSnackBar from "../../InfoSnackBar";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -31,8 +31,10 @@ class ModalCreatePlaylist extends Component {
 			props.selectedSongs.length !== state.playlist.songs.length &&
 			props.selectedSongs.length !== 0 &&
 			props.isCreating !== state.isCreating &&
-			props.isEditing !== true
+			props.isEditing !== true &&
+			state.isEditing !== true
 		) {
+			console.log("here");
 			return {
 				...state,
 				isCreating: props.isCreating,
@@ -48,6 +50,8 @@ class ModalCreatePlaylist extends Component {
 			props.editedPlaylist.songs !== undefined &&
 			state.isEditing !== true
 		) {
+			console.log("here2");
+
 			const songs = [...props.editedPlaylist.songs].concat(props.selectedSongs);
 			const unique = songs
 				.map(e => e["id"])
@@ -68,8 +72,11 @@ class ModalCreatePlaylist extends Component {
 			props.editedPlaylist.songs === undefined &&
 			props.selectedSongs !== undefined &&
 			props.selectedSongs.length > 0 &&
-			state.isEditing !== true
+			state.isEditing !== true &&
+			props.isCreating !== true
 		) {
+			console.log("here3");
+
 			return {
 				...state,
 				playlist: {
@@ -81,6 +88,7 @@ class ModalCreatePlaylist extends Component {
 		}
 
 		if (props.editedPlaylist.songs === undefined && state.isEditing !== true) {
+			console.log("here4");
 			return {
 				...state,
 				playlist: {
@@ -106,23 +114,22 @@ class ModalCreatePlaylist extends Component {
 	handleFormSubmit = e => {
 		e.preventDefault();
 
-		if (this.state.playlist.id) {
-			fetch(`${BASE_URL}/playlists/${this.state.playlist.id}.json`, {
-				method: "PUT",
-				body: JSON.stringify(this.state.playlist)
+		// if (this.state.playlist.id) {
+		// 	fetch(`${BASE_URL}/playlists/${this.state.playlist.id}.json`, {
+		// 		method: "PUT",
+		// 		body: JSON.stringify(this.state.playlist)
+		// 	})
+		// 		.then(() => alert("Playlist edited successfully"))
+		// 		.then(() => this.props.fetchData());
+		// } else {
+		fetch(`${BASE_URL}/playlists.json`, {
+			method: "POST",
+			body: JSON.stringify(this.state.playlist)
+		})
+			.then(() => {
+				alert("Added playlist successfully");
 			})
-				.then(() => alert("Playlist edited successfully"))
-				.then(() => this.props.fetchData());
-		} else {
-			fetch(`${BASE_URL}/playlists.json`, {
-				method: "POST",
-				body: JSON.stringify(this.state.playlist)
-			})
-				.then(() => {
-					alert("Added playlist successfully");
-				})
-				.catch(() => alert("Error has occurred"));
-		}
+			.catch(() => alert("Error has occurred"));
 	};
 
 	handleClose = () => {

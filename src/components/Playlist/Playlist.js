@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import {
 	PageWrapper,
 	SongPaper as PlaylistPaper
-} from "./containers/StyledContainers";
+} from "../containers/StyledContainers";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { formatSongDescription, styles as songStyles } from "./Song";
-import CreatePDF from "./CreatePDF";
+import { formatSongDescription, styles as songStyles } from "../Song";
+import CreatePDF from "../CreatePDF";
 import Button from "@material-ui/core/Button";
-import ModalCreatePlaylist from "./ModalCreatePlaylist/ModalCreatePlaylist";
+import EditPlaylistModal from "../PlaylistModals/EditPlaylist/EditPlaylistModal";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -66,7 +66,7 @@ class Playlist extends Component {
 		return (
 			<PageWrapper>
 				{isEditing && (
-					<ModalCreatePlaylist
+					<EditPlaylistModal
 						isEditing={isEditing}
 						editedPlaylist={playlist}
 						handleClose={this.handleCloseEditMode}

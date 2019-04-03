@@ -6,7 +6,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { Route } from "react-router-dom";
 import Song from "./components/Song";
 import InitPage from "./components/InitPage";
-import Playlist from "./components/Playlist";
+import Playlist from "./components/Playlist/Playlist";
 
 class App extends Component {
 	state = {
