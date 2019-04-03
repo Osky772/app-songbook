@@ -65,9 +65,8 @@ class ModalCreatePlaylist extends Component {
 			props.editedPlaylist.songs === undefined &&
 			props.selectedSongs !== undefined &&
 			props.selectedSongs.length > 0 &&
-			state.isEditing === true
+			state.isEditing !== true
 		) {
-			console.log(props.editedPlaylist.songs);
 			return {
 				...state,
 				playlist: {
@@ -79,9 +78,6 @@ class ModalCreatePlaylist extends Component {
 		}
 
 		if (props.editedPlaylist.songs === undefined && state.isEditing !== true) {
-			console.log(props.editedPlaylist.songs);
-			console.log(state);
-
 			return {
 				...state,
 				playlist: {
@@ -173,7 +169,6 @@ class ModalCreatePlaylist extends Component {
 
 	handleRemovePlaylistSong = id => {
 		const { songs } = this.state.playlist;
-		console.log(songs);
 		const filteredArray = songs.filter(song => song.id !== id);
 		this.setState({
 			...this.state,
@@ -189,7 +184,6 @@ class ModalCreatePlaylist extends Component {
 			playlist: { songs = [], title = "" }
 		} = this.state;
 		const { selectedSongs } = this.props;
-		console.log(this.state);
 
 		return (
 			<DragDropContext onDragEnd={this.onDragEnd}>
