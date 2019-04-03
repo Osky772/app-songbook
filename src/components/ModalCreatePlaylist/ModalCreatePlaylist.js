@@ -25,6 +25,7 @@ class ModalCreatePlaylist extends Component {
 	static getDerivedStateFromProps(props, state) {
 		if (
 			props.selectedSongs !== undefined &&
+			state.playlist.songs !== undefined &&
 			props.selectedSongs.length !== state.playlist.songs.length &&
 			props.selectedSongs.length !== 0 &&
 			props.isCreating !== state.isCreating &&
@@ -40,7 +41,10 @@ class ModalCreatePlaylist extends Component {
 			};
 		}
 
-		if (Boolean(props.editedPlaylist.id) !== state.isEditing) {
+		if (
+			Boolean(props.editedPlaylist.id) !== state.isEditing &&
+			props.editedPlaylist.songs !== undefined
+		) {
 			const songs = [...props.editedPlaylist.songs].concat(props.selectedSongs);
 			const unique = songs
 				.map(e => e["id"])
@@ -52,6 +56,36 @@ class ModalCreatePlaylist extends Component {
 				playlist: {
 					...props.editedPlaylist,
 					songs: unique
+				},
+				isEditing: true
+			};
+		}
+
+		if (
+			props.editedPlaylist.songs === undefined &&
+			props.selectedSongs !== undefined &&
+			props.selectedSongs.length > 0 &&
+			state.isEditing === true
+		) {
+			console.log(props.editedPlaylist.songs);
+			return {
+				...state,
+				playlist: {
+					...props.editedPlaylist,
+					songs: props.selectedSongs
+				},
+				isEditing: true
+			};
+		}
+
+		if (props.editedPlaylist.songs === undefined && state.isEditing !== true) {
+			console.log(props.editedPlaylist.songs);
+			console.log(state);
+
+			return {
+				...state,
+				playlist: {
+					...props.editedPlaylist
 				},
 				isEditing: true
 			};
@@ -139,6 +173,7 @@ class ModalCreatePlaylist extends Component {
 
 	handleRemovePlaylistSong = id => {
 		const { songs } = this.state.playlist;
+		console.log(songs);
 		const filteredArray = songs.filter(song => song.id !== id);
 		this.setState({
 			...this.state,
@@ -154,6 +189,7 @@ class ModalCreatePlaylist extends Component {
 			playlist: { songs = [], title = "" }
 		} = this.state;
 		const { selectedSongs } = this.props;
+		console.log(this.state);
 
 		return (
 			<DragDropContext onDragEnd={this.onDragEnd}>

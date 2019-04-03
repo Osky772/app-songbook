@@ -55,7 +55,6 @@ class Playlists extends Component {
 	render() {
 		const { playlists = [], isEditing, editedPlaylist } = this.state;
 		const { selectedSongs } = this.props;
-
 		return (
 			<PlaylistContainer>
 				{isEditing && (
@@ -77,18 +76,19 @@ class Playlists extends Component {
 							Usuń
 						</Button>
 						<Link key={playlist.id} to={`/playlisty/${playlist.id}`}>
-							{playlist.songs.map(({ performer, title, id }, nr) => (
-								<SongsListRow key={nr} elevation={1}>
-									<Typography variant="h5" style={{ marginRight: 15 }}>
-										{nr + 1}.
-									</Typography>
-									<div>
-										<Typography variant="h5">
-											{performer ? performer + " - " + title : title}
+							{playlist.songs !== undefined &&
+								playlist.songs.map(({ performer, title, id }, nr) => (
+									<SongsListRow key={nr} elevation={1}>
+										<Typography variant="h5" style={{ marginRight: 15 }}>
+											{nr + 1}.
 										</Typography>
-									</div>
-								</SongsListRow>
-							))}
+										<div>
+											<Typography variant="h5">
+												{performer ? performer + " - " + title : title}
+											</Typography>
+										</div>
+									</SongsListRow>
+								))}
 						</Link>
 					</PlaylistItem>
 				))}
