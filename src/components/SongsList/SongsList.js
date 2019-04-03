@@ -7,6 +7,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import SearchForm from "../SearchForm";
 import { PageWrapper } from "../containers/StyledContainers";
 import SongElement from "./SongElement";
+import Button from "@material-ui/core/Button";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -91,6 +92,23 @@ class SongsList extends Component {
 		}
 	};
 
+	handleSelectAll = songs => {
+		const { checked } = this.state;
+		const allChecked = Object.keys(checked).reduce((acc, next) => {
+			return {
+				...acc,
+				[next]: true
+			};
+		}, {});
+
+		this.setState({
+			...this.state,
+			checked: allChecked,
+			selectedSongs: songs
+		});
+		this.props.handleSelectSongs(songs);
+	};
+
 	render() {
 		const { songs, category, searchText, checked } = this.state;
 		let songsList = category
@@ -137,10 +155,15 @@ class SongsList extends Component {
 					</Grid>
 					<Grid item md={8}>
 						<SearchForm
+							style={{ width: "80%" }}
 							handleChange={this.handleChangeForm}
 							placeholder="Wpisz nazwę artysty lub tytuł piosenki..."
 							label="Wyszukaj piosenkę"
 						/>
+						<Button onClick={() => this.handleSelectAll(songsList)}>
+							Zaznacz wszystkie
+						</Button>
+						<Button>Wyczyść</Button>
 						{songsList.map(song => (
 							<SongElement
 								key={song.id}
