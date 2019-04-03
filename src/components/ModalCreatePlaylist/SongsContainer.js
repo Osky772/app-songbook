@@ -3,13 +3,12 @@ import { SongsList, Container } from "../containers/StyledContainers";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
 import { FaTrashAlt } from "react-icons/fa";
 
 class SongsContainer extends Component {
 	state = {};
 	render() {
-		const { songs = [] } = this.props;
+		const { songs = [], removeSong } = this.props;
 
 		return (
 			<Fragment>
@@ -49,7 +48,7 @@ class SongsContainer extends Component {
 													onMouseEnter={e =>
 														(e.target.style.cursor = "pointer")
 													}
-													onClick={() => console.log("hello")}
+													onClick={() => removeSong(id)}
 													fontSize={20}
 													style={{ marginRight: 15 }}
 												/>

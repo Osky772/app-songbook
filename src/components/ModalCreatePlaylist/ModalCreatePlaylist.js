@@ -137,6 +137,18 @@ class ModalCreatePlaylist extends Component {
 		});
 	};
 
+	handleRemovePlaylistSong = id => {
+		const { songs } = this.state.playlist;
+		const filteredArray = songs.filter(song => song.id !== id);
+		this.setState({
+			...this.state,
+			playlist: {
+				...this.state.playlist,
+				songs: filteredArray
+			}
+		});
+	};
+
 	render() {
 		const {
 			playlist: { songs = [], title = "" }
@@ -168,7 +180,11 @@ class ModalCreatePlaylist extends Component {
 											shrink: true
 										}}
 									/>
-									<SongsContainer songs={songs} selectedSongs={selectedSongs} />
+									<SongsContainer
+										songs={songs}
+										selectedSongs={selectedSongs}
+										removeSong={this.handleRemovePlaylistSong}
+									/>
 									<Button type="submit">Zatwierdź</Button>
 									<Button onClick={this.handleClose}>Wyjdź</Button>
 								</form>
