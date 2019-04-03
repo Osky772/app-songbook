@@ -3,12 +3,7 @@ import { PageWrapper, SongPaper } from "./containers/StyledContainers";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
-export const formatSongDescription = ({
-	performer = "",
-	title = "",
-	description = "",
-	category = ""
-}) => {
+export const formatSongDescription = ({ description = "" }) => {
 	let verses = description.split("\n");
 
 	const textWithChords = verses.map(verse => {
@@ -67,7 +62,7 @@ class Song extends Component {
 	render() {
 		let {
 			song,
-			song: { performer = "", title = "", description = "", category = "" }
+			song: { performer = "", title = "", category = "" }
 		} = this.state;
 
 		const textWithChords = formatSongDescription(song);

@@ -4,8 +4,7 @@ import Modal from "@material-ui/core/Modal";
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
-import SnackbarContent from "@material-ui/core/SnackbarContent";
-import { MdError as ErrorIcon } from "react-icons/md";
+import InfoSnackBar from './InfoSnackBar'
 import { WrapperInModal, FormWrapper } from "./containers/StyledContainers";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
@@ -166,31 +165,7 @@ class CreateSongModal extends Component {
 										))}
 									</Select>
 								</FormControl>
-								<SnackbarContent
-									style={{
-										backgroundColor: "#fca525",
-										margin: "15px 0 35px 0",
-										maxWidth: "100%"
-									}}
-									message={
-										<span style={{ display: "flex", marginLeft: "-5px" }}>
-											<ErrorIcon
-												style={{
-													fontSize: 50,
-													height: "100%",
-													marginRight: 10
-												}}
-											/>
-
-											<span>
-												<div style={{ fontWeight: "bold" }}>{"Uwaga!"}</div>
-												{
-													"Kolejne wersy oddzielaj enterem. Chwyty przypisane do danego wersu dodawaj w tej samej linii w nawiasach ostrych, oddzielonymi przecinkami, np. Tak, tak, tam w lustrze... <G, d, C>."
-												}
-											</span>
-										</span>
-									}
-								/>
+								<InfoSnackBar message="Kolejne wersy oddzielaj enterem. Chwyty przypisane do danego wersu dodawaj w tej samej linii w nawiasach ostrych, oddzielonymi przecinkami, np. Tak, tak, tam w lustrze... <G, d, C>." />
 								<TextField
 									id="outlined-textarea"
 									label="Tekst piosenki"
