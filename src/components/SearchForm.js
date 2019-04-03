@@ -1,14 +1,14 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 
-const SearchForm = ({ handleChange }) => {
+const SearchForm = ({ handleChange, label, placeholder }) => {
 	return (
 		<form noValidate autoComplete="off">
 			<TextField
 				id="standard-full-width"
-				label="Wyszukaj piosenkę"
+				label={label}
 				style={{ margin: 8 }}
-				placeholder="Wpisz nazwę artysty lub tytuł piosenki..."
+				placeholder={placeholder}
 				fullWidth
 				onChange={handleChange}
 				margin="normal"

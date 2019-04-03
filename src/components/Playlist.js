@@ -33,7 +33,7 @@ class Playlist extends Component {
 				<PlaylistPaper>
 					<h1>{title}</h1>
 					{songs.map(song => (
-						<ExpansionPanel>
+						<ExpansionPanel key={song.id}>
 							<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
 								<Typography>{song.title}</Typography>
 							</ExpansionPanelSummary>

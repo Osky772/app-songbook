@@ -8,11 +8,13 @@ import {
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import ModalCreatePlaylist from "./ModalCreatePlaylist/ModalCreatePlaylist";
+import SearchForm from "./SearchForm";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
 class Playlists extends Component {
 	state = {
+		inputValue: "",
 		playlists: [],
 		editedPlaylist: {},
 		isEditing: false
@@ -52,9 +54,24 @@ class Playlists extends Component {
 		this.setState({ editedPlaylist: {}, isEditing: false });
 	};
 
+	handleInputChange = e => {
+		this.setState({ inputValue: e.target.value });
+	};
+
 	render() {
-		const { playlists = [], isEditing, editedPlaylist } = this.state;
+		const {
+			inputValue = "",
+			playlists = [],
+			isEditing,
+			editedPlaylist
+		} = this.state;
 		const { selectedSongs } = this.props;
+		const searchedPlaylists = playlists.filter(playlist => {
+			const playlistTitle = playlist.title.toLowerCase();
+			const searchText = inputValue.trim().toLowerCase();
+			return playlistTitle.includes(searchText);
+		});
+
 		return (
 			<PlaylistContainer>
 				{isEditing && (
@@ -66,7 +83,12 @@ class Playlists extends Component {
 						selectedSongs={selectedSongs}
 					/>
 				)}
-				{playlists.map(playlist => (
+				<SearchForm
+					handleChange={this.handleInputChange}
+					label="Wyszukaj playlistę"
+					placeholder="Wpisz nazwę playlisty"
+				/>
+				{searchedPlaylists.map(playlist => (
 					<PlaylistItem key={playlist.id}>
 						<h1>{playlist.title}</h1>
 						<Button onClick={() => this.handleEditPlaylist(playlist)}>
@@ -78,7 +100,7 @@ class Playlists extends Component {
 						<Link key={playlist.id} to={`/playlisty/${playlist.id}`}>
 							{playlist.songs !== undefined &&
 								playlist.songs.map(({ performer, title, id }, nr) => (
-									<SongsListRow key={nr} elevation={1}>
+									<SongsListRow key={id} elevation={1}>
 										<Typography variant="h5" style={{ marginRight: 15 }}>
 											{nr + 1}.
 										</Typography>

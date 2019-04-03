@@ -139,7 +139,7 @@ class SongsList extends Component {
 						</Paper>
 					</Grid>
 					<Grid item md={8}>
-						<SearchForm handleChange={this.handleChangeForm} />
+						<SearchForm handleChange={this.handleChangeForm} placeholder="Wpisz nazwę artysty lub tytuł piosenki..." label="Wyszukaj piosenkę" />
 						{songsList.map(({ id, performer, title, category }) => (
 							<SongsListRow key={id} elevation={1}>
 								<Checkbox
