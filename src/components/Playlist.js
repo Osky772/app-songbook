@@ -9,6 +9,7 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { formatSongDescription, styles as songStyles } from "./Song";
+import CreatePDF from "./CreatePDF";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -32,6 +33,7 @@ class Playlist extends Component {
 			<PageWrapper>
 				<PlaylistPaper>
 					<h1>{title}</h1>
+					<CreatePDF songs={songs} />
 					{songs.map(song => (
 						<ExpansionPanel key={song.id}>
 							<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>

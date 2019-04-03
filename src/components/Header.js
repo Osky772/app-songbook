@@ -63,7 +63,7 @@ class Header extends Component {
 						</Grid>
 					</Toolbar>
 					<CreateSongModal />
-					<CreatePDF selectedSongs={selectedSongs} />
+					<CreatePDF songs={selectedSongs} />
 					<CreatePlaylist
 						editedPlaylist={editedPlaylist}
 						selectedSongs={selectedSongs}

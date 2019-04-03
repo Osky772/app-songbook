@@ -2,11 +2,6 @@ html, body {
     background: #f8f8f8;
     margin-top: 80px;
     font-family: 'Roboto', sans-serif;
-}
-
-#draggable {
-    position: absolute;
-    pointer-events: none;
     height: 100%;
     width: 100%;
 }

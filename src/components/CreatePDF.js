@@ -10,9 +10,9 @@ class CreatePDF extends Component {
 	};
 
 	static getDerivedStateFromProps(props, state) {
-		if (props.selectedSongs.length !== state.songs.length) {
+		if (props.songs.length !== state.songs.length) {
 			return {
-				songs: props.selectedSongs
+				songs: props.songs
 			};
 		}
 		return null;
