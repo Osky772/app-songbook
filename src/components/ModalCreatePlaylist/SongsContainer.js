@@ -3,12 +3,13 @@ import { SongsList, Container } from "../containers/StyledContainers";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
+import { FaTrashAlt } from "react-icons/fa";
 
 class SongsContainer extends Component {
 	state = {};
 	render() {
 		const { songs = [] } = this.props;
-		console.log(songs);
 
 		return (
 			<Fragment>
@@ -30,18 +31,28 @@ class SongsContainer extends Component {
 												style={{
 													width: "100%",
 													padding: "10px",
-													display: "flex"
+													display: "flex",
+													alignItems: "center",
+													justifyContent: "space-between"
 												}}
 												elevation={1}
 											>
-												<Typography variant="h5" style={{ marginRight: 15 }}>
-													{nr + 1}.
-												</Typography>
-												<div>
+												<div style={{ display: "flex" }}>
+													<Typography variant="h5" style={{ marginRight: 15 }}>
+														{nr + 1}.
+													</Typography>
 													<Typography variant="h5">
 														{performer ? performer + " - " + title : title}
 													</Typography>
 												</div>
+												<FaTrashAlt
+													onMouseEnter={e =>
+														(e.target.style.cursor = "pointer")
+													}
+													onClick={() => console.log("hello")}
+													fontSize={20}
+													style={{ marginRight: 15 }}
+												/>
 											</Paper>
 										</Container>
 									)}

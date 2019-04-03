@@ -43,7 +43,6 @@ class SongsList extends Component {
 				);
 
 				const { selectedSongs } = this.props;
-				console.log(selectedSongs);
 				const songsIds = selectedSongs.map(song => song.id);
 				const checkedSelectedSongs = songsIds.reduce(
 					(acc, next) => ({ ...acc, [next]: true }),

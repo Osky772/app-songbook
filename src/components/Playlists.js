@@ -55,7 +55,6 @@ class Playlists extends Component {
 	render() {
 		const { playlists = [], isEditing, editedPlaylist } = this.state;
 		const { selectedSongs } = this.props;
-		console.log(isEditing);
 
 		return (
 			<PlaylistContainer>

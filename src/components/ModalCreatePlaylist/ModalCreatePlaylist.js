@@ -30,7 +30,6 @@ class ModalCreatePlaylist extends Component {
 			props.isCreating !== state.isCreating &&
 			props.isEditing !== true
 		) {
-			console.log(props);
 			return {
 				...state,
 				isCreating: props.isCreating,
@@ -143,7 +142,6 @@ class ModalCreatePlaylist extends Component {
 			playlist: { songs = [], title = "" }
 		} = this.state;
 		const { selectedSongs } = this.props;
-		console.log(this.state.isEditing);
 
 		return (
 			<DragDropContext onDragEnd={this.onDragEnd}>
