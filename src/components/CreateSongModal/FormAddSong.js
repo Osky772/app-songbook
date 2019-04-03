@@ -40,7 +40,8 @@ const FormAddSong = props => {
 		handleSubmit,
 		handleChange,
 		handleChangeSongText,
-		handleCloseModal
+		handleCloseModal,
+		handleSongPreview
 	} = props;
 
 	return (
@@ -114,6 +115,7 @@ const FormAddSong = props => {
 				/>
 				<Button type="submit">Zatwierdź</Button>
 				<Button onClick={handleCloseModal}>Wyjdź</Button>
+				<Button onClick={handleSongPreview}>Podgląd</Button>
 			</form>
 		</FormWrapper>
 	);

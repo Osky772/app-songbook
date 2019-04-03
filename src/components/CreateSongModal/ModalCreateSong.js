@@ -3,12 +3,14 @@ import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import { ContainerModal, WrapperInModal } from "../containers/StyledContainers";
 import FormAddSong from "./FormAddSong";
+import ModalPreviewSong from "./ModalPreviewSong";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
 class CreateSongModal extends Component {
 	state = {
 		open: false,
+		isPreviewed: false,
 		song: {
 			title: "",
 			performer: "",
@@ -67,8 +69,13 @@ class CreateSongModal extends Component {
 			.catch(() => alert("Error has occurred"));
 	};
 
+	handleSongPreview = () => {
+		const { isPreviewed } = this.state;
+		this.setState({ isPreviewed: !isPreviewed });
+	};
+
 	render() {
-		const { song } = this.state;
+		const { song, open, isPreviewed } = this.state;
 		return (
 			<Fragment>
 				<Button
@@ -78,7 +85,7 @@ class CreateSongModal extends Component {
 				>
 					Dodaj utwór
 				</Button>
-				<Modal open={this.state.open} disableBackdropClick={true}>
+				<Modal open={open} disableBackdropClick={true}>
 					<ContainerModal>
 						<WrapperInModal>
 							<FormAddSong
@@ -87,10 +94,15 @@ class CreateSongModal extends Component {
 								handleChange={this.handleChange}
 								handleChangeSongText={this.handleChangeSongText}
 								handleCloseModal={this.handleClose}
+								handleSongPreview={this.handleSongPreview}
 							/>
 						</WrapperInModal>
 					</ContainerModal>
 				</Modal>
+				<ModalPreviewSong
+					isPreviewed={isPreviewed}
+					handleSongPreview={this.handleSongPreview}
+				/>
 			</Fragment>
 		);
 	}
