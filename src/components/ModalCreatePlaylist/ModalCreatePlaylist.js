@@ -5,11 +5,11 @@ import TextField from "@material-ui/core/TextField";
 import {
 	WrapperInModal,
 	FormWrapper,
-	ContainerCreatePlaylist
+	ContainerModal
 } from "../containers/StyledContainers";
 import { DragDropContext } from "react-beautiful-dnd";
 import SongsContainer from "./SongsContainer";
-import InfoSnackBar from '../InfoSnackBar'
+import InfoSnackBar from "../InfoSnackBar";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -173,18 +173,17 @@ class ModalCreatePlaylist extends Component {
 	};
 
 	render() {
-		const { isCreating, isEditing,
+		const {
+			isCreating,
+			isEditing,
 			playlist: { songs = [], title = "" }
 		} = this.state;
 		const { selectedSongs } = this.props;
 
 		return (
 			<DragDropContext onDragEnd={this.onDragEnd}>
-				<Modal
-					open={isCreating || isEditing}
-					disableBackdropClick={true}
-				>
-					<ContainerCreatePlaylist>
+				<Modal open={isCreating || isEditing} disableBackdropClick={true}>
+					<ContainerModal>
 						<WrapperInModal>
 							<FormWrapper>
 								<form onSubmit={this.handleFormSubmit}>
@@ -208,13 +207,15 @@ class ModalCreatePlaylist extends Component {
 										selectedSongs={selectedSongs}
 										removeSong={this.handleRemovePlaylistSong}
 									/>
-									{isEditing && <InfoSnackBar message="Jesli chcesz dodać kolejne utwory, wróć do listy piosenek, zaznacz utwory i wróć tutaj ponownie. Wybrane piosenki pojawią się na dole listy. Pamiętaj, że nie pojawi się piosenka, która już znajduje się na liście. " />}
+									{isEditing && (
+										<InfoSnackBar message="Jesli chcesz dodać kolejne utwory, wróć do listy piosenek, zaznacz utwory i wróć tutaj ponownie. Wybrane piosenki pojawią się na dole listy. Pamiętaj, że nie pojawi się piosenka, która już znajduje się na liście. " />
+									)}
 									<Button type="submit">Zatwierdź</Button>
 									<Button onClick={this.handleClose}>Wyjdź</Button>
 								</form>
 							</FormWrapper>
 						</WrapperInModal>
-					</ContainerCreatePlaylist>
+					</ContainerModal>
 				</Modal>
 			</DragDropContext>
 		);

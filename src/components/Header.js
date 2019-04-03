@@ -7,7 +7,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Grid from "@material-ui/core/Grid";
 import { GiSpellBook } from "react-icons/gi";
-import CreateSongModal from "./CreateSongModal";
+import ModalCreateSong from "./CreateSongModal/ModalCreateSong";
 import CreatePDF from "./CreatePDF";
 import CreatePlaylist from "./CreatePlaylist/CreatePlaylist";
 
@@ -62,7 +62,7 @@ class Header extends Component {
 							</Tabs>
 						</Grid>
 					</Toolbar>
-					<CreateSongModal />
+					<ModalCreateSong />
 					<CreatePDF songs={selectedSongs} />
 					<CreatePlaylist
 						editedPlaylist={editedPlaylist}

@@ -35,7 +35,7 @@ export const Container = styled.div`
 
 export const SongsList = styled.div``;
 
-export const ContainerCreatePlaylist = styled.div`
+export const ContainerModal = styled.div`
 	width: 100%;
 	display: flex;
 	height: 100%;
