@@ -44,16 +44,19 @@ const FormAddSong = props => {
 		handleChangeSongText,
 		handleCloseModal,
 		handleSongPreview,
-		isError
+		error
 	} = props;
 
 	return (
 		<FormWrapper>
-			<form onSubmit={handleSubmit} style={{ height: "100%" }}>
+			<form
+				onSubmit={handleSubmit}
+				style={{ height: "100%", marginTop: "50px" }}
+			>
 				<TextField
 					id="outlined-full-width"
 					label="Tytuł *"
-					error={isError}
+					error={error.title}
 					name="title"
 					style={styles.textField}
 					onChange={handleChange}
@@ -83,7 +86,7 @@ const FormAddSong = props => {
 						shrink: true
 					}}
 				/>
-				<FormControl>
+				<FormControl error={error.category}>
 					<InputLabel shrink htmlFor="select-multiple-native">
 						Kategoria *
 					</InputLabel>
@@ -109,7 +112,7 @@ const FormAddSong = props => {
 				<TextField
 					id="outlined-textarea"
 					label="Tekst piosenki *"
-					error={isError}
+					error={error.description}
 					name="description"
 					onChange={handleChangeSongText}
 					value={description}

@@ -10,7 +10,11 @@ const BASE_URL = "https://app-songbook.firebaseio.com/";
 class CreateSongModal extends Component {
 	state = {
 		open: false,
-		isError: false,
+		error: {
+			title: false,
+			description: false,
+			category: false
+		},
 		isPreviewed: false,
 		song: {
 			title: "",
@@ -29,7 +33,6 @@ class CreateSongModal extends Component {
 	};
 
 	handleChange = event => {
-		console.log(this.state.song);
 		this.setState({
 			song: {
 				...this.state.song,
@@ -61,12 +64,18 @@ class CreateSongModal extends Component {
 		const { song } = this.state;
 		const required = Object.keys(song).filter(key => key !== "performer");
 		const emptyValues = required.filter(key => song[key] === "");
+		const error = emptyValues.reduce(
+			(acc, next) => ({
+				...acc,
+				[next]: true
+			}),
+			{}
+		);
 		const isError = emptyValues.length > 0;
-
 		if (isError) {
 			this.setState({
-				isError: true,
-				error: emptyValues
+				...this.state,
+				error
 			});
 		} else {
 			fetch(`${BASE_URL}/songs.json`, {
@@ -76,6 +85,9 @@ class CreateSongModal extends Component {
 				.then(() => {
 					alert("Added song successfully");
 					this.setState({
+						open: false,
+						error: {},
+						isPreviewed: false,
 						song: {
 							title: "",
 							performer: "",
@@ -97,7 +109,7 @@ class CreateSongModal extends Component {
 	};
 
 	render() {
-		const { song, open, isPreviewed, isError } = this.state;
+		const { song, open, isPreviewed, isError, error } = this.state;
 		return (
 			<Fragment>
 				<Button
@@ -117,7 +129,7 @@ class CreateSongModal extends Component {
 								handleChangeSongText={this.handleChangeSongText}
 								handleCloseModal={this.handleClose}
 								handleSongPreview={this.handleSongPreview}
-								isError={isError}
+								error={error}
 							/>
 						</WrapperInModal>
 					</ContainerModal>
