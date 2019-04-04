@@ -50,7 +50,7 @@ const FormAddSong = props => {
 			<form onSubmit={handleSubmit} style={{ height: "100%" }}>
 				<TextField
 					id="outlined-full-width"
-					label="Tytuł"
+					label="Tytuł *"
 					name="title"
 					style={styles.textField}
 					onChange={handleChange}
@@ -99,7 +99,7 @@ const FormAddSong = props => {
 				<InfoSnackBar message="Kolejne wersy oddzielaj enterem. Chwyty przypisane do danego wersu dodawaj w tej samej linii w nawiasach ostrych, oddzielonymi przecinkami, np. Tak, tak, tam w lustrze... <G, d, C>." />
 				<TextField
 					id="outlined-textarea"
-					label="Tekst piosenki"
+					label="Tekst piosenki *"
 					name="description"
 					onChange={handleChangeSongText}
 					value={description}
@@ -113,7 +113,9 @@ const FormAddSong = props => {
 					InputLabelProps={{
 						shrink: true
 					}}
+					helperText="* pola obowiązkowe"
 				/>
+
 				<Button type="submit">Zatwierdź</Button>
 				<Button onClick={handleCloseModal}>Wyjdź</Button>
 				<Button onClick={handleSongPreview}>Podgląd</Button>
