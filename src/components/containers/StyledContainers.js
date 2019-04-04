@@ -58,13 +58,12 @@ export const SongPaper = styled(PaperContainer)`
 
 export const WrapperInModal = styled.div`
 	width: 50%;
-	height: 90%;
+	height: 100vh;
 	background: white;
 	outline: none;
 `;
 
 export const FormWrapper = styled.div`
 	padding: 25px;
-	height: 100%;
 	overflow: auto;
 `;

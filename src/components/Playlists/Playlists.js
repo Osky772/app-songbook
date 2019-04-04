@@ -36,34 +36,12 @@ class Playlists extends Component {
 		this.getPlaylists();
 	}
 
-	// handleEditPlaylist = playlist => {
-	// 	this.setState({ editedPlaylist: playlist, isEditing: true });
-	// };
-
-	// handleRemovePlaylist = playlistId => {
-	// 	fetch(`${BASE_URL}/playlists/${playlistId}.json`, {
-	// 		method: "DELETE"
-	// 	})
-	// 		.then(() => alert("Removed playlist successfully"))
-	// 		.then(() => this.getPlaylists());
-	// };
-
-	// handleCloseEditing = () => {
-	// 	this.setState({ editedPlaylist: {}, isEditing: false });
-	// };
-
 	handleInputChange = e => {
 		this.setState({ inputValue: e.target.value });
 	};
 
 	render() {
-		const {
-			inputValue = "",
-			playlists = [],
-			isEditing,
-			editedPlaylist
-		} = this.state;
-		const { selectedSongs } = this.props;
+		const { inputValue = "", playlists = [] } = this.state;
 		const searchedPlaylists = playlists.filter(playlist => {
 			const playlistTitle = playlist.title.toLowerCase();
 			const searchText = inputValue.trim().toLowerCase();
@@ -72,15 +50,6 @@ class Playlists extends Component {
 
 		return (
 			<PlaylistContainer>
-				{/* {isEditing && (
-					<ModalCreatePlaylist
-						isEditing={isEditing}
-						editedPlaylist={editedPlaylist}
-						handleClose={this.handleCloseEditing}
-						getPlaylists={this.getPlaylists}
-						selectedSongs={selectedSongs}
-					/>
-				)} */}
 				<SearchForm
 					handleChange={this.handleInputChange}
 					label="Wyszukaj playlistę"

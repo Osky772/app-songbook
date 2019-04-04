@@ -9,7 +9,8 @@ import Button from "@material-ui/core/Button";
 const styles = {
 	textField: {
 		display: "block",
-		marginBottom: 15
+		marginBottom: 15,
+		marginTop: 0
 	},
 	select: {
 		marginBottom: 15
@@ -46,7 +47,7 @@ const FormAddSong = props => {
 
 	return (
 		<FormWrapper>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit} style={{ height: "100%" }}>
 				<TextField
 					id="outlined-full-width"
 					label="Tytuł"
