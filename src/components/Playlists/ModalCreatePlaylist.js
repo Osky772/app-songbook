@@ -17,6 +17,7 @@ class ModalCreatePlaylist extends Component {
 	state = {
 		isCreating: false,
 		isEditing: false,
+		isError: false,
 		playlist: {
 			id: null,
 			title: "",
@@ -86,23 +87,51 @@ class ModalCreatePlaylist extends Component {
 
 	handleFormSubmit = e => {
 		e.preventDefault();
+		const {
+			error,
+			playlist: { title, songs }
+		} = this.state;
+		const errorState = {
+			title: title === "",
+			songs: songs.length === 0
+		};
 
-		if (this.state.playlist.id) {
-			fetch(`${BASE_URL}/playlists/${this.state.playlist.id}.json`, {
-				method: "PUT",
-				body: JSON.stringify(this.state.playlist)
-			})
-				.then(() => alert("Playlist edited successfully"))
-				.then(() => this.props.fetchData());
+		if (errorState.title && errorState.songs) {
+			this.setState({ isError: true, error: errorState });
+		} else if (errorState.title) {
+			this.setState({
+				isError: true,
+				error: {
+					...error,
+					title: errorState.title
+				}
+			});
+		} else if (errorState.songs) {
+			this.setState({
+				isError: true,
+				error: {
+					...error,
+					songs: errorState.songs
+				}
+			});
 		} else {
-			fetch(`${BASE_URL}/playlists.json`, {
-				method: "POST",
-				body: JSON.stringify(this.state.playlist)
-			})
-				.then(() => {
-					alert("Added playlist successfully");
+			if (this.state.playlist.id) {
+				fetch(`${BASE_URL}/playlists/${this.state.playlist.id}.json`, {
+					method: "PUT",
+					body: JSON.stringify(this.state.playlist)
 				})
-				.catch(() => alert("Error has occurred"));
+					.then(() => alert("Playlist edited successfully"))
+					.then(() => this.props.fetchData());
+			} else {
+				fetch(`${BASE_URL}/playlists.json`, {
+					method: "POST",
+					body: JSON.stringify(this.state.playlist)
+				})
+					.then(() => {
+						alert("Added playlist successfully");
+					})
+					.catch(() => alert("Error has occurred"));
+			}
 		}
 	};
 
