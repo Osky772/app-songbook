@@ -60,26 +60,32 @@ class CreateSongModal extends Component {
 		e.preventDefault();
 		const { song } = this.state;
 		const required = Object.keys(song).filter(key => key !== "performer");
-		const error = required.filter(key => song[key] === "");
+		const emptyValues = required.filter(key => song[key] === "");
+		const isError = emptyValues.length > 0;
 
-		console.log(error);
-
-		fetch(`${BASE_URL}/songs.json`, {
-			method: "POST",
-			body: JSON.stringify({ ...this.state.song })
-		})
-			.then(() => {
-				alert("Added song successfully");
-				this.setState({
-					song: {
-						title: "",
-						performer: "",
-						description: "",
-						category: ""
-					}
-				});
+		if (isError) {
+			this.setState({
+				isError: true,
+				error: emptyValues
+			});
+		} else {
+			fetch(`${BASE_URL}/songs.json`, {
+				method: "POST",
+				body: JSON.stringify({ ...this.state.song })
 			})
-			.catch(() => alert("Error has occurred"));
+				.then(() => {
+					alert("Added song successfully");
+					this.setState({
+						song: {
+							title: "",
+							performer: "",
+							description: "",
+							category: ""
+						}
+					});
+				})
+				.catch(() => alert("Error has occurred"));
+		}
 	};
 
 	handleSongPreview = () => {
