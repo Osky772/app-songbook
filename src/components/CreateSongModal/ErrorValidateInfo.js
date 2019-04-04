@@ -17,28 +17,36 @@ const ErrorValidateInfo = ({ error }) => {
 	}
 
 	return (
-		<SnackbarContent
-			style={{
-				backgroundColor: "#d30033",
-				margin: "15px 0 35px 0",
-				height: 40,
-				width: "calc(100% - 50px)",
-				maxWidth: "100%",
-				position: "absolute"
-			}}
-			message={
-				<span style={{ display: "flex", marginLeft: "-5px" }}>
-					<ErrorIcon
-						style={{
-							fontSize: 15,
-							height: "100%",
-							marginRight: 10
-						}}
-					/>
-					Musisz uzupełnić pole: {message.join(", ")} aby dodać piosenkę!
-				</span>
-			}
-		/>
+		<div
+			style={message.length === 0 ? { display: "none" } : { display: "block" }}
+		>
+			<SnackbarContent
+				style={{
+					backgroundColor: "#d30033",
+					margin: "15px 0 35px 0",
+					height: 40,
+					width: "calc(100% - 50px)",
+					maxWidth: "100%",
+					position: "absolute"
+				}}
+				message={
+					<span style={{ display: "flex", marginLeft: "-5px" }}>
+						<ErrorIcon
+							style={{
+								fontSize: 15,
+								height: "100%",
+								marginRight: 10
+							}}
+						/>
+						<span>
+							Musisz uzupełnić pole:
+							<span style={{ fontWeight: "bold" }}> {message.join(", ")} </span>
+							aby dodać piosenkę!
+						</span>
+					</span>
+				}
+			/>
+		</div>
 	);
 };
 

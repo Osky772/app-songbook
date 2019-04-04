@@ -42,15 +42,24 @@ class CreateSongModal extends Component {
 	};
 
 	handleChange = event => {
+		const { name } = event.currentTarget;
+		const { error, song } = this.state;
 		this.setState({
 			song: {
-				...this.state.song,
-				[event.currentTarget.name]: event.target.value
+				...song,
+				[name]: event.target.value
+			},
+			error: {
+				...error,
+				[name]: error[name] === true ? false : false
 			}
 		});
 	};
 
 	handleChangeSongText = event => {
+		const { name } = event.currentTarget;
+		const { error, song } = this.state;
+
 		let inputValue = event.target.value;
 		inputValue = inputValue.startsWith("\n")
 			? inputValue.substr(1)
@@ -62,8 +71,12 @@ class CreateSongModal extends Component {
 
 		this.setState({
 			song: {
-				...this.state.song,
-				[event.currentTarget.name]: inputValue
+				...song,
+				[name]: inputValue
+			},
+			error: {
+				...error,
+				[name]: error[name] === true ? false : false
 			}
 		});
 	};
