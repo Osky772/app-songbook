@@ -5,6 +5,7 @@ import FormControl from "@material-ui/core/FormControl";
 import { FormWrapper } from "../containers/StyledContainers";
 import InfoSnackBar from "../InfoSnackBar";
 import Button from "@material-ui/core/Button";
+import InputLabel from "@material-ui/core/InputLabel";
 
 const styles = {
 	textField: {
@@ -42,7 +43,8 @@ const FormAddSong = props => {
 		handleChange,
 		handleChangeSongText,
 		handleCloseModal,
-		handleSongPreview
+		handleSongPreview,
+		isError
 	} = props;
 
 	return (
@@ -51,6 +53,7 @@ const FormAddSong = props => {
 				<TextField
 					id="outlined-full-width"
 					label="Tytuł *"
+					error={isError}
 					name="title"
 					style={styles.textField}
 					onChange={handleChange}
@@ -81,12 +84,18 @@ const FormAddSong = props => {
 					}}
 				/>
 				<FormControl>
+					<InputLabel shrink htmlFor="select-multiple-native">
+						Kategoria *
+					</InputLabel>
 					<Select
 						native
 						value={category}
 						onChange={handleChange}
 						name="category"
 						style={styles.select}
+						inputProps={{
+							id: "select-multiple-native"
+						}}
 					>
 						{category ? null : <option value="">Wybierz kategorię...</option>}
 						{categories.map(category => (
@@ -100,6 +109,7 @@ const FormAddSong = props => {
 				<TextField
 					id="outlined-textarea"
 					label="Tekst piosenki *"
+					error={isError}
 					name="description"
 					onChange={handleChangeSongText}
 					value={description}

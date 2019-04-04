@@ -122,7 +122,7 @@ class SongsList extends Component {
 	};
 
 	render() {
-		const { songs, category, searchText, checked } = this.state;
+		const { songs = [], category = "", searchText = "", checked } = this.state;
 		let songsList = category
 			? songs.filter(song => song.category === category)
 			: songs;
