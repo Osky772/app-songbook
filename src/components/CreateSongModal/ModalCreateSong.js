@@ -10,6 +10,7 @@ const BASE_URL = "https://app-songbook.firebaseio.com/";
 class CreateSongModal extends Component {
 	state = {
 		open: false,
+		isError: false,
 		error: {
 			title: false,
 			description: false,
@@ -29,10 +30,19 @@ class CreateSongModal extends Component {
 	};
 
 	handleClose = () => {
-		this.setState({ open: false });
+		this.setState({
+			open: false,
+			isError: false,
+			error: {
+				title: false,
+				description: false,
+				category: false
+			}
+		});
 	};
 
 	handleChange = event => {
+		console.log(this.state.song);
 		this.setState({
 			song: {
 				...this.state.song,
@@ -75,6 +85,7 @@ class CreateSongModal extends Component {
 		if (isError) {
 			this.setState({
 				...this.state,
+				isError: true,
 				error
 			});
 		} else {
@@ -86,6 +97,7 @@ class CreateSongModal extends Component {
 					alert("Added song successfully");
 					this.setState({
 						open: false,
+						isError: false,
 						error: {},
 						isPreviewed: false,
 						song: {
@@ -130,6 +142,7 @@ class CreateSongModal extends Component {
 								handleCloseModal={this.handleClose}
 								handleSongPreview={this.handleSongPreview}
 								error={error}
+								isError={isError}
 							/>
 						</WrapperInModal>
 					</ContainerModal>

@@ -6,6 +6,7 @@ import { FormWrapper } from "../containers/StyledContainers";
 import InfoSnackBar from "../InfoSnackBar";
 import Button from "@material-ui/core/Button";
 import InputLabel from "@material-ui/core/InputLabel";
+import ErrorValidateInfo from "./ErrorValidateInfo";
 
 const styles = {
 	textField: {
@@ -44,11 +45,13 @@ const FormAddSong = props => {
 		handleChangeSongText,
 		handleCloseModal,
 		handleSongPreview,
+		isError,
 		error
 	} = props;
 
 	return (
 		<FormWrapper>
+			{isError && <ErrorValidateInfo error={error} />}
 			<form
 				onSubmit={handleSubmit}
 				style={{ height: "100%", marginTop: "50px" }}

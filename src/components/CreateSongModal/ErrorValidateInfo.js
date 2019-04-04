@@ -1,33 +1,30 @@
 import React from "react";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
-import { MdWarning as WarningIcon } from "react-icons/md";
+import { MdError as ErrorIcon } from "react-icons/md";
 
-const InfoSnackBar = ({ message }) => {
+const ErrorValidateInfo = () => {
 	return (
 		<SnackbarContent
 			style={{
-				backgroundColor: "#fca525",
-				margin: "15px 0 35px 0",
+				backgroundColor: "#d30033",
+				marginTop: 15,
+				height: 50,
 				maxWidth: "100%"
 			}}
 			message={
 				<span style={{ display: "flex", marginLeft: "-5px" }}>
-					<WarningIcon
+					<ErrorIcon
 						style={{
-							fontSize: 50,
+							fontSize: 15,
 							height: "100%",
 							marginRight: 10
 						}}
 					/>
-
-					<span>
-						<div style={{ fontWeight: "bold" }}>{"Uwaga!"}</div>
-						{message}
-					</span>
+					'Error'
 				</span>
 			}
 		/>
 	);
 };
 
-export default InfoSnackBar;
+export default ErrorValidateInfo;
