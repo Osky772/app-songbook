@@ -52,10 +52,7 @@ const FormAddSong = props => {
 	return (
 		<FormWrapper>
 			{isError && <ErrorValidateInfo error={error} />}
-			<form
-				onSubmit={handleSubmit}
-				style={{ height: "100%", marginTop: "50px" }}
-			>
+			<form onSubmit={handleSubmit} style={{ marginTop: "70px" }}>
 				<TextField
 					id="outlined-full-width"
 					label="Tytuł *"

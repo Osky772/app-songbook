@@ -42,7 +42,6 @@ class CreateSongModal extends Component {
 	};
 
 	handleChange = event => {
-		console.log(this.state.song);
 		this.setState({
 			song: {
 				...this.state.song,

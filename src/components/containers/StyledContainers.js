@@ -57,14 +57,15 @@ export const SongPaper = styled(PaperContainer)`
 `;
 
 export const WrapperInModal = styled.div`
-	width: 50%;
+	width: 700px;
 	height: 100vh;
 	background: white;
 	outline: none;
 `;
 
 export const FormWrapper = styled.div`
-	padding: 0 25px 25px 25px;
+	padding: 0px 25px 25px 25px;
 	height: 100%;
 	overflow: auto;
+	position: relative;
 `;

@@ -2,14 +2,29 @@ import React from "react";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import { MdError as ErrorIcon } from "react-icons/md";
 
-const ErrorValidateInfo = () => {
+const ErrorValidateInfo = ({ error }) => {
+	const { title, category, description } = error;
+	let message = [];
+
+	if (title) {
+		message.push("tytuł");
+	}
+	if (category) {
+		message.push("kategoria");
+	}
+	if (description) {
+		message.push("tekst");
+	}
+
 	return (
 		<SnackbarContent
 			style={{
 				backgroundColor: "#d30033",
-				marginTop: 15,
-				height: 50,
-				maxWidth: "100%"
+				margin: "15px 0 35px 0",
+				height: 40,
+				width: "calc(100% - 50px)",
+				maxWidth: "100%",
+				position: "absolute"
 			}}
 			message={
 				<span style={{ display: "flex", marginLeft: "-5px" }}>
@@ -20,7 +35,7 @@ const ErrorValidateInfo = () => {
 							marginRight: 10
 						}}
 					/>
-					'Error'
+					Musisz uzupełnić pole: {message.join(", ")} aby dodać piosenkę!
 				</span>
 			}
 		/>
