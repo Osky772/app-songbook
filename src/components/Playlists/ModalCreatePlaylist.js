@@ -10,6 +10,7 @@ import {
 import { DragDropContext } from "react-beautiful-dnd";
 import SongsContainer from "./SongsContainer";
 import InfoSnackBar from "../InfoSnackBar";
+import ErrorValidateInfo from "../CreateSongModal/ErrorValidateInfo";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -89,49 +90,56 @@ class ModalCreatePlaylist extends Component {
 		e.preventDefault();
 		const {
 			error,
+			playlist,
 			playlist: { title, songs }
 		} = this.state;
-		const errorState = {
-			title: title === "",
-			songs: songs.length === 0
-		};
 
-		if (errorState.title && errorState.songs) {
-			this.setState({ isError: true, error: errorState });
-		} else if (errorState.title) {
-			this.setState({
-				isError: true,
-				error: {
-					...error,
-					title: errorState.title
-				}
-			});
-		} else if (errorState.songs) {
-			this.setState({
-				isError: true,
-				error: {
-					...error,
-					songs: errorState.songs
-				}
-			});
+		const required = Object.keys(playlist).filter(key => key !== "id");
+		const emptyValues = required.filter(
+			key => playlist[key] === "" || playlist[key].length === 0
+		);
+		console.log(emptyValues);
+
+		// const errorState = {
+		// 	title: title === "",
+		// 	songs: songs.length === 0
+		// };
+
+		// if (errorState.title && errorState.songs) {
+		// 	this.setState({ isError: true, error: errorState });
+		// } else if (errorState.title) {
+		// 	this.setState({
+		// 		isError: true,
+		// 		error: {
+		// 			...error,
+		// 			title: errorState.title
+		// 		}
+		// 	});
+		// } else if (errorState.songs) {
+		// 	this.setState({
+		// 		isError: true,
+		// 		error: {
+		// 			...error,
+		// 			songs: errorState.songs
+		// 		}
+		// 	});
+		// } else {
+		if (this.state.playlist.id) {
+			fetch(`${BASE_URL}/playlists/${this.state.playlist.id}.json`, {
+				method: "PUT",
+				body: JSON.stringify(this.state.playlist)
+			})
+				.then(() => alert("Playlist edited successfully"))
+				.then(() => this.props.fetchData());
 		} else {
-			if (this.state.playlist.id) {
-				fetch(`${BASE_URL}/playlists/${this.state.playlist.id}.json`, {
-					method: "PUT",
-					body: JSON.stringify(this.state.playlist)
+			fetch(`${BASE_URL}/playlists.json`, {
+				method: "POST",
+				body: JSON.stringify(this.state.playlist)
+			})
+				.then(() => {
+					alert("Added playlist successfully");
 				})
-					.then(() => alert("Playlist edited successfully"))
-					.then(() => this.props.fetchData());
-			} else {
-				fetch(`${BASE_URL}/playlists.json`, {
-					method: "POST",
-					body: JSON.stringify(this.state.playlist)
-				})
-					.then(() => {
-						alert("Added playlist successfully");
-					})
-					.catch(() => alert("Error has occurred"));
-			}
+				.catch(() => alert("Error has occurred"));
 		}
 	};
 
@@ -196,7 +204,10 @@ class ModalCreatePlaylist extends Component {
 					<ContainerModal>
 						<WrapperInModal>
 							<FormWrapper>
-								<form onSubmit={this.handleFormSubmit}>
+								<form
+									onSubmit={this.handleFormSubmit}
+									style={{ marginTop: "70px" }}
+								>
 									<TextField
 										id="outlined-full-width"
 										label="Nazwa"
