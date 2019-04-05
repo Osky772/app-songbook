@@ -2,18 +2,30 @@ import React from "react";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import { MdError as ErrorIcon } from "react-icons/md";
 
-const ErrorValidateInfo = ({ error }) => {
-	const { title, category, description } = error;
+const ErrorValidateInfo = ({ error, type }) => {
 	let message = [];
 
-	if (title) {
-		message.push("tytuł");
+	if (type === "song") {
+		const { title, category, description } = error;
+		if (title) {
+			message.push("tytuł");
+		}
+		if (category) {
+			message.push("kategoria");
+		}
+		if (description) {
+			message.push("tekst");
+		}
 	}
-	if (category) {
-		message.push("kategoria");
-	}
-	if (description) {
-		message.push("tekst");
+
+	if (type === "playlist") {
+		const { title, songs } = error;
+		if (title) {
+			message.push("tytuł");
+		}
+		if (songs) {
+			message.push("listę piosenek");
+		}
 	}
 
 	return (
@@ -41,7 +53,7 @@ const ErrorValidateInfo = ({ error }) => {
 						<span>
 							Musisz uzupełnić pole:
 							<span style={{ fontWeight: "bold" }}> {message.join(", ")} </span>
-							aby dodać piosenkę!
+							{type === "song" ? "aby dodać piosenkę!" : "aby dodać playlistę"}
 						</span>
 					</span>
 				}
