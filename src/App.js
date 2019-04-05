@@ -7,6 +7,7 @@ import { Route } from "react-router-dom";
 import Song from "./components/Song";
 import InitPage from "./components/InitPage";
 import Playlist from "./components/Playlists/Playlist";
+import * as firebase from "firebase";
 
 var config = {
 	apiKey: "AIzaSyC8W028Pyt7eD2EXrvnqlAmXSD0zB007t4",
