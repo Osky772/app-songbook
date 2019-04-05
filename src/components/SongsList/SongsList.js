@@ -20,7 +20,7 @@ class SongsList extends Component {
 		checked: {}
 	};
 
-	componentWillMount() {
+	componentDidMount() {
 		fetch(`${BASE_URL}/songs.json`)
 			.then(r => r.json())
 			.then(songs => {
@@ -53,6 +53,17 @@ class SongsList extends Component {
 					checked: Object.assign(checked, checkedSelectedSongs)
 				});
 			});
+	}
+
+	static getDerivedStateFromProps(props, state) {
+		if (props.selectedSongs.length !== state.selectedSongs.length) {
+			return {
+				...state,
+				selectedSongs: props.selectedSongs
+			};
+		}
+
+		return null;
 	}
 
 	handleCategorySelect = category => {

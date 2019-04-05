@@ -33,7 +33,7 @@ class Header extends Component {
 
 	render() {
 		const { value } = this.state;
-		const { selectedSongs, editedPlaylist, closeEditedPlaylist } = this.props;
+		const { selectedSongs, editedPlaylist, handleSelectSongs } = this.props;
 
 		return (
 			<AppBar color="primary">
@@ -67,7 +67,7 @@ class Header extends Component {
 					<CreatePlaylist
 						editedPlaylist={editedPlaylist}
 						selectedSongs={selectedSongs}
-						closeEditedPlaylist={closeEditedPlaylist}
+						handleSelectSongs={handleSelectSongs}
 					/>
 				</Grid>
 			</AppBar>

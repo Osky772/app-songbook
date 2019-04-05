@@ -89,7 +89,6 @@ class ModalCreatePlaylist extends Component {
 	handleFormSubmit = e => {
 		e.preventDefault();
 		const { playlist } = this.state;
-
 		const required = Object.keys(playlist).filter(key => key !== "id");
 		const emptyValues = required.filter(
 			key => playlist[key] === "" || playlist[key].length === 0
@@ -115,8 +114,14 @@ class ModalCreatePlaylist extends Component {
 					method: "PUT",
 					body: JSON.stringify(this.state.playlist)
 				})
-					.then(() => alert("Playlist edited successfully"))
-					.then(() => this.props.fetchData());
+					.then(() => {
+						alert("Playlist edited successfully");
+						this.props.handleSelectSongs([]);
+					})
+					.then(() => this.props.fetchData())
+					.catch(err => {
+						alert("Error has occurred");
+					});
 			} else {
 				fetch(`${BASE_URL}/playlists.json`, {
 					method: "POST",
@@ -124,8 +129,12 @@ class ModalCreatePlaylist extends Component {
 				})
 					.then(() => {
 						alert("Added playlist successfully");
+						this.props.handleSelectSongs([]);
+						this.props.handleClose();
 					})
-					.catch(() => alert("Error has occurred"));
+					.catch(err => {
+						alert(err, "Error has occurred");
+					});
 			}
 		}
 	};

@@ -61,7 +61,7 @@ class Playlist extends Component {
 			playlist,
 			playlist: { title, songs = [] }
 		} = this.state;
-		const { selectedSongs } = this.props;
+		const { selectedSongs, handleSelectSongs } = this.props;
 
 		return (
 			<PageWrapper>
@@ -71,6 +71,7 @@ class Playlist extends Component {
 						editedPlaylist={playlist}
 						handleClose={this.handleCloseEditMode}
 						selectedSongs={selectedSongs}
+						handleSelectSongs={handleSelectSongs}
 						fetchData={this.getPlaylist}
 					/>
 				)}

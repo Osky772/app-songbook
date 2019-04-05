@@ -26,7 +26,7 @@ class App extends Component {
 				<CssBaseline />
 				<Header
 					selectedSongs={selectedSongs}
-					closeEditedPlaylist={this.closeEditedPlaylist}
+					handleSelectSongs={this.handleSelectSongs}
 				/>
 				<Route exact path="/" render={props => <InitPage {...props} />} />
 				<Route path={"/lista-piosenek/:songId"} component={Song} />
@@ -45,7 +45,11 @@ class App extends Component {
 				<Route
 					path={"/playlisty/:playlistId"}
 					render={props => (
-						<Playlist {...props} selectedSongs={selectedSongs} />
+						<Playlist
+							{...props}
+							selectedSongs={selectedSongs}
+							handleSelectSongs={this.handleSelectSongs}
+						/>
 					)}
 				/>
 			</Fragment>

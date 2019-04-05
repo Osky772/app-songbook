@@ -18,7 +18,11 @@ class CreatePlaylist extends Component {
 	render() {
 		const { isCreating } = this.state;
 
-		const { selectedSongs = [], editedPlaylist = "" } = this.props;
+		const {
+			selectedSongs = [],
+			editedPlaylist = "",
+			handleSelectSongs
+		} = this.props;
 
 		return (
 			<Fragment>
@@ -32,6 +36,7 @@ class CreatePlaylist extends Component {
 				{isCreating && (
 					<ModalCreatePlaylist
 						selectedSongs={selectedSongs}
+						handleSelectSongs={handleSelectSongs}
 						editedPlaylist={editedPlaylist}
 						isCreating={isCreating}
 						handleClose={this.handleClose}
