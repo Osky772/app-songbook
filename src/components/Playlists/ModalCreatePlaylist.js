@@ -11,7 +11,6 @@ import { DragDropContext } from "react-beautiful-dnd";
 import SongsContainer from "./SongsContainer";
 import InfoSnackBar from "../InfoSnackBar";
 import ErrorValidateInfo from "../ErrorValidateInfo";
-
 import { db } from "../../App";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
@@ -123,8 +122,9 @@ class ModalCreatePlaylist extends Component {
 						alert("Error has occurred");
 					});
 			} else {
-				db.ref("playlists")
-					.push(playlist)
+				const newPlaylistRef = db.ref("playlists").push();
+				newPlaylistRef
+					.set(playlist)
 					.then(() => {
 						alert("Added playlist successfully");
 						this.props.handleSelectSongs([]);

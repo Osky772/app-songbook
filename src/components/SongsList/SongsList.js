@@ -8,6 +8,7 @@ import SearchForm from "../SearchForm";
 import { PageWrapper } from "../containers/StyledContainers";
 import SongElement from "./SongElement";
 import Button from "@material-ui/core/Button";
+import { db } from "../../App";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -57,9 +58,17 @@ class SongsList extends Component {
 
 	static getDerivedStateFromProps(props, state) {
 		if (props.selectedSongs.length !== state.selectedSongs.length) {
+			// const checked = state.songs.reduce(
+			// 	(options, song) => ({
+			// 		...options,
+			// 		[song.id]: false
+			// 	}),
+			// 	{}
+			// );
 			return {
 				...state,
 				selectedSongs: props.selectedSongs
+				// checked
 			};
 		}
 
