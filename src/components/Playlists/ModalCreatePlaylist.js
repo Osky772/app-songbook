@@ -111,8 +111,8 @@ class ModalCreatePlaylist extends Component {
 			});
 		} else {
 			if (playlist.id) {
-				db.ref("playlists")
-					.update(playlist)
+				db.ref(`playlists/${playlist.id}`)
+					.update({ ...playlist, id: null })
 					.then(() => {
 						alert("Playlist edited successfully");
 						this.props.handleSelectSongs([]);
