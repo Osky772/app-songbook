@@ -19,7 +19,8 @@ var config = {
 };
 firebase.initializeApp(config);
 
-const db = firebase.database();
+export const db = firebase.database();
+console.log(db);
 
 class App extends Component {
 	state = {

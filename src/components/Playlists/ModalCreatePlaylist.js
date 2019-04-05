@@ -12,6 +12,8 @@ import SongsContainer from "./SongsContainer";
 import InfoSnackBar from "../InfoSnackBar";
 import ErrorValidateInfo from "../ErrorValidateInfo";
 
+import { db } from "../../App";
+
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
 class ModalCreatePlaylist extends Component {
@@ -123,10 +125,8 @@ class ModalCreatePlaylist extends Component {
 						alert("Error has occurred");
 					});
 			} else {
-				fetch(`${BASE_URL}/playlists.json`, {
-					method: "POST",
-					body: JSON.stringify(this.state.playlist)
-				})
+				db.ref("playlists")
+					.push(this.state.playlist)
 					.then(() => {
 						alert("Added playlist successfully");
 						this.props.handleSelectSongs([]);
@@ -195,6 +195,7 @@ class ModalCreatePlaylist extends Component {
 			playlist: { songs = [], title = "" }
 		} = this.state;
 		const { selectedSongs } = this.props;
+		console.log(db);
 
 		return (
 			<DragDropContext onDragEnd={this.onDragEnd}>
