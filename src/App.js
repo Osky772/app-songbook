@@ -20,7 +20,6 @@ var config = {
 firebase.initializeApp(config);
 
 export const db = firebase.database();
-console.log(db);
 
 class App extends Component {
 	state = {

@@ -111,11 +111,9 @@ class ModalCreatePlaylist extends Component {
 				error
 			});
 		} else {
-			if (this.state.playlist.id) {
-				fetch(`${BASE_URL}/playlists/${this.state.playlist.id}.json`, {
-					method: "PUT",
-					body: JSON.stringify(this.state.playlist)
-				})
+			if (playlist.id) {
+				db.ref("playlists")
+					.update(playlist)
 					.then(() => {
 						alert("Playlist edited successfully");
 						this.props.handleSelectSongs([]);
@@ -126,7 +124,7 @@ class ModalCreatePlaylist extends Component {
 					});
 			} else {
 				db.ref("playlists")
-					.push(this.state.playlist)
+					.push(playlist)
 					.then(() => {
 						alert("Added playlist successfully");
 						this.props.handleSelectSongs([]);
@@ -195,7 +193,6 @@ class ModalCreatePlaylist extends Component {
 			playlist: { songs = [], title = "" }
 		} = this.state;
 		const { selectedSongs } = this.props;
-		console.log(db);
 
 		return (
 			<DragDropContext onDragEnd={this.onDragEnd}>
