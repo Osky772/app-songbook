@@ -8,6 +8,18 @@ import Song from "./components/Song";
 import InitPage from "./components/InitPage";
 import Playlist from "./components/Playlists/Playlist";
 
+var config = {
+	apiKey: "AIzaSyC8W028Pyt7eD2EXrvnqlAmXSD0zB007t4",
+	authDomain: "app-songbook.firebaseapp.com",
+	databaseURL: "https://app-songbook.firebaseio.com",
+	projectId: "app-songbook",
+	storageBucket: "app-songbook.appspot.com",
+	messagingSenderId: "666603805553"
+};
+firebase.initializeApp(config);
+
+const db = firebase.database();
+
 class App extends Component {
 	state = {
 		song: "",
