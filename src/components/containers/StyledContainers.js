@@ -13,6 +13,7 @@ const Wrapper = ({ className, children }) => (
 export const PageWrapper = styled(Wrapper)`
 	max-width: 1000px;
 	margin: 0 auto;
+	padding-top: 80px;
 	display: flex;
 	justify-content: center;
 `;

@@ -4,6 +4,7 @@ import Modal from "@material-ui/core/Modal";
 import { ContainerModal, WrapperInModal } from "../containers/StyledContainers";
 import FormAddSong from "./FormAddSong";
 import ModalPreviewSong from "./ModalPreviewSong";
+import { db } from "../../App";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -101,10 +102,9 @@ class CreateSongModal extends Component {
 				error
 			});
 		} else {
-			fetch(`${BASE_URL}/songs.json`, {
-				method: "POST",
-				body: JSON.stringify({ ...this.state.song })
-			})
+			db.ref("songs")
+				.push()
+				.set(song)
 				.then(() => {
 					alert("Added song successfully");
 					this.setState({
