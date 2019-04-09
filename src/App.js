@@ -37,6 +37,7 @@ class App extends Component {
 		return (
 			<Fragment>
 				<CssBaseline />
+				{/* // Todo: handle app bar tab highligh on links */}
 				<Header
 					selectedSongs={selectedSongs}
 					handleSelectSongs={this.handleSelectSongs}

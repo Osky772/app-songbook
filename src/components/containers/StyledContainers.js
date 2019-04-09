@@ -13,7 +13,7 @@ const Wrapper = ({ className, children }) => (
 export const PageWrapper = styled(Wrapper)`
 	max-width: 1000px;
 	margin: 0 auto;
-	padding-top: 80px;
+	padding-top: 40px;
 	display: flex;
 	justify-content: center;
 `;
@@ -69,4 +69,10 @@ export const FormWrapper = styled.div`
 	height: 100%;
 	overflow: auto;
 	position: relative;
+`;
+
+export const SignWrapper = styled.div`
+	height: 600px;
+	width: 600px;
+	padding: 20px;
 `;

@@ -13,8 +13,6 @@ import InfoSnackBar from "../InfoSnackBar";
 import ErrorValidateInfo from "../ErrorValidateInfo";
 import { db } from "../../App";
 
-const BASE_URL = "https://app-songbook.firebaseio.com/";
-
 class ModalCreatePlaylist extends Component {
 	state = {
 		isCreating: false,

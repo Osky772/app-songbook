@@ -11,10 +11,12 @@ import { GiSpellBook } from "react-icons/gi";
 import ModalCreateSong from "./CreateSongModal/CreateSongModal";
 import CreatePDF from "./CreatePDF";
 import CreatePlaylist from "./Playlists/CreatePlaylist";
+import SignModal from "./Sign/SignModal";
 
 const styles = {
 	firstAppBar: {
-		position: "static"
+		position: "static",
+		boxShadow: "none"
 	},
 	secondAppBar: {
 		position: "sticky"
@@ -40,15 +42,33 @@ const styles = {
 
 class Header extends Component {
 	state = {
-		value: 0
+		value: 0,
+		isSignedUp: false,
+		isOpen: false
 	};
 
 	handleChange = (e, value) => {
 		this.setState({ value });
 	};
 
+	handleSignInOpen = () => {
+		this.setState({ isOpen: true, isSignedUp: false });
+	};
+
+	handleSignUpOpen = () => {
+		this.setState({ isOpen: true, isSignedUp: true });
+	};
+
+	handleOpen = () => {
+		this.setState({ isOpen: true });
+	};
+
+	handleClose = () => {
+		this.setState({ isOpen: false });
+	};
+
 	render() {
-		const { value } = this.state;
+		const { value, isSignedUp, isOpen } = this.state;
 		const { selectedSongs, editedPlaylist, handleSelectSongs } = this.props;
 
 		return (
@@ -68,13 +88,13 @@ class Header extends Component {
 							</Typography>
 						</Grid>
 						<Grid item lg={8} style={styles.flexEnd}>
-							<CreatePlaylist
-								editedPlaylist={editedPlaylist}
-								selectedSongs={selectedSongs}
-								handleSelectSongs={handleSelectSongs}
+							<SignModal
+								isOpen={isOpen}
+								isSignedUp={isSignedUp}
+								handleClose={this.handleClose}
 							/>
-							<Button>Zaloguj się</Button>
-							<Button>Zarejestruj się</Button>
+							<Button onClick={this.handleSignInOpen}>Zaloguj się</Button>
+							<Button onClick={this.handleSignUpOpen}>Zarejestruj się</Button>
 						</Grid>
 					</Grid>
 				</AppBar>
@@ -94,6 +114,11 @@ class Header extends Component {
 						</Grid>
 						<Grid item lg={8} style={styles.flexEnd}>
 							<ModalCreateSong />
+							<CreatePlaylist
+								editedPlaylist={editedPlaylist}
+								selectedSongs={selectedSongs}
+								handleSelectSongs={handleSelectSongs}
+							/>
 							<CreatePDF songs={selectedSongs} />
 						</Grid>
 					</Grid>
