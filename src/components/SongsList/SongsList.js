@@ -8,6 +8,7 @@ import SearchForm from "../SearchForm";
 import { PageWrapper } from "../containers/StyledContainers";
 import SongElement from "./SongElement";
 import Button from "@material-ui/core/Button";
+import { db } from "../../App";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -20,7 +21,7 @@ class SongsList extends Component {
 		checked: {}
 	};
 
-	componentDidMount() {
+	fetchSongs = () => {
 		fetch(`${BASE_URL}/songs.json`)
 			.then(r => r.json())
 			.then(songs => {
@@ -46,28 +47,34 @@ class SongsList extends Component {
 					(acc, next) => ({ ...acc, [next]: true }),
 					{}
 				);
-
 				this.setState({
 					...this.state,
 					selectedSongs,
 					checked: Object.assign(checked, checkedSelectedSongs)
 				});
 			});
+	};
+
+	componentDidMount() {
+		const onValueChange = dataSnapshot => {
+			this.fetchSongs();
+		};
+		db.ref("songs").on("value", onValueChange);
+	}
+
+	componentWillUnmount() {
+		console.log("umount");
+		const onValueChange = dataSnapshot => {
+			this.fetchSongs();
+		};
+		db.ref("songs").off("value", onValueChange);
 	}
 
 	static getDerivedStateFromProps(props, state) {
 		if (props.selectedSongs.length !== state.selectedSongs.length) {
-			// const checked = state.songs.reduce(
-			// 	(options, song) => ({
-			// 		...options,
-			// 		[song.id]: false
-			// 	}),
-			// 	{}
-			// );
 			return {
 				...state,
 				selectedSongs: props.selectedSongs
-				// checked
 			};
 		}
 
