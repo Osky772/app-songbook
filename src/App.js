@@ -23,6 +23,7 @@ export const db = firebase.database();
 
 class App extends Component {
 	state = {
+		user: null,
 		song: "",
 		selectedSongs: []
 	};
@@ -31,8 +32,25 @@ class App extends Component {
 		this.setState({ selectedSongs });
 	};
 
+	componentDidMount() {
+		const ref = firebase.auth().onAuthStateChanged(user =>
+			this.setState({
+				user
+			})
+		);
+
+		this.setState({
+			ref
+		});
+	}
+
+	componentWillUnmount() {
+		this.state.ref && this.state.ref();
+	}
+
 	render() {
-		const { selectedSongs } = this.state;
+		const { selectedSongs, user } = this.state;
+		console.log(this.state.user);
 
 		return (
 			<Fragment>
@@ -41,6 +59,7 @@ class App extends Component {
 				<Header
 					selectedSongs={selectedSongs}
 					handleSelectSongs={this.handleSelectSongs}
+					user={user}
 				/>
 				<Route exact path="/" render={props => <InitPage {...props} />} />
 				<Route path={"/lista-piosenek/:songId"} component={Song} />

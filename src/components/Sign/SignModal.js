@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Modal from "@material-ui/core/Modal";
-import { SignWrapper } from "../containers/StyledContainers";
 import Avatar from "@material-ui/core/Avatar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { withStyles } from "@material-ui/core/styles";
@@ -11,7 +10,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import { stat } from "fs";
+import * as firebase from "firebase";
 
 const styles = theme => ({
 	main: {
@@ -48,6 +47,8 @@ const styles = theme => ({
 
 class SignModal extends Component {
 	state = {
+		email: "",
+		password: "",
 		open: false
 	};
 
@@ -57,9 +58,40 @@ class SignModal extends Component {
 				open: props.isOpen
 			};
 		}
-
 		return null;
 	}
+
+	handleChange = event => {
+		this.setState({
+			[event.currentTarget.name]: event.target.value
+		});
+	};
+
+	handleSubmit = e => {
+		e.preventDefault();
+		if (this.props.isSignedUp) {
+			firebase
+				.auth()
+				.createUserWithEmailAndPassword(this.state.email, this.state.password)
+				.then(() => {
+					alert("rejestracja sie udala, yay !");
+				})
+				.catch(error => {
+					alert(error.message);
+				});
+		} else {
+			firebase
+				.auth()
+				.signInWithEmailAndPassword(this.state.email, this.state.password)
+				.then(() => {
+					alert("logowanie sie udalo, yay !");
+				})
+				.catch(error => {
+					alert(error.message);
+					this.props.handleClose();
+				});
+		}
+	};
 
 	render() {
 		const { classes, isSignedUp, isOpen, handleClose } = this.props;
@@ -75,30 +107,27 @@ class SignModal extends Component {
 						<Typography component="h1" variant="h5">
 							{title}
 						</Typography>
-						<form
-							className={classes.form}
-							// onSubmit={this.handleSubmit}
-						>
+						<form className={classes.form} onSubmit={this.handleSubmit}>
 							<FormControl margin="normal" required fullWidth>
-								<InputLabel htmlFor="email">Email Address</InputLabel>
+								<InputLabel htmlFor="email">Adres email</InputLabel>
 								<Input
 									id="email"
 									name="email"
 									autoComplete="email"
 									autoFocus
-									// value={this.state.email}
-									// onChange={this.handleChange}
+									value={this.state.email}
+									onChange={this.handleChange}
 								/>
 							</FormControl>
 							<FormControl margin="normal" required fullWidth>
-								<InputLabel htmlFor="password">Password</InputLabel>
+								<InputLabel htmlFor="password">Hasło</InputLabel>
 								<Input
 									name="password"
 									type="password"
 									id="password"
 									autoComplete="current-password"
-									// value={this.state.password}
-									// onChange={this.handleChange}
+									value={this.state.password}
+									onChange={this.handleChange}
 								/>
 							</FormControl>
 							<Button

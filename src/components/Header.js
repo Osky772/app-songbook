@@ -12,6 +12,7 @@ import ModalCreateSong from "./CreateSongModal/CreateSongModal";
 import CreatePDF from "./CreatePDF";
 import CreatePlaylist from "./Playlists/CreatePlaylist";
 import SignModal from "./Sign/SignModal";
+import * as firebase from "firebase";
 
 const styles = {
 	firstAppBar: {
@@ -67,9 +68,18 @@ class Header extends Component {
 		this.setState({ isOpen: false });
 	};
 
+	logOut = () => {
+		firebase.auth().signOut();
+	};
+
 	render() {
 		const { value, isSignedUp, isOpen } = this.state;
-		const { selectedSongs, editedPlaylist, handleSelectSongs } = this.props;
+		const {
+			user,
+			selectedSongs,
+			editedPlaylist,
+			handleSelectSongs
+		} = this.props;
 
 		return (
 			<Fragment>
@@ -88,13 +98,21 @@ class Header extends Component {
 							</Typography>
 						</Grid>
 						<Grid item lg={8} style={styles.flexEnd}>
-							<SignModal
-								isOpen={isOpen}
-								isSignedUp={isSignedUp}
-								handleClose={this.handleClose}
-							/>
-							<Button onClick={this.handleSignInOpen}>Zaloguj się</Button>
-							<Button onClick={this.handleSignUpOpen}>Zarejestruj się</Button>
+							{user ? (
+								<Button onClick={this.logOut}>Wyloguj się</Button>
+							) : (
+								<Fragment>
+									<SignModal
+										isOpen={isOpen}
+										isSignedUp={isSignedUp}
+										handleClose={this.handleClose}
+									/>
+									<Button onClick={this.handleSignInOpen}>Zaloguj się</Button>
+									<Button onClick={this.handleSignUpOpen}>
+										Zarejestruj się
+									</Button>
+								</Fragment>
+							)}
 						</Grid>
 					</Grid>
 				</AppBar>

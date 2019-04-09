@@ -70,9 +70,3 @@ export const FormWrapper = styled.div`
 	overflow: auto;
 	position: relative;
 `;
-
-export const SignWrapper = styled.div`
-	height: 600px;
-	width: 600px;
-	padding: 20px;
-`;
