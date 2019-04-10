@@ -22,6 +22,7 @@ class SongsList extends Component {
 	};
 
 	fetchSongs = () => {
+		console.log("fetch");
 		fetch(`${BASE_URL}/songs.json`)
 			.then(r => r.json())
 			.then(songs => {
@@ -71,12 +72,20 @@ class SongsList extends Component {
 
 	static getDerivedStateFromProps(props, state) {
 		if (props.selectedSongs.length !== state.selectedSongs.length) {
+			const { songs } = state;
+			const checked = songs.reduce(
+				(options, song) => ({
+					...options,
+					[song.id]: false
+				}),
+				{}
+			);
 			return {
 				...state,
-				selectedSongs: props.selectedSongs
+				selectedSongs: props.selectedSongs,
+				checked
 			};
 		}
-
 		return null;
 	}
 
@@ -161,6 +170,8 @@ class SongsList extends Component {
 			: songsList;
 
 		const uniqueCategories = [...new Set(songs.map(song => song.category))];
+		console.log(this.state);
+		console.log(this.props);
 
 		return (
 			<PageWrapper>

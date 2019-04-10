@@ -31,9 +31,6 @@ class ModalCreatePlaylist extends Component {
 
 	static getDerivedStateFromProps(props, state) {
 		// To create new playlist
-		console.log(state.playlist.songs);
-		console.log(state);
-		console.log(props);
 		if (
 			props.isCreating &&
 			props.selectedSongs !== undefined &&
@@ -128,31 +125,35 @@ class ModalCreatePlaylist extends Component {
 				isError: true,
 				error
 			});
-		} else {
-			if (playlist.id) {
-				db.ref(`playlists/${playlist.id}`)
-					.update({ ...playlist, id: null })
-					.then(() => {
-						alert("Playlist edited successfully");
-						this.props.handleSelectSongs([]);
-					})
-					.then(() => this.props.fetchData())
-					.catch(err => {
-						alert("Error has occurred");
-					});
-			} else {
-				const newPlaylistRef = db.ref("playlists/public").push();
-				newPlaylistRef
-					.set(playlist)
-					.then(() => {
-						alert("Added playlist successfully");
-						this.props.handleSelectSongs([]);
-						this.props.handleClose();
-					})
-					.catch(err => {
-						alert(err, "Error has occurred");
-					});
-			}
+			return;
+		}
+
+		if (playlist.id) {
+			db.ref(`playlists/public/${playlist.id}`)
+				.update({ ...playlist, id: null })
+				.then(() => {
+					alert("Playlist edited successfully");
+					this.props.handleSelectSongs([]);
+				})
+				.then(() => this.props.fetchData())
+				.catch(err => {
+					alert("Error has occurred");
+				});
+			return;
+		}
+		if (playlist.id === null) {
+			const newPlaylistRef = db.ref("playlists/public").push();
+			newPlaylistRef
+				.set(playlist)
+				.then(() => {
+					alert("Added playlist successfully");
+					this.props.handleSelectSongs([]);
+					this.props.handleClose();
+				})
+				.catch(err => {
+					alert(err, "Error has occurred");
+				});
+			return;
 		}
 	};
 
