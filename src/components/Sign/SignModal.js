@@ -69,11 +69,20 @@ class SignModal extends Component {
 
 	handleSubmit = e => {
 		e.preventDefault();
+		const { email, password } = this.state;
 		if (this.props.isSignedUp) {
 			firebase
 				.auth()
-				.createUserWithEmailAndPassword(this.state.email, this.state.password)
+				.createUserWithEmailAndPassword(email, password)
 				.then(() => {
+					firebase
+						.database()
+						.ref("users")
+						.push()
+						.set({
+							email,
+							password
+						});
 					alert("rejestracja sie udala, yay !");
 				})
 				.catch(error => {
@@ -82,7 +91,7 @@ class SignModal extends Component {
 		} else {
 			firebase
 				.auth()
-				.signInWithEmailAndPassword(this.state.email, this.state.password)
+				.signInWithEmailAndPassword(email, password)
 				.then(() => {
 					alert("logowanie sie udalo, yay !");
 				})

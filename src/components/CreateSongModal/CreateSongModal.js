@@ -6,8 +6,6 @@ import FormAddSong from "./FormAddSong";
 import ModalPreviewSong from "./ModalPreviewSong";
 import { db } from "../../App";
 
-const BASE_URL = "https://app-songbook.firebaseio.com/";
-
 class CreateSongModal extends Component {
 	state = {
 		open: false,

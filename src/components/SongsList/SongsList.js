@@ -6,7 +6,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import SearchForm from "../SearchForm";
 import { PageWrapper } from "../containers/StyledContainers";
-import SongElement from "./SongElement";
+import SongRow from "./SongRow";
 import Button from "@material-ui/core/Button";
 import { db } from "../../App";
 
@@ -63,7 +63,6 @@ class SongsList extends Component {
 	}
 
 	componentWillUnmount() {
-		console.log("umount");
 		const onValueChange = dataSnapshot => {
 			this.fetchSongs();
 		};
@@ -203,7 +202,7 @@ class SongsList extends Component {
 						</Button>
 						<Button onClick={this.handleClearSelectAll}>Wyczyść</Button>
 						{songsList.map(song => (
-							<SongElement
+							<SongRow
 								key={song.id}
 								song={song}
 								checked={checked}

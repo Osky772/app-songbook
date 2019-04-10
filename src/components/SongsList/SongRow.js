@@ -5,7 +5,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 import { SongsListRow } from "../containers/StyledContainers";
 
-const SongElement = props => {
+const SongRow = props => {
 	const {
 		song: { id, performer, title, category },
 		handleCheckboxSelect,
@@ -32,4 +32,4 @@ const SongElement = props => {
 	);
 };
 
-export default SongElement;
+export default SongRow;

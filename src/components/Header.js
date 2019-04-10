@@ -60,10 +60,6 @@ class Header extends Component {
 		this.setState({ isOpen: true, isSignedUp: true });
 	};
 
-	handleOpen = () => {
-		this.setState({ isOpen: true });
-	};
-
 	handleClose = () => {
 		this.setState({ isOpen: false });
 	};
@@ -132,11 +128,13 @@ class Header extends Component {
 						</Grid>
 						<Grid item lg={8} style={styles.flexEnd}>
 							<ModalCreateSong />
-							<CreatePlaylist
-								editedPlaylist={editedPlaylist}
-								selectedSongs={selectedSongs}
-								handleSelectSongs={handleSelectSongs}
-							/>
+							{user ? (
+								<CreatePlaylist
+									editedPlaylist={editedPlaylist}
+									selectedSongs={selectedSongs}
+									handleSelectSongs={handleSelectSongs}
+								/>
+							) : null}
 							<CreatePDF songs={selectedSongs} />
 						</Grid>
 					</Grid>
