@@ -18,7 +18,7 @@ export const PageWrapper = styled(Wrapper)`
 	justify-content: center;
 `;
 
-export const PlaylistContainer = styled(PageWrapper)`
+export const ListContainer = styled(PageWrapper)`
 	flex-direction: column;
 `;
 
@@ -44,7 +44,7 @@ export const ContainerModal = styled.div`
 	align-items: center;
 `;
 
-export const PlaylistItem = styled(PaperContainer)`
+export const ListItem = styled(PaperContainer)`
 	width: 80%;
 	margin-bottom: 20px;
 	margin: 0 auto 20px auto;

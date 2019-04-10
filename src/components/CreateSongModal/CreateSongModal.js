@@ -100,7 +100,7 @@ class CreateSongModal extends Component {
 				error
 			});
 		} else {
-			db.ref("songs")
+			db.ref("songs-to-approve")
 				.push()
 				.set(song)
 				.then(() => {

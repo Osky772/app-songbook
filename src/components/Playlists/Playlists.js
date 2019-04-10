@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import {
 	SongsListRow,
-	PlaylistItem,
-	PlaylistContainer
+	ListItem,
+	ListContainer
 } from "../containers/StyledContainers";
 import Typography from "@material-ui/core/Typography";
 import SearchForm from "../SearchForm";
@@ -49,14 +49,14 @@ class Playlists extends Component {
 		});
 
 		return (
-			<PlaylistContainer>
+			<ListContainer>
 				<SearchForm
 					handleChange={this.handleInputChange}
 					label="Wyszukaj playlistę"
 					placeholder="Wpisz nazwę playlisty"
 				/>
 				{searchedPlaylists.map(playlist => (
-					<PlaylistItem key={playlist.id}>
+					<ListItem key={playlist.id}>
 						<Link key={playlist.id} to={`/playlisty/${playlist.id}`}>
 							<h1>{playlist.title}</h1>
 							{playlist.songs !== undefined &&
@@ -73,9 +73,9 @@ class Playlists extends Component {
 									</SongsListRow>
 								))}
 						</Link>
-					</PlaylistItem>
+					</ListItem>
 				))}
-			</PlaylistContainer>
+			</ListContainer>
 		);
 	}
 }
