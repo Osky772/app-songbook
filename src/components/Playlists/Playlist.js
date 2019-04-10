@@ -23,7 +23,7 @@ class Playlist extends Component {
 
 	getPlaylist = () => {
 		const { playlistId } = this.props.match.params;
-		fetch(`${BASE_URL}/playlists/${playlistId}.json`)
+		fetch(`${BASE_URL}/playlists/public/${playlistId}.json`)
 			.then(r => r.json())
 			.then(playlist => {
 				this.setState({
@@ -48,7 +48,7 @@ class Playlist extends Component {
 	};
 
 	handleRemovePlaylist = playlistId => {
-		fetch(`${BASE_URL}/playlists/${playlistId}.json`, {
+		fetch(`${BASE_URL}/playlists/public/${playlistId}.json`, {
 			method: "DELETE"
 		})
 			.then(() => alert("Removed playlist successfully"))

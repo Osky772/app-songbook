@@ -11,6 +11,9 @@ import { DragDropContext } from "react-beautiful-dnd";
 import SongsContainer from "./SongsContainer";
 import InfoSnackBar from "../InfoSnackBar";
 import ErrorValidateInfo from "../ErrorValidateInfo";
+import Select from "@material-ui/core/Select";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
 import { db } from "../../App";
 
 class ModalCreatePlaylist extends Component {
@@ -21,24 +24,31 @@ class ModalCreatePlaylist extends Component {
 		playlist: {
 			id: null,
 			title: "",
+			isPublic: false,
 			songs: []
 		}
 	};
 
 	static getDerivedStateFromProps(props, state) {
 		// To create new playlist
+		console.log(state.playlist.songs);
+		console.log(state);
+		console.log(props);
 		if (
 			props.isCreating &&
 			props.selectedSongs !== undefined &&
+			state.playlist.songs !== undefined &&
 			state.playlist.songs.length === 0 &&
 			props.selectedSongs.length !== 0 &&
 			props.isEditing !== true &&
 			state.isEditing !== true
 		) {
+			console.log("here");
 			return {
 				...state,
 				isCreating: true,
 				playlist: {
+					...state.playlist,
 					title: "",
 					songs: props.selectedSongs
 				}
@@ -51,6 +61,7 @@ class ModalCreatePlaylist extends Component {
 			props.isEditing &&
 			state.isEditing !== true
 		) {
+			console.log("here2");
 			const playListSongsArray =
 				props.editedPlaylist.songs === undefined
 					? []
@@ -71,7 +82,7 @@ class ModalCreatePlaylist extends Component {
 				isEditing: true
 			};
 		}
-
+		console.log("here null");
 		return null;
 	}
 
@@ -81,6 +92,16 @@ class ModalCreatePlaylist extends Component {
 			playlist: {
 				...this.state.playlist,
 				title: e.target.value
+			}
+		});
+	};
+
+	handleSelectChange = e => {
+		this.setState({
+			...this.state,
+			playlist: {
+				...this.state.playlist,
+				isPublic: e.target.value
 			}
 		});
 	};
@@ -120,7 +141,7 @@ class ModalCreatePlaylist extends Component {
 						alert("Error has occurred");
 					});
 			} else {
-				const newPlaylistRef = db.ref("playlists").push();
+				const newPlaylistRef = db.ref("playlists/public").push();
 				newPlaylistRef
 					.set(playlist)
 					.then(() => {
@@ -188,7 +209,7 @@ class ModalCreatePlaylist extends Component {
 			isEditing,
 			isError,
 			error,
-			playlist: { songs = [], title = "" }
+			playlist: { songs = [], title = "", isPublic = false }
 		} = this.state;
 		const { selectedSongs } = this.props;
 
@@ -218,6 +239,24 @@ class ModalCreatePlaylist extends Component {
 											shrink: true
 										}}
 									/>
+									<FormControl>
+										<InputLabel shrink htmlFor="select-multiple-native">
+											Publiczne czy prywatne
+										</InputLabel>
+										<Select
+											native
+											value={isPublic}
+											onChange={this.handleSelectChange}
+											name="is-public"
+											inputProps={{
+												id: "select-multiple-native"
+											}}
+										>
+											<option value="">Wybierz kategorię...</option>
+											<option value={true}>Publiczne</option>
+											<option value={false}>Prywatne</option>
+										</Select>
+									</FormControl>
 									<SongsContainer
 										songs={songs}
 										selectedSongs={selectedSongs}

@@ -19,7 +19,7 @@ class Playlists extends Component {
 	};
 
 	getPlaylists = () => {
-		fetch(`${BASE_URL}/playlists.json`)
+		fetch(`${BASE_URL}/playlists/public.json`)
 			.then(r => r.json())
 			.then(playlists => {
 				const arrayPlaylists =
