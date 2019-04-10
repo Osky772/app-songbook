@@ -40,7 +40,6 @@ class ModalCreatePlaylist extends Component {
 			props.isEditing !== true &&
 			state.isEditing !== true
 		) {
-			console.log("here");
 			return {
 				...state,
 				isCreating: true,
@@ -58,7 +57,6 @@ class ModalCreatePlaylist extends Component {
 			props.isEditing &&
 			state.isEditing !== true
 		) {
-			console.log("here2");
 			const playListSongsArray =
 				props.editedPlaylist.songs === undefined
 					? []
@@ -79,7 +77,6 @@ class ModalCreatePlaylist extends Component {
 				isEditing: true
 			};
 		}
-		console.log("here null");
 		return null;
 	}
 

@@ -74,8 +74,8 @@ class SignModal extends Component {
 			firebase
 				.auth()
 				.createUserWithEmailAndPassword(email, password)
-				.then(val => {
-					console.log(val);
+				.then(user => {
+					console.log(user);
 					firebase
 						.database()
 						.ref("users")

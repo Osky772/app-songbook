@@ -102,7 +102,7 @@ class CreateSongModal extends Component {
 		} else {
 			db.ref("songs-to-approve")
 				.push()
-				.set(song)
+				.set({ ...song, isApproved: false })
 				.then(() => {
 					alert("Added song successfully");
 					this.setState({
