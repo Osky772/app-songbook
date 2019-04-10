@@ -31,7 +31,8 @@ const styles = {
 	},
 	flexEnd: {
 		display: "flex",
-		justifyContent: "flex-end"
+		justifyContent: "flex-end",
+		alignItems: "center"
 	},
 	maxWidth: {
 		maxWidth: 1030,
@@ -95,7 +96,10 @@ class Header extends Component {
 						</Grid>
 						<Grid item lg={8} style={styles.flexEnd}>
 							{user ? (
-								<Button onClick={this.logOut}>Wyloguj się</Button>
+								<Fragment>
+									{user.email}
+									<Button onClick={this.logOut}>Wyloguj się</Button>
+								</Fragment>
 							) : (
 								<Fragment>
 									<SignModal
@@ -133,6 +137,7 @@ class Header extends Component {
 									editedPlaylist={editedPlaylist}
 									selectedSongs={selectedSongs}
 									handleSelectSongs={handleSelectSongs}
+									user={user}
 								/>
 							) : null}
 							<CreatePDF songs={selectedSongs} />

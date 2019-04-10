@@ -43,11 +43,12 @@ class App extends Component {
 	};
 
 	componentDidMount() {
-		const ref = firebase.auth().onAuthStateChanged(user =>
+		const ref = firebase.auth().onAuthStateChanged(user => {
+			console.log(user);
 			this.setState({
 				user
-			})
-		);
+			});
+		});
 
 		this.setState({
 			ref
@@ -92,6 +93,7 @@ class App extends Component {
 							{...props}
 							selectedSongs={selectedSongs}
 							handleSelectSongs={this.handleSelectSongs}
+							user={user}
 						/>
 					)}
 				/>

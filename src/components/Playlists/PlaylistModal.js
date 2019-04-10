@@ -15,8 +15,9 @@ import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import { db } from "../../App";
+import { auth } from "firebase";
 
-class ModalCreatePlaylist extends Component {
+class PlaylistModal extends Component {
 	state = {
 		isCreating: false,
 		isEditing: false,
@@ -95,7 +96,7 @@ class ModalCreatePlaylist extends Component {
 			...this.state,
 			playlist: {
 				...this.state.playlist,
-				isPublic: e.target.value
+				isPublic: Boolean(e.target.value)
 			}
 		});
 	};
@@ -103,6 +104,7 @@ class ModalCreatePlaylist extends Component {
 	handleFormSubmit = e => {
 		e.preventDefault();
 		const { playlist } = this.state;
+		const { user } = this.props;
 		const required = Object.keys(playlist).filter(key => key !== "id");
 		const emptyValues = required.filter(
 			key => playlist[key] === "" || playlist[key].length === 0
@@ -126,29 +128,34 @@ class ModalCreatePlaylist extends Component {
 		}
 
 		if (playlist.id) {
-			db.ref(`playlists/public/${playlist.id}`)
-				.update({ ...playlist, id: null })
+			db.ref(`playlists/${playlist.id}`)
+				.update(playlist)
 				.then(() => {
 					alert("Playlist edited successfully");
 					this.props.handleSelectSongs([]);
 				})
 				.then(() => this.props.fetchData())
 				.catch(err => {
-					alert("Error has occurred");
+					alert(err.message);
 				});
 			return;
 		}
 		if (playlist.id === null) {
-			const newPlaylistRef = db.ref("playlists/public").push();
+			const newPlaylistRef = db.ref("playlists").push();
 			newPlaylistRef
-				.set(playlist)
+				.set({
+					...playlist,
+					id: newPlaylistRef.key,
+					userId: user.uid,
+					userEmail: user.email
+				})
 				.then(() => {
 					alert("Added playlist successfully");
 					this.props.handleSelectSongs([]);
 					this.props.handleClose();
 				})
 				.catch(err => {
-					alert(err, "Error has occurred");
+					alert(err.message);
 				});
 			return;
 		}
@@ -209,7 +216,7 @@ class ModalCreatePlaylist extends Component {
 			error,
 			playlist: { songs = [], title = "", isPublic = false }
 		} = this.state;
-		const { selectedSongs } = this.props;
+		const { selectedSongs, user } = this.props;
 
 		return (
 			<DragDropContext onDragEnd={this.onDragEnd}>
@@ -275,4 +282,4 @@ class ModalCreatePlaylist extends Component {
 	}
 }
 
-export default ModalCreatePlaylist;
+export default PlaylistModal;

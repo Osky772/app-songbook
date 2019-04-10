@@ -22,7 +22,6 @@ class SongsList extends Component {
 	};
 
 	fetchSongs = () => {
-		console.log("fetch");
 		fetch(`${BASE_URL}/songs.json`)
 			.then(r => r.json())
 			.then(songs => {
@@ -170,8 +169,6 @@ class SongsList extends Component {
 			: songsList;
 
 		const uniqueCategories = [...new Set(songs.map(song => song.category))];
-		console.log(this.state);
-		console.log(this.props);
 
 		return (
 			<PageWrapper>

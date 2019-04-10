@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import Button from "@material-ui/core/Button";
-import ModalCreatePlaylist from "./ModalCreatePlaylist";
+import PlaylistModal from "./PlaylistModal";
 
 class CreatePlaylist extends Component {
 	state = {
@@ -21,7 +21,8 @@ class CreatePlaylist extends Component {
 		const {
 			selectedSongs = [],
 			editedPlaylist = "",
-			handleSelectSongs
+			handleSelectSongs,
+			user
 		} = this.props;
 
 		return (
@@ -34,12 +35,13 @@ class CreatePlaylist extends Component {
 					DODAJ PLAYLISTĘ
 				</Button>
 				{isCreating && (
-					<ModalCreatePlaylist
+					<PlaylistModal
 						selectedSongs={selectedSongs}
 						handleSelectSongs={handleSelectSongs}
 						editedPlaylist={editedPlaylist}
 						isCreating={isCreating}
 						handleClose={this.handleClose}
+						user={user}
 					/>
 				)}
 			</Fragment>

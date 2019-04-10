@@ -11,7 +11,8 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { formatSongDescription, styles as songStyles } from "../Song";
 import CreatePDF from "../CreatePDF";
 import Button from "@material-ui/core/Button";
-import EditPlaylistModal from "./ModalCreatePlaylist";
+import PlaylistModal from "./PlaylistModal";
+import { db } from "../../App";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -23,7 +24,7 @@ class Playlist extends Component {
 
 	getPlaylist = () => {
 		const { playlistId } = this.props.match.params;
-		fetch(`${BASE_URL}/playlists/public/${playlistId}.json`)
+		fetch(`${BASE_URL}/playlists/${playlistId}.json`)
 			.then(r => r.json())
 			.then(playlist => {
 				this.setState({
@@ -48,11 +49,11 @@ class Playlist extends Component {
 	};
 
 	handleRemovePlaylist = playlistId => {
-		fetch(`${BASE_URL}/playlists/public/${playlistId}.json`, {
-			method: "DELETE"
-		})
+		db.ref(`playlists/${playlistId}`)
+			.remove()
 			.then(() => alert("Removed playlist successfully"))
-			.then(() => this.props.history.push("/playlisty"));
+			.then(() => this.props.history.push("/playlisty"))
+			.catch(error => alert(error.message));
 	};
 
 	render() {
@@ -61,22 +62,24 @@ class Playlist extends Component {
 			playlist,
 			playlist: { title, songs = [] }
 		} = this.state;
-		const { selectedSongs, handleSelectSongs } = this.props;
+		const { selectedSongs, handleSelectSongs, user } = this.props;
 
 		return (
 			<PageWrapper>
 				{isEditing && (
-					<EditPlaylistModal
+					<PlaylistModal
 						isEditing={isEditing}
 						editedPlaylist={playlist}
 						handleClose={this.handleCloseEditMode}
 						selectedSongs={selectedSongs}
 						handleSelectSongs={handleSelectSongs}
 						fetchData={this.getPlaylist}
+						user={user}
 					/>
 				)}
 				<PlaylistPaper>
 					<h1>{title}</h1>
+					<p>Stworzone przez: {playlist.userEmail}</p>
 					<Button onClick={() => this.handleEditPlaylist(playlist)}>
 						Edytuj
 					</Button>
