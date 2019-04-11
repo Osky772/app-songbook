@@ -74,15 +74,15 @@ class SignModal extends Component {
 			firebase
 				.auth()
 				.createUserWithEmailAndPassword(email, password)
-				.then(user => {
-					console.log(user);
+				.then(value => {
+					console.log(value);
 					firebase
 						.database()
-						.ref("users")
-						.push()
+						.ref(`users/${value.user.uid}`)
 						.set({
 							email,
-							password
+							password,
+							uid: value.user.uid
 						});
 					alert("rejestracja sie udala, yay !");
 				})

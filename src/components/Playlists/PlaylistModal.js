@@ -159,6 +159,25 @@ class PlaylistModal extends Component {
 				});
 			return;
 		}
+		// if (!playlist.isPublic && !playlist.id) {
+		// 	const newPrivatePlaylistRef = db.ref("playlists").push();
+		// 	newPlaylistRef
+		// 		.set({
+		// 			...playlist,
+		// 			id: newPlaylistRef.key,
+		// 			userId: user.uid,
+		// 			userEmail: user.email
+		// 		})
+		// 		.then(() => {
+		// 			alert("Added playlist successfully");
+		// 			this.props.handleSelectSongs([]);
+		// 			this.props.handleClose();
+		// 		})
+		// 		.catch(err => {
+		// 			alert(err.message);
+		// 		});
+		// 	return;
+		// }
 	};
 
 	handleClose = () => {
