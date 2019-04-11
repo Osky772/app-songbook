@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { db } from "../../App";
-import { ListContainer, ListItem } from "../containers/StyledContainers";
+import { ListContainer, ItemElement } from "../containers/StyledContainers";
 
 class AdminPage extends Component {
 	state = {
@@ -75,7 +75,7 @@ class AdminPage extends Component {
 			<ListContainer>
 				<h1>Admin Panel</h1>
 				{songs.map(song => (
-					<ListItem>{song.title}</ListItem>
+					<ItemElement>{song.title}</ItemElement>
 				))}
 			</ListContainer>
 		) : null;
