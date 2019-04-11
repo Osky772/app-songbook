@@ -8,7 +8,7 @@ import Song from "./components/Song";
 import InitPage from "./components/InitPage";
 import Playlist from "./components/Playlists/Playlist";
 import * as firebase from "firebase";
-import AdminPanel from "./components/Admin/AdminPanel";
+import AdminPage from "./components/Admin/AdminPage";
 
 var config = {
 	apiKey: "AIzaSyC8W028Pyt7eD2EXrvnqlAmXSD0zB007t4",
@@ -19,15 +19,6 @@ var config = {
 	messagingSenderId: "666603805553"
 };
 firebase.initializeApp(config);
-
-// var serviceAccount = require("./admin-key.json");
-
-// admin.initializeApp({
-// 	credential: admin.credential.cert(serviceAccount),
-// 	databaseURL: "https://app-songbook.firebaseio.com"
-// });
-
-// admin.auth().getUserByEmail("");
 
 export const db = firebase.database();
 
@@ -44,7 +35,6 @@ class App extends Component {
 
 	componentDidMount() {
 		const ref = firebase.auth().onAuthStateChanged(user => {
-			console.log(user);
 			this.setState({
 				user
 			});
@@ -61,8 +51,7 @@ class App extends Component {
 
 	render() {
 		const { selectedSongs, user } = this.state;
-		console.log(this.state.user);
-
+		console.log(user);
 		return (
 			<Fragment>
 				<CssBaseline />
@@ -97,7 +86,10 @@ class App extends Component {
 						/>
 					)}
 				/>
-				<Route path={"/to-approve"} component={AdminPanel} />
+				<Route
+					path={"/admin"}
+					render={props => <AdminPage user={user} {...props} />}
+				/>
 			</Fragment>
 		);
 	}

@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import { db } from "../../App";
 import { ListContainer, ListItem } from "../containers/StyledContainers";
 
-class AdminPanel extends Component {
+class AdminPage extends Component {
 	state = {
-		songs: []
+		songs: [],
+		isAdmin: false,
+		user: null
 	};
 
-	componentDidMount() {
+	getSongs = () => {
+		const { user } = this.props;
 		db.ref("songs-to-approve")
 			.once("value")
 			.then(snapshot => {
@@ -16,7 +19,12 @@ class AdminPanel extends Component {
 					id: key,
 					...songs[key]
 				}));
-				this.setState({ songs: arraySongs || [], ref: db.ref("songs") });
+				this.setState({
+					songs: arraySongs || [],
+					isAdmin: true,
+					ref: db.ref("songs"),
+					user
+				});
 			});
 
 		db.ref("songs-to-approve").on("value", snapshot => {
@@ -27,22 +35,51 @@ class AdminPanel extends Component {
 			}));
 			this.setState({ songs: arraySongs || [] });
 		});
+	};
+
+	componentDidMount() {
+		this.getSongs();
 	}
+
 	componentWillUnmount() {
+		const { user } = this.props;
 		this.state.ref && this.state.ref.off();
+
+		if (user === null) {
+			this.setState({ songs: [], isAdmin: false, user: null });
+			return;
+		}
+	}
+
+	componentDidUpdate(prevProps) {
+		if (this.props.user !== prevProps.user) {
+			this.getSongs();
+			this.setState({ user: this.props.user });
+		}
+	}
+
+	static getDerivedStateFromProps(props, state) {
+		if (props.user === null) {
+			return {
+				...state,
+				user: null,
+				isAdmin: false
+			};
+		}
+		return null;
 	}
 
 	render() {
-		const { songs = [] } = this.state;
-		return (
+		const { songs = [], isAdmin } = this.state;
+		return isAdmin ? (
 			<ListContainer>
 				<h1>Admin Panel</h1>
 				{songs.map(song => (
 					<ListItem>{song.title}</ListItem>
 				))}
 			</ListContainer>
-		);
+		) : null;
 	}
 }
 
-export default AdminPanel;
+export default AdminPage;
