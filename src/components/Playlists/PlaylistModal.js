@@ -126,8 +126,7 @@ class PlaylistModal extends Component {
 			});
 			return;
 		}
-
-		if (playlist.id) {
+		if (playlist.id && playlist.isPublic) {
 			db.ref(`playlists/${playlist.id}`)
 				.update(playlist)
 				.then(() => {
@@ -140,7 +139,7 @@ class PlaylistModal extends Component {
 				});
 			return;
 		}
-		if (playlist.id === null) {
+		if (playlist.id === null && playlist.isPublic) {
 			const newPlaylistRef = db.ref("playlists").push();
 			newPlaylistRef
 				.set({
@@ -159,25 +158,27 @@ class PlaylistModal extends Component {
 				});
 			return;
 		}
-		// if (!playlist.isPublic && !playlist.id) {
-		// 	const newPrivatePlaylistRef = db.ref("playlists").push();
-		// 	newPlaylistRef
-		// 		.set({
-		// 			...playlist,
-		// 			id: newPlaylistRef.key,
-		// 			userId: user.uid,
-		// 			userEmail: user.email
-		// 		})
-		// 		.then(() => {
-		// 			alert("Added playlist successfully");
-		// 			this.props.handleSelectSongs([]);
-		// 			this.props.handleClose();
-		// 		})
-		// 		.catch(err => {
-		// 			alert(err.message);
-		// 		});
-		// 	return;
-		// }
+		if (!playlist.isPublic && !playlist.id) {
+			const newPrivatePlaylistRef = db
+				.ref(`users/${user.uid}/playlists`)
+				.push();
+			newPrivatePlaylistRef
+				.set({
+					...playlist,
+					id: newPrivatePlaylistRef.key,
+					userId: user.uid,
+					userEmail: user.email
+				})
+				.then(() => {
+					alert("Your private playlist added successfully");
+					this.props.handleSelectSongs([]);
+					this.props.handleClose();
+				})
+				.catch(err => {
+					alert(err.message);
+				});
+			return;
+		}
 	};
 
 	handleClose = () => {
