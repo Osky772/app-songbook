@@ -22,8 +22,6 @@ class Playlist extends Component {
 
 	getPlaylist = () => {
 		const { userId, playlistId } = this.props.match.params;
-		console.log(userId);
-		console.log(playlistId);
 		if (userId) {
 			db.ref(`users/${userId}/playlists/${playlistId}`)
 				.once("value")
@@ -53,7 +51,6 @@ class Playlist extends Component {
 	};
 
 	componentDidMount() {
-		console.log(this.props);
 		this.getPlaylist();
 	}
 
@@ -65,8 +62,20 @@ class Playlist extends Component {
 		this.setState({ isEditing: false });
 	};
 
-	handleRemovePlaylist = playlistId => {
-		db.ref(`playlists/${playlistId}`)
+	handleRemovePlaylist = id => {
+		const { userId, playlistId } = this.props.match.params;
+
+		if (userId) {
+			db.ref(`users/${userId}/playlists/${playlistId}`)
+				.remove()
+				.then(() => alert("Removed playlist successfully"))
+				.then(() => this.props.history.push("/playlisty"))
+				.catch(error => alert(error.message));
+
+			return;
+		}
+
+		db.ref(`playlists/${id}`)
 			.remove()
 			.then(() => alert("Removed playlist successfully"))
 			.then(() => this.props.history.push("/playlisty"))
@@ -80,7 +89,6 @@ class Playlist extends Component {
 			playlist: { title, songs = [] }
 		} = this.state;
 		const { selectedSongs, handleSelectSongs, user } = this.props;
-		console.log(this.props);
 
 		return (
 			<PageWrapper>

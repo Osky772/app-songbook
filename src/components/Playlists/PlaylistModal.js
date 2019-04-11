@@ -15,7 +15,6 @@ import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import { db } from "../../App";
-import { auth } from "firebase";
 
 class PlaylistModal extends Component {
 	state = {
@@ -103,7 +102,6 @@ class PlaylistModal extends Component {
 
 	handleFormSubmit = e => {
 		e.preventDefault();
-		console.log(this.props);
 		const { playlist } = this.state;
 		const { user } = this.props;
 		const required = Object.keys(playlist).filter(key => key !== "id");
