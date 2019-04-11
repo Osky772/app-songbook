@@ -13,6 +13,7 @@ import SearchForm from "../SearchForm";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import { db } from "../../App";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -21,10 +22,11 @@ class Playlists extends Component {
 		inputValue: "",
 		playlists: [],
 		editedPlaylist: {},
-		isEditing: false
+		isEditing: false,
+		isPublic: true
 	};
 
-	getPlaylists = () => {
+	getPublicPlaylists = () => {
 		fetch(`${BASE_URL}/playlists.json`)
 			.then(r => r.json())
 			.then(playlists => {
@@ -38,12 +40,40 @@ class Playlists extends Component {
 			});
 	};
 
+	getPrivatePlaylists = () => {
+		const { user } = this.props;
+		console.log(user);
+		db.ref(`users/${user.uid}/playlists`)
+			.once("value")
+			.then(snapshot => {
+				const playlists = snapshot.val();
+				const arrayPlaylists =
+					playlists &&
+					Object.keys(playlists).map(key => ({
+						id: key,
+						...playlists[key]
+					}));
+				this.setState({ playlists: arrayPlaylists || [] });
+			});
+	};
+
 	componentDidMount() {
-		this.getPlaylists();
+		this.getPublicPlaylists();
 	}
 
 	handleInputChange = e => {
 		this.setState({ inputValue: e.target.value });
+	};
+
+	handleCategorySelect = category => {
+		if (category === "public") {
+			this.setState({ isPublic: true });
+			this.getPublicPlaylists();
+		}
+		if (category === "private") {
+			this.setState({ isPublic: false });
+			this.getPrivatePlaylists();
+		}
 	};
 
 	render() {
@@ -62,13 +92,13 @@ class Playlists extends Component {
 							<List component="nav" style={{ background: "white" }}>
 								<ListItem
 									button
-									// onClick={() => this.handleCategorySelect("")}
+									onClick={() => this.handleCategorySelect("public")}
 								>
 									<ListItemText primary={"PUBLICZNE"} />
 								</ListItem>
 								<ListItem
 									button
-									// onClick={() => this.handleCategorySelect("")}
+									onClick={() => this.handleCategorySelect("private")}
 								>
 									<ListItemText primary={"PRYWATNE"} />
 								</ListItem>
