@@ -25,7 +25,8 @@ class AdminPage extends Component {
 					ref: db.ref("songs"),
 					user
 				});
-			});
+			})
+			.catch(error => alert("Probably permission denied"));
 
 		db.ref("songs-to-approve").on("value", snapshot => {
 			const songs = snapshot.val() || {};
@@ -36,10 +37,6 @@ class AdminPage extends Component {
 			this.setState({ songs: arraySongs || [] });
 		});
 	};
-
-	componentDidMount() {
-		this.getSongs();
-	}
 
 	componentWillUnmount() {
 		const { user } = this.props;
