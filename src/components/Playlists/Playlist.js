@@ -14,8 +14,6 @@ import Button from "@material-ui/core/Button";
 import PlaylistModal from "./PlaylistModal";
 import { db } from "../../App";
 
-const BASE_URL = "https://app-songbook.firebaseio.com/";
-
 class Playlist extends Component {
 	state = {
 		isEditing: false,
@@ -23,10 +21,28 @@ class Playlist extends Component {
 	};
 
 	getPlaylist = () => {
-		const { playlistId } = this.props.match.params;
-		fetch(`${BASE_URL}/playlists/${playlistId}.json`)
-			.then(r => r.json())
-			.then(playlist => {
+		const { userId, playlistId } = this.props.match.params;
+		console.log(userId);
+		console.log(playlistId);
+		if (userId) {
+			db.ref(`users/${userId}/playlists/${playlistId}`)
+				.once("value")
+				.then(snapshot => {
+					const playlist = snapshot.val();
+					this.setState({
+						playlist: {
+							...playlist,
+							id: playlistId
+						}
+					});
+				});
+			return;
+		}
+
+		db.ref(`playlists/${playlistId}`)
+			.once("value")
+			.then(snapshot => {
+				const playlist = snapshot.val();
 				this.setState({
 					playlist: {
 						...playlist,
@@ -37,6 +53,7 @@ class Playlist extends Component {
 	};
 
 	componentDidMount() {
+		console.log(this.props);
 		this.getPlaylist();
 	}
 
@@ -63,6 +80,7 @@ class Playlist extends Component {
 			playlist: { title, songs = [] }
 		} = this.state;
 		const { selectedSongs, handleSelectSongs, user } = this.props;
+		console.log(this.props);
 
 		return (
 			<PageWrapper>

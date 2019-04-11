@@ -51,7 +51,6 @@ class App extends Component {
 
 	render() {
 		const { selectedSongs, user } = this.state;
-		console.log(user);
 		return (
 			<Fragment>
 				<CssBaseline />
@@ -81,6 +80,17 @@ class App extends Component {
 				/>
 				<Route
 					path={"/playlisty/:playlistId"}
+					render={props => (
+						<Playlist
+							{...props}
+							selectedSongs={selectedSongs}
+							handleSelectSongs={this.handleSelectSongs}
+							user={user}
+						/>
+					)}
+				/>
+				<Route
+					path={"/users/:userId/playlists/:playlistId"}
 					render={props => (
 						<Playlist
 							{...props}

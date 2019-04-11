@@ -14,6 +14,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { db } from "../../App";
+import { GiConsoleController } from "react-icons/gi";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -42,7 +43,6 @@ class Playlists extends Component {
 
 	getPrivatePlaylists = () => {
 		const { user } = this.props;
-		console.log(user);
 		db.ref(`users/${user.uid}/playlists`)
 			.once("value")
 			.then(snapshot => {
@@ -77,7 +77,9 @@ class Playlists extends Component {
 	};
 
 	render() {
-		const { inputValue = "", playlists = [] } = this.state;
+		const { inputValue = "", playlists = [], isPublic } = this.state;
+		const { user } = this.props;
+
 		const searchedPlaylists = playlists.filter(playlist => {
 			const playlistTitle = playlist.title.toLowerCase();
 			const searchText = inputValue.trim().toLowerCase();
@@ -114,7 +116,14 @@ class Playlists extends Component {
 							/>
 							{searchedPlaylists.map(playlist => (
 								<PlaylistItem key={playlist.id}>
-									<Link key={playlist.id} to={`/playlisty/${playlist.id}`}>
+									<Link
+										key={playlist.id}
+										to={
+											isPublic
+												? `/playlisty/${playlist.id}`
+												: `users/${user.uid}/playlists/${playlist.id}`
+										}
+									>
 										<h1>{playlist.title}</h1>
 										{playlist.songs !== undefined &&
 											playlist.songs.map(({ performer, title, id }, nr) => (
