@@ -103,6 +103,7 @@ class PlaylistModal extends Component {
 
 	handleFormSubmit = e => {
 		e.preventDefault();
+		console.log(this.props);
 		const { playlist } = this.state;
 		const { user } = this.props;
 		const required = Object.keys(playlist).filter(key => key !== "id");
@@ -174,6 +175,19 @@ class PlaylistModal extends Component {
 					this.props.handleSelectSongs([]);
 					this.props.handleClose();
 				})
+				.catch(err => {
+					alert(err.message);
+				});
+			return;
+		}
+		if (!playlist.isPublic && playlist.id) {
+			db.ref(`users/${user.uid}/playlists/${playlist.id}`)
+				.update(playlist)
+				.then(() => {
+					alert("Playlist edited successfully");
+					this.props.handleSelectSongs([]);
+				})
+				.then(() => this.props.fetchData())
 				.catch(err => {
 					alert(err.message);
 				});
