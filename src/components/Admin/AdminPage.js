@@ -1,6 +1,20 @@
 import React, { Component } from "react";
 import { db } from "../../App";
-import { ListContainer, ItemElement } from "../containers/StyledContainers";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import Typography from "@material-ui/core/Typography";
+import { formatSongDescription, styles as songStyles } from "../Song";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { PageWrapper, ListContainer } from "../containers/StyledContainers";
+import withStyles from "@material-ui/core/styles/withStyles";
+
+const styles = theme => ({
+	songsWrapper: {
+		width: "80%",
+		marginBottom: 16
+	}
+});
 
 class AdminPage extends Component {
 	state = {
@@ -68,15 +82,36 @@ class AdminPage extends Component {
 
 	render() {
 		const { songs = [], isAdmin } = this.state;
+		const { classes } = this.props;
 		return isAdmin ? (
-			<ListContainer>
-				<h1>Admin Panel</h1>
-				{songs.map(song => (
-					<ItemElement>{song.title}</ItemElement>
-				))}
-			</ListContainer>
+			<PageWrapper>
+				<ListContainer className={classes.songsWrapper}>
+					<h1>Do zatwierdzenia</h1>
+					{songs.map(song => (
+						<ExpansionPanel key={song.id}>
+							<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+								<Typography>{song.title}</Typography>
+							</ExpansionPanelSummary>
+							<ExpansionPanelDetails style={{ display: "block" }}>
+								{formatSongDescription(song).map((verse, i) => {
+									return verse.text !== null ? (
+										<p key={i} style={songStyles.verse}>
+											<span style={songStyles.text}>{verse.text}</span>
+											<span style={songStyles.chords}>
+												{verse.chords ? verse.chords : null}
+											</span>
+										</p>
+									) : (
+										<br key={i} />
+									);
+								})}
+							</ExpansionPanelDetails>
+						</ExpansionPanel>
+					))}
+				</ListContainer>
+			</PageWrapper>
 		) : null;
 	}
 }
 
-export default AdminPage;
+export default withStyles(styles)(AdminPage);
