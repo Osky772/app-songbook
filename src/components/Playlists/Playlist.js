@@ -116,7 +116,11 @@ class Playlist extends Component {
 					{songs.map(song => (
 						<ExpansionPanel key={song.id}>
 							<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-								<Typography>{song.title}</Typography>
+								<Typography>
+									{song.performer
+										? song.performer + " - " + song.title
+										: song.title}
+								</Typography>
 							</ExpansionPanelSummary>
 							<ExpansionPanelDetails style={{ display: "block" }}>
 								{formatSongDescription(song).map((verse, i) => {

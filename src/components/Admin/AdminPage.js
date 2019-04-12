@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import { formatSongDescription, styles as songStyles } from "../Song";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { PageWrapper, ListContainer } from "../containers/StyledContainers";
+import Button from "@material-ui/core/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 const styles = theme => ({
@@ -89,8 +90,29 @@ class AdminPage extends Component {
 					<h1>Do zatwierdzenia</h1>
 					{songs.map(song => (
 						<ExpansionPanel key={song.id}>
+							<Button
+								color="primary"
+								variant="outlined"
+								onClick={() => console.log("clicked")}
+							>
+								Zatwierdź
+							</Button>
+							<Button variant="outlined" onClick={() => console.log("clicked")}>
+								Edytuj
+							</Button>
+							<Button
+								color="secondary"
+								variant="outlined"
+								onClick={() => console.log("clicked")}
+							>
+								Usuń
+							</Button>
 							<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-								<Typography>{song.title}</Typography>
+								<Typography>
+									{song.performer
+										? song.performer + " - " + song.title
+										: song.title}
+								</Typography>
 							</ExpansionPanelSummary>
 							<ExpansionPanelDetails style={{ display: "block" }}>
 								{formatSongDescription(song).map((verse, i) => {
