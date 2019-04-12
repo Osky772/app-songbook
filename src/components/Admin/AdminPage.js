@@ -81,6 +81,22 @@ class AdminPage extends Component {
 		return null;
 	}
 
+	submitSong = id => {
+		const { songs } = this.state;
+		const song = songs.find(song => song.id === id);
+		console.log(song);
+		db.ref(`songs/${song.id}`)
+			.set({ ...song })
+			.then(() => {
+				alert("Song approved");
+				db.ref("songs-to-approve")
+					.remove()
+					.then(() => alert("Song removed successfully"))
+					.catch(error => alert(error.message));
+			})
+			.catch(error => alert(error.message));
+	};
+
 	render() {
 		const { songs = [], isAdmin } = this.state;
 		const { classes } = this.props;
@@ -93,17 +109,20 @@ class AdminPage extends Component {
 							<Button
 								color="primary"
 								variant="outlined"
-								onClick={() => console.log("clicked")}
+								onClick={() => this.submitSong(song.id)}
 							>
 								Zatwierdź
 							</Button>
-							<Button variant="outlined" onClick={() => console.log("clicked")}>
+							<Button
+								variant="outlined"
+								onClick={() => this.submitSong(song.id)}
+							>
 								Edytuj
 							</Button>
 							<Button
 								color="secondary"
 								variant="outlined"
-								onClick={() => console.log("clicked")}
+								onClick={() => this.submitSong(song.id)}
 							>
 								Usuń
 							</Button>
