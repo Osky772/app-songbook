@@ -89,7 +89,7 @@ class AdminPage extends Component {
 			.set({ ...song })
 			.then(() => {
 				alert("Song approved");
-				db.ref("songs-to-approve")
+				db.ref(`songs-to-approve/${song.id}`)
 					.remove()
 					.then(() => alert("Song removed successfully"))
 					.catch(error => alert(error.message));
