@@ -2,7 +2,30 @@ import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
+import { withStyles } from "@material-ui/core/styles";
+import classNames from "classnames";
+
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+const styles = theme => ({
+	Btn: {
+		color: "white",
+		fontSize: "13px",
+		fontWeight: "bold",
+		marginLeft: 15
+	},
+	active: {
+		backgroundColor: "#DC244A",
+		color: "white",
+		"&:hover": {
+			backgroundColor: "#c72042"
+		}
+	},
+	disabled: {
+		color: "#cbd3df",
+		backgroundColor: "#a4b0bd"
+	}
+});
 
 class CreatePDF extends Component {
 	state = {
@@ -109,11 +132,13 @@ class CreatePDF extends Component {
 
 	render() {
 		const { songs } = this.state;
+		const { classes } = this.props;
 
 		return (
 			<Button
-				variant="outlined"
-				style={{ height: "40px" }}
+				variant="contained"
+				className={classNames(classes.Btn, classes.active)}
+				disabled={Boolean(!songs.length)}
 				onClick={songs.length ? this.createPDF : null}
 			>
 				Create PDF
@@ -122,4 +147,4 @@ class CreatePDF extends Component {
 	}
 }
 
-export default CreatePDF;
+export default withStyles(styles)(CreatePDF);

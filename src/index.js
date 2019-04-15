@@ -8,7 +8,11 @@ import { BrowserRouter as Router } from "react-router-dom";
 const theme = createMuiTheme({
 	palette: {
 		primary: { main: "#039be5" },
-		secondary: { main: "#ee6a03", dark: "#e54e03", light: "#ee6a03" }
+		secondary: {
+			main: "#ee6a03",
+			dark: "#e54e03",
+			light: "#ee6a03"
+		}
 	},
 
 	typography: {
