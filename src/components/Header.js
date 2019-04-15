@@ -8,7 +8,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Grid from "@material-ui/core/Grid";
 import { GiSpellBook, GiWhiteBook } from "react-icons/gi";
-import ModalCreateSong from "./CreateSongModal/CreateSongModal";
+import CreateSongModal from "./CreateSongModal/CreateSongModal";
 import CreatePDF from "./CreatePDF";
 import CreatePlaylist from "./Playlists/CreatePlaylist";
 import SignModal from "./Sign/SignModal";
@@ -169,7 +169,7 @@ class Header extends Component {
 							</Toolbar>
 						</Grid>
 						<Grid item lg={8} className={classes.flexEnd}>
-							<ModalCreateSong />
+							<CreateSongModal />
 							{user ? (
 								<CreatePlaylist
 									editedPlaylist={editedPlaylist}

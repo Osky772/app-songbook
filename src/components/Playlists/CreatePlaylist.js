@@ -1,6 +1,20 @@
 import React, { Component, Fragment } from "react";
 import Button from "@material-ui/core/Button";
 import PlaylistModal from "./PlaylistModal";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = {
+	Btn: {
+		color: "white",
+		borderColor: "white",
+		fontSize: "13px",
+		fontWeight: "bold",
+		marginLeft: 15,
+		"&:hover": {
+			backgroundColor: "#02a8f4"
+		}
+	}
+};
 
 class CreatePlaylist extends Component {
 	state = {
@@ -17,6 +31,7 @@ class CreatePlaylist extends Component {
 
 	render() {
 		const { isCreating } = this.state;
+		const { classes } = this.props;
 
 		const {
 			selectedSongs = [],
@@ -29,7 +44,7 @@ class CreatePlaylist extends Component {
 			<Fragment>
 				<Button
 					variant="outlined"
-					style={{ height: "40px" }}
+					className={classes.Btn}
 					onClick={selectedSongs.length > 0 ? this.handleCreate : null}
 				>
 					DODAJ PLAYLISTĘ
@@ -49,4 +64,4 @@ class CreatePlaylist extends Component {
 	}
 }
 
-export default CreatePlaylist;
+export default withStyles(styles)(CreatePlaylist);
