@@ -13,6 +13,7 @@ import CreatePDF from "./CreatePDF";
 import CreatePlaylist from "./Playlists/CreatePlaylist";
 import SignModal from "./Sign/SignModal";
 import { withStyles } from "@material-ui/core/styles";
+import classNames from "classnames";
 import * as firebase from "firebase";
 
 const styles = theme => ({
@@ -43,12 +44,17 @@ const styles = theme => ({
 		alignItems: "center",
 		justifyContent: "space-between"
 	},
+	Btn: {
+		color: "white",
+		fontSize: "13px",
+		fontWeight: "bold",
+		marginLeft: 15
+	},
 	loginBtn: {
 		borderColor: theme.palette.secondary.main,
 		color: "white",
 		fontSize: "13px",
 		fontWeight: "bold",
-		margin: "0 15px",
 		"&:hover": {
 			backgroundColor: theme.palette.secondary.light,
 			borderColor: theme.palette.secondary.light
@@ -56,9 +62,6 @@ const styles = theme => ({
 	},
 	registerBtn: {
 		backgroundColor: theme.palette.secondary.main,
-		color: "white",
-		fontWeight: "bold",
-		fontSize: "13px",
 		"&:hover": {
 			backgroundColor: theme.palette.secondary.dark,
 			color: "#ececec"
@@ -134,14 +137,14 @@ class Header extends Component {
 									/>
 									<Button
 										variant="outlined"
-										className={classes.loginBtn}
+										className={classNames(classes.Btn, classes.loginBtn)}
 										onClick={this.handleSignInOpen}
 									>
 										Zaloguj się
 									</Button>
 									<Button
 										variant="contained"
-										className={classes.registerBtn}
+										className={classNames(classes.Btn, classes.registerBtn)}
 										onClick={this.handleSignUpOpen}
 									>
 										Zarejestruj się
