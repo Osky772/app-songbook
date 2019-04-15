@@ -125,8 +125,18 @@ class Header extends Component {
 						<Grid item lg={8} className={classes.flexEnd}>
 							{user ? (
 								<Fragment>
-									{user.email}
-									<Button onClick={this.logOut}>Wyloguj się</Button>
+									<Typography variant="subtitle2" style={{ color: "white" }}>
+										Użytkownik:
+										<span style={{ fontWeight: "bold" }}> {user.email}</span>
+									</Typography>
+
+									<Button
+										variant="outlined"
+										className={classes.Btn}
+										onClick={this.logOut}
+									>
+										Wyloguj się
+									</Button>
 								</Fragment>
 							) : (
 								<Fragment>
