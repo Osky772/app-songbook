@@ -43,6 +43,17 @@ const styles = theme => ({
 		alignItems: "center",
 		justifyContent: "space-between"
 	},
+	loginBtn: {
+		borderColor: theme.palette.secondary.main,
+		color: "white",
+		fontSize: "13px",
+		fontWeight: "bold",
+		margin: "0 15px",
+		"&:hover": {
+			backgroundColor: theme.palette.secondary.light,
+			borderColor: theme.palette.secondary.light
+		}
+	},
 	registerBtn: {
 		backgroundColor: theme.palette.secondary.main,
 		color: "white",
@@ -121,7 +132,13 @@ class Header extends Component {
 										isSignedUp={isSignedUp}
 										handleClose={this.handleClose}
 									/>
-									<Button onClick={this.handleSignInOpen}>Zaloguj się</Button>
+									<Button
+										variant="outlined"
+										className={classes.loginBtn}
+										onClick={this.handleSignInOpen}
+									>
+										Zaloguj się
+									</Button>
 									<Button
 										variant="contained"
 										className={classes.registerBtn}
