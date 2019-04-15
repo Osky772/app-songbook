@@ -97,6 +97,13 @@ class AdminPage extends Component {
 			.catch(error => alert(error.message));
 	};
 
+	deleteSong = id => {
+		db.ref(`songs-to-approve/${id}`)
+			.remove()
+			.then(() => alert("Song removed successfully"))
+			.catch(error => alert(error.message));
+	};
+
 	render() {
 		const { songs = [], isAdmin } = this.state;
 		const { classes } = this.props;
@@ -114,15 +121,9 @@ class AdminPage extends Component {
 								Zatwierdź
 							</Button>
 							<Button
-								variant="outlined"
-								onClick={() => this.submitSong(song.id)}
-							>
-								Edytuj
-							</Button>
-							<Button
 								color="secondary"
 								variant="outlined"
-								onClick={() => this.submitSong(song.id)}
+								onClick={() => this.deleteSong(song.id)}
 							>
 								Usuń
 							</Button>
