@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Grid from "@material-ui/core/Grid";
-import { GiSpellBook, GiWhiteBook } from "react-icons/gi";
+import { FaItunesNote } from "react-icons/fa";
 import CreateSongModal from "./CreateSongModal/CreateSongModal";
 import CreatePDF from "./CreatePDF";
 import CreatePlaylist from "./Playlists/CreatePlaylist";
@@ -17,17 +17,20 @@ import classNames from "classnames";
 import * as firebase from "firebase";
 
 const styles = theme => ({
+	AppBar: {
+		backgroundColor: theme.palette.primary.main,
+		height: 48,
+		alignItems: "center"
+	},
 	firstAppBar: {
 		position: "static",
-		boxShadow: "none",
-		backgroundColor: theme.palette.primary.main
+		boxShadow: "none"
 	},
 	secondAppBar: {
-		position: "sticky",
-		backgroundColor: theme.palette.primary.main
+		position: "sticky"
 	},
 	Toolbar: {
-		padding: "5px 10px 0 10px"
+		// padding: "5px 10px 0 10px"
 	},
 	flexContainer: {
 		display: "flex",
@@ -39,6 +42,7 @@ const styles = theme => ({
 		alignItems: "center"
 	},
 	maxWidth: {
+		height: "100%",
 		maxWidth: 1030,
 		margin: "0 auto",
 		alignItems: "center",
@@ -108,10 +112,10 @@ class Header extends Component {
 
 		return (
 			<Fragment>
-				<AppBar className={classes.firstAppBar}>
+				<AppBar className={classNames(classes.AppBar, classes.firstAppBar)}>
 					<Grid container className={classes.maxWidth}>
 						<Grid item lg={4} className={classes.flexContainer}>
-							<GiSpellBook style={{ fontSize: "55px", marginRight: "25px" }} />
+							<FaItunesNote style={{ fontSize: "40px", marginRight: "25px" }} />
 							<Typography
 								component={Link}
 								to="/lista-piosenek"
@@ -164,7 +168,7 @@ class Header extends Component {
 						</Grid>
 					</Grid>
 				</AppBar>
-				<AppBar className={classes.secondAppBar} color="primary">
+				<AppBar className={classNames(classes.AppBar, classes.secondAppBar)}>
 					<Grid container className={classes.maxWidth}>
 						<Grid item lg={4}>
 							<Toolbar variant="dense" className={classes.Toolbar}>
