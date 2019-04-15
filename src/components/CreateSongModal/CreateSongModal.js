@@ -5,6 +5,20 @@ import { ContainerModal, WrapperInModal } from "../containers/StyledContainers";
 import FormAddSong from "./FormAddSong";
 import ModalPreviewSong from "./ModalPreviewSong";
 import { db } from "../../App";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = theme => ({
+	Btn: {
+		color: "white",
+		borderColor: "white",
+		fontSize: "13px",
+		fontWeight: "bold",
+		marginLeft: 15,
+		"&:hover": {
+			backgroundColor: "#02a8f4"
+		}
+	}
+});
 
 class CreateSongModal extends Component {
 	state = {
@@ -132,11 +146,12 @@ class CreateSongModal extends Component {
 
 	render() {
 		const { song, open, isPreviewed, isError, error } = this.state;
+		const { classes } = this.props;
 		return (
 			<Fragment>
 				<Button
+					className={classes.Btn}
 					variant="outlined"
-					style={{ height: "40px" }}
 					onClick={this.handleOpen}
 				>
 					Dodaj utwór
@@ -167,4 +182,4 @@ class CreateSongModal extends Component {
 	}
 }
 
-export default CreateSongModal;
+export default withStyles(styles)(CreateSongModal);
