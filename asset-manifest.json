@@ -1,13 +1,13 @@
 {
   "main.css": "/app-songbook/static/css/main.8553fc19.chunk.css",
-  "main.js": "/app-songbook/static/js/main.b466cbca.chunk.js",
-  "main.js.map": "/app-songbook/static/js/main.b466cbca.chunk.js.map",
+  "main.js": "/app-songbook/static/js/main.2313d139.chunk.js",
+  "main.js.map": "/app-songbook/static/js/main.2313d139.chunk.js.map",
   "runtime~main.js": "/app-songbook/static/js/runtime~main.b1358a8b.js",
   "runtime~main.js.map": "/app-songbook/static/js/runtime~main.b1358a8b.js.map",
-  "static/js/2.3b9ff023.chunk.js": "/app-songbook/static/js/2.3b9ff023.chunk.js",
-  "static/js/2.3b9ff023.chunk.js.map": "/app-songbook/static/js/2.3b9ff023.chunk.js.map",
+  "static/js/2.5c114e2b.chunk.js": "/app-songbook/static/js/2.5c114e2b.chunk.js",
+  "static/js/2.5c114e2b.chunk.js.map": "/app-songbook/static/js/2.5c114e2b.chunk.js.map",
   "index.html": "/app-songbook/index.html",
-  "precache-manifest.36df2abc8c72d09c4c20d12882724166.js": "/app-songbook/precache-manifest.36df2abc8c72d09c4c20d12882724166.js",
+  "precache-manifest.763f26140aa5c13b940f82182fb9c955.js": "/app-songbook/precache-manifest.763f26140aa5c13b940f82182fb9c955.js",
   "service-worker.js": "/app-songbook/service-worker.js",
   "static/css/main.8553fc19.chunk.css.map": "/app-songbook/static/css/main.8553fc19.chunk.css.map"
 }
