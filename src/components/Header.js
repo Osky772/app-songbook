@@ -7,20 +7,23 @@ import Button from "@material-ui/core/Button";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Grid from "@material-ui/core/Grid";
-import { GiSpellBook } from "react-icons/gi";
+import { GiSpellBook, GiWhiteBook } from "react-icons/gi";
 import ModalCreateSong from "./CreateSongModal/CreateSongModal";
 import CreatePDF from "./CreatePDF";
 import CreatePlaylist from "./Playlists/CreatePlaylist";
 import SignModal from "./Sign/SignModal";
+import { withStyles } from "@material-ui/core/styles";
 import * as firebase from "firebase";
 
-const styles = {
+const styles = theme => ({
 	firstAppBar: {
 		position: "static",
-		boxShadow: "none"
+		boxShadow: "none",
+		backgroundColor: theme.palette.primary.main
 	},
 	secondAppBar: {
-		position: "sticky"
+		position: "sticky",
+		backgroundColor: theme.palette.primary.main
 	},
 	Toolbar: {
 		padding: "5px 10px 0 10px"
@@ -39,8 +42,18 @@ const styles = {
 		margin: "0 auto",
 		alignItems: "center",
 		justifyContent: "space-between"
+	},
+	registerBtn: {
+		backgroundColor: theme.palette.secondary.main,
+		color: "white",
+		fontWeight: "bold",
+		fontSize: "13px",
+		"&:hover": {
+			backgroundColor: theme.palette.secondary.dark,
+			color: "#ececec"
+		}
 	}
-};
+});
 
 class Header extends Component {
 	state = {
@@ -72,6 +85,7 @@ class Header extends Component {
 	render() {
 		const { value, isSignedUp, isOpen } = this.state;
 		const {
+			classes,
 			user,
 			selectedSongs,
 			editedPlaylist,
@@ -80,9 +94,9 @@ class Header extends Component {
 
 		return (
 			<Fragment>
-				<AppBar style={styles.firstAppBar} color="primary">
-					<Grid container style={styles.maxWidth}>
-						<Grid item lg={4} style={styles.flexContainer}>
+				<AppBar className={classes.firstAppBar}>
+					<Grid container className={classes.maxWidth}>
+						<Grid item lg={4} className={classes.flexContainer}>
 							<GiSpellBook style={{ fontSize: "55px", marginRight: "25px" }} />
 							<Typography
 								component={Link}
@@ -94,7 +108,7 @@ class Header extends Component {
 								Śpiewnik
 							</Typography>
 						</Grid>
-						<Grid item lg={8} style={styles.flexEnd}>
+						<Grid item lg={8} className={classes.flexEnd}>
 							{user ? (
 								<Fragment>
 									{user.email}
@@ -108,7 +122,11 @@ class Header extends Component {
 										handleClose={this.handleClose}
 									/>
 									<Button onClick={this.handleSignInOpen}>Zaloguj się</Button>
-									<Button onClick={this.handleSignUpOpen}>
+									<Button
+										variant="contained"
+										className={classes.registerBtn}
+										onClick={this.handleSignUpOpen}
+									>
 										Zarejestruj się
 									</Button>
 								</Fragment>
@@ -116,10 +134,10 @@ class Header extends Component {
 						</Grid>
 					</Grid>
 				</AppBar>
-				<AppBar style={styles.secondAppBar} color="primary">
-					<Grid container style={styles.maxWidth}>
+				<AppBar className={classes.secondAppBar} color="primary">
+					<Grid container className={classes.maxWidth}>
 						<Grid item lg={4}>
-							<Toolbar variant="dense" style={styles.Toolbar}>
+							<Toolbar variant="dense" className={classes.Toolbar}>
 								<Tabs value={value} onChange={this.handleChange}>
 									<Tab
 										component={Link}
@@ -130,7 +148,7 @@ class Header extends Component {
 								</Tabs>
 							</Toolbar>
 						</Grid>
-						<Grid item lg={8} style={styles.flexEnd}>
+						<Grid item lg={8} className={classes.flexEnd}>
 							<ModalCreateSong />
 							{user ? (
 								<CreatePlaylist
@@ -149,4 +167,4 @@ class Header extends Component {
 	}
 }
 
-export default Header;
+export default withStyles(styles)(Header);

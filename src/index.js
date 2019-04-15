@@ -3,13 +3,14 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import "./App.css";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import blue from "@material-ui/core/colors/blue";
 import { BrowserRouter as Router } from "react-router-dom";
 
 const theme = createMuiTheme({
 	palette: {
-		primary: blue
+		primary: { main: "#039be5" },
+		secondary: { main: "#ee6a03", dark: "#e54e03" }
 	},
+
 	typography: {
 		useNextVariants: true
 	}
