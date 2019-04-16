@@ -14,8 +14,24 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { db } from "../../../App";
+import { withStyles } from "@material-ui/core/styles";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
+
+const styles = theme => ({
+	playlistTitle: {
+		fontSize: 18,
+		fontWeight: "bold"
+	},
+	link: {
+		textDecoration: "none"
+	},
+	categoryTitle: {
+		fontSize: 20,
+		fontWeight: "bold",
+		marginBottom: 15
+	}
+});
 
 class Playlists extends Component {
 	state = {
@@ -77,7 +93,7 @@ class Playlists extends Component {
 
 	render() {
 		const { inputValue = "", playlists = [], isPublic } = this.state;
-		const { user } = this.props;
+		const { classes, user } = this.props;
 
 		const searchedPlaylists = playlists.filter(playlist => {
 			const playlistTitle = playlist.title.toLowerCase();
@@ -95,7 +111,7 @@ class Playlists extends Component {
 									button
 									onClick={() => this.handleCategorySelect("public")}
 								>
-									<ListItemText primary={"PUBLICZNE"} />
+									<ListItemText primary={"publicze"} />
 								</ListItem>
 								<ListItem
 									button
@@ -103,7 +119,7 @@ class Playlists extends Component {
 										user ? () => this.handleCategorySelect("private") : null
 									}
 								>
-									<ListItemText primary={"PRYWATNE"} />
+									<ListItemText primary={"prywatne"} />
 								</ListItem>
 							</List>
 						</Paper>
@@ -115,6 +131,9 @@ class Playlists extends Component {
 								label="Wyszukaj playlistę"
 								placeholder="Wpisz nazwę playlisty"
 							/>
+							<Typography className={classes.categoryTitle}>
+								{isPublic ? "Playlisty publiczne" : "Playlisty prywatne"}
+							</Typography>
 							{searchedPlaylists.map(playlist => (
 								<PlaylistItem key={playlist.id}>
 									<Link
@@ -124,21 +143,27 @@ class Playlists extends Component {
 												? `/playlisty/${playlist.id}`
 												: `users/${user.uid}/playlists/${playlist.id}`
 										}
+										className={classes.link}
 									>
-										<h1>{playlist.title}</h1>
-										{playlist.songs !== undefined &&
-											playlist.songs.map(({ performer, title, id }, nr) => (
-												<SongsListRow key={id} elevation={1}>
-													<Typography variant="h5" style={{ marginRight: 15 }}>
-														{nr + 1}.
-													</Typography>
-													<div>
-														<Typography variant="h5">
-															{performer ? performer + " - " + title : title}
-														</Typography>
-													</div>
-												</SongsListRow>
-											))}
+										<Typography className={classes.playlistTitle}>
+											{playlist.title}
+										</Typography>
+										<Typography>
+											{playlist.songs !== undefined &&
+												playlist.songs.map(
+													({ performer, title, id }, nr, songs) =>
+														nr < songs.length - 1 ? (
+															<span key={id}>
+																{performer ? performer + " - " + title : title}
+																{", "}
+															</span>
+														) : (
+															<span key={id}>
+																{performer ? performer + " - " + title : title}
+															</span>
+														)
+												)}
+										</Typography>
 									</Link>
 								</PlaylistItem>
 							))}
@@ -150,4 +175,4 @@ class Playlists extends Component {
 	}
 }
 
-export default Playlists;
+export default withStyles(styles)(Playlists);
