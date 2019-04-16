@@ -8,7 +8,7 @@ import {
 	ContainerModal
 } from "../../containers/StyledContainers";
 import { DragDropContext } from "react-beautiful-dnd";
-import SongsContainer from "../SongsContainer";
+import SongsContainer from "../UI/SongsContainer";
 import InfoSnackBar from "../../SharedComponents/InfoSnackBar";
 import ErrorValidateInfo from "../../SharedComponents/ErrorValidateInfo";
 import Select from "@material-ui/core/Select";

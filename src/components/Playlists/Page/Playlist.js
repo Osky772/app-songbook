@@ -11,11 +11,25 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
 	formatSongDescription,
 	styles as songStyles
-} from "../../Songs/Song/Song";
+} from "../../Songs/Page/Song";
 import CreatePDF from "../../SharedComponents/CreatePDF";
 import Button from "@material-ui/core/Button";
 import PlaylistModal from "../Create/CreatePlaylistModal";
 import { db } from "../../../App";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = theme => ({
+	buttonsWrapper: {
+		width: "100%",
+		paddingBottom: "15px"
+	},
+	title: {
+		fontSize: 18
+	},
+	verse: {
+		fontSize: 14
+	}
+});
 
 class Playlist extends Component {
 	state = {
@@ -91,7 +105,7 @@ class Playlist extends Component {
 			playlist,
 			playlist: { title, songs = [] }
 		} = this.state;
-		const { selectedSongs, handleSelectSongs, user } = this.props;
+		const { classes, selectedSongs, handleSelectSongs, user } = this.props;
 
 		return (
 			<PageWrapper>
@@ -109,13 +123,15 @@ class Playlist extends Component {
 				<PlaylistPaper>
 					<h1>{title}</h1>
 					<p>Stworzone przez: {playlist.userEmail}</p>
-					<Button onClick={() => this.handleEditPlaylist(playlist)}>
-						Edytuj
-					</Button>
-					<Button onClick={() => this.handleRemovePlaylist(playlist.id)}>
-						Usuń
-					</Button>
-					<CreatePDF title={title} songs={songs} />
+					<div className={classes.buttonsWrapper}>
+						<Button onClick={() => this.handleEditPlaylist(playlist)}>
+							Edytuj
+						</Button>
+						<Button onClick={() => this.handleRemovePlaylist(playlist.id)}>
+							Usuń
+						</Button>
+						<CreatePDF title={title} songs={songs} />
+					</div>
 					{songs.map(song => (
 						<ExpansionPanel key={song.id}>
 							<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -126,14 +142,23 @@ class Playlist extends Component {
 								</Typography>
 							</ExpansionPanelSummary>
 							<ExpansionPanelDetails style={{ display: "block" }}>
+								<Typography className={classes.title}>
+									{song.performer
+										? song.performer + " - " + song.title
+										: song.title}
+								</Typography>
 								{formatSongDescription(song).map((verse, i) => {
 									return verse.text !== null ? (
-										<p key={i} style={songStyles.verse}>
+										<Typography
+											className={classes.verse}
+											key={i}
+											style={songStyles.verse}
+										>
 											<span style={songStyles.text}>{verse.text}</span>
 											<span style={songStyles.chords}>
 												{verse.chords ? verse.chords : null}
 											</span>
-										</p>
+										</Typography>
 									) : (
 										<br key={i} />
 									);
@@ -147,4 +172,4 @@ class Playlist extends Component {
 	}
 }
 
-export default Playlist;
+export default withStyles(styles)(Playlist);

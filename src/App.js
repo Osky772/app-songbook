@@ -4,7 +4,7 @@ import Playlists from "./components/Playlists/List/Playlists";
 import SongsList from "./components/Songs/List/SongsList";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Route } from "react-router-dom";
-import Song from "./components/Songs/Song/Song";
+import Song from "./components/Songs/Page/Song";
 import InitPage from "./components/InitPage";
 import Playlist from "./components/Playlists/Page/Playlist";
 import * as firebase from "firebase";

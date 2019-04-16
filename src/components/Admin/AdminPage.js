@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import {
 	formatSongDescription,
 	styles as songStyles
-} from "../Songs/Song/Song";
+} from "../Songs/Page/Song";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { PageWrapper, ListContainer } from "../containers/StyledContainers";
 import Button from "@material-ui/core/Button";

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { SongsList, Container } from "../containers/StyledContainers";
+import { SongsList, Container } from "../../containers/StyledContainers";
 import { Droppable, Draggable } from "react-beautiful-dnd";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
