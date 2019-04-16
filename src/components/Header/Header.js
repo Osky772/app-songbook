@@ -81,6 +81,15 @@ class Header extends Component {
 		isOpen: false
 	};
 
+	componentDidMount() {
+		if (window.location.pathname === "/lista-piosenek") {
+			this.setState({ value: 0 });
+		}
+		if (window.location.pathname === "/playlisty") {
+			this.setState({ value: 1 });
+		}
+	}
+
 	handleChange = (e, value) => {
 		this.setState({ value });
 	};
@@ -170,7 +179,7 @@ class Header extends Component {
 				</AppBar>
 				<AppBar className={classNames(classes.AppBar, classes.secondAppBar)}>
 					<Grid container className={classes.maxWidth}>
-						<Grid item lg={4}>
+						<Grid item lg={6}>
 							<Toolbar variant="dense" className={classes.Toolbar}>
 								<Tabs value={value} onChange={this.handleChange}>
 									<Tab
@@ -182,7 +191,7 @@ class Header extends Component {
 								</Tabs>
 							</Toolbar>
 						</Grid>
-						<Grid item lg={8} className={classes.flexEnd}>
+						<Grid item lg={6} className={classes.flexEnd}>
 							<CreateSong />
 							{user ? (
 								<CreatePlaylist
