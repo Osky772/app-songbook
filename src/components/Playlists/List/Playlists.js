@@ -21,7 +21,6 @@ const BASE_URL = "https://app-songbook.firebaseio.com/";
 const styles = theme => ({
 	playlistTitle: {
 		fontSize: 18,
-		fontWeight: "bold",
 		padding: "15px 15px 5px 15px"
 	},
 	playlistDescription: {
@@ -130,14 +129,14 @@ class Playlists extends Component {
 					</Grid>
 					<Grid item md={8}>
 						<ListContainer>
+							<Typography className={classes.categoryTitle}>
+								{isPublic ? "Playlisty publiczne" : "Playlisty prywatne"}
+							</Typography>
 							<SearchForm
 								handleChange={this.handleInputChange}
 								label="Wyszukaj playlistę"
 								placeholder="Wpisz nazwę playlisty"
 							/>
-							<Typography className={classes.categoryTitle}>
-								{isPublic ? "Playlisty publiczne" : "Playlisty prywatne"}
-							</Typography>
 							{searchedPlaylists.map(playlist => (
 								<PlaylistItem key={playlist.id}>
 									<Link

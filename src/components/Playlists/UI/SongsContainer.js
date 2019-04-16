@@ -4,17 +4,26 @@ import { Droppable, Draggable } from "react-beautiful-dnd";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import { FaTrashAlt } from "react-icons/fa";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = {
+	title: {
+		fontSize: 18,
+		margin: "15px 0 15px 0"
+	},
+	songTitle: {
+		fontSize: 16
+	}
+};
 
 class SongsContainer extends Component {
 	state = {};
 	render() {
-		const { songs = [], removeSong } = this.props;
+		const { classes, songs = [], removeSong } = this.props;
 
 		return (
 			<Fragment>
-				<Typography variant="h5" style={{ margin: "10px 0 25px 0" }}>
-					Wybrane piosenki
-				</Typography>
+				<Typography className={classes.title}>Wybrane piosenki</Typography>
 				<Droppable droppableId={"playlist"}>
 					{provided => (
 						<SongsList ref={provided.innerRef} {...provided.droppableProps}>
@@ -36,14 +45,11 @@ class SongsContainer extends Component {
 												}}
 												elevation={1}
 											>
-												<div style={{ display: "flex" }}>
-													<Typography variant="h5" style={{ marginRight: 15 }}>
-														{nr + 1}.
-													</Typography>
-													<Typography variant="h5">
-														{performer ? performer + " - " + title : title}
-													</Typography>
-												</div>
+												<Typography className={classes.songTitle}>
+													{nr + 1}
+													{". "}
+													{performer ? performer + " - " + title : title}
+												</Typography>
 												<FaTrashAlt
 													onMouseEnter={e =>
 														(e.target.style.cursor = "pointer")
@@ -66,4 +72,4 @@ class SongsContainer extends Component {
 	}
 }
 
-export default SongsContainer;
+export default withStyles(styles)(SongsContainer);

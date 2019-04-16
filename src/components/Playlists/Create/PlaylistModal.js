@@ -302,7 +302,9 @@ class PlaylistModal extends Component {
 									{isEditing && (
 										<InfoSnackBar message="Jesli chcesz dodać utwory, wróć do listy piosenek, zaznacz utwory i wróć tutaj ponownie. Wybrane piosenki pojawią się na dole listy. Pamiętaj, że nie pojawi się piosenka, która już znajduje się na liście. " />
 									)}
-									<Button type="submit">Zatwierdź</Button>
+									<Button style={{ marginRight: 15 }} type="submit">
+										Zatwierdź
+									</Button>
 									<Button onClick={this.handleClose}>Wyjdź</Button>
 								</form>
 							</FormWrapper>

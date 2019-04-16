@@ -14,7 +14,7 @@ import {
 } from "../../Songs/Page/Song";
 import CreatePDF from "../../SharedComponents/CreatePDF";
 import Button from "@material-ui/core/Button";
-import PlaylistModal from "../Create/CreatePlaylistModal";
+import PlaylistModal from "../Create/PlaylistModal";
 import { db } from "../../../App";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -22,6 +22,9 @@ const styles = theme => ({
 	buttonsWrapper: {
 		width: "100%",
 		paddingBottom: "15px"
+	},
+	btn: {
+		marginRight: 15
 	},
 	title: {
 		fontSize: 18
@@ -124,10 +127,16 @@ class Playlist extends Component {
 					<h1>{title}</h1>
 					<p>Stworzone przez: {playlist.userEmail}</p>
 					<div className={classes.buttonsWrapper}>
-						<Button onClick={() => this.handleEditPlaylist(playlist)}>
+						<Button
+							className={classes.btn}
+							onClick={() => this.handleEditPlaylist(playlist)}
+						>
 							Edytuj
 						</Button>
-						<Button onClick={() => this.handleRemovePlaylist(playlist.id)}>
+						<Button
+							className={classes.btn}
+							onClick={() => this.handleRemovePlaylist(playlist.id)}
+						>
 							Usuń
 						</Button>
 						<CreatePDF title={title} songs={songs} />

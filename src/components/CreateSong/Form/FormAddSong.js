@@ -20,6 +20,9 @@ const styles = {
 	textFieldMultiline: {
 		display: "block",
 		margin: 8
+	},
+	btn: {
+		marginRight: 15
 	}
 };
 
@@ -129,9 +132,15 @@ const FormAddSong = props => {
 					helperText="* pola obowiązkowe"
 				/>
 
-				<Button type="submit">Zatwierdź</Button>
-				<Button onClick={handleCloseModal}>Wyjdź</Button>
-				<Button onClick={handleSongPreview}>Podgląd</Button>
+				<Button style={styles.btn} type="submit">
+					Zatwierdź
+				</Button>
+				<Button style={styles.btn} onClick={handleCloseModal}>
+					Wyjdź
+				</Button>
+				<Button style={styles.btn} onClick={handleSongPreview}>
+					Podgląd
+				</Button>
 			</form>
 		</FormWrapper>
 	);
