@@ -5,16 +5,15 @@ import {
 	PlaylistItem,
 	ListContainer,
 	PageWrapper
-} from "../containers/StyledContainers";
+} from "../../containers/StyledContainers";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import SearchForm from "../SearchForm";
+import SearchForm from "../../SharedComponents/SearchForm";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import { db } from "../../App";
-import { GiConsoleController } from "react-icons/gi";
+import { db } from "../../../App";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -100,7 +99,9 @@ class Playlists extends Component {
 								</ListItem>
 								<ListItem
 									button
-									onClick={() => this.handleCategorySelect("private")}
+									onClick={
+										user ? () => this.handleCategorySelect("private") : null
+									}
 								>
 									<ListItemText primary={"PRYWATNE"} />
 								</ListItem>

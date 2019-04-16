@@ -2,11 +2,11 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
-import { FormWrapper } from "../containers/StyledContainers";
-import InfoSnackBar from "../InfoSnackBar";
+import { FormWrapper } from "../../containers/StyledContainers";
+import InfoSnackBar from "../../SharedComponents/InfoSnackBar";
 import Button from "@material-ui/core/Button";
 import InputLabel from "@material-ui/core/InputLabel";
-import ErrorValidateInfo from "../ErrorValidateInfo";
+import ErrorValidateInfo from "../../SharedComponents/ErrorValidateInfo";
 
 const styles = {
 	textField: {

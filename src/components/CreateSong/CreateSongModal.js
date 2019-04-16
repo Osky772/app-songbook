@@ -2,8 +2,8 @@ import React, { Component, Fragment } from "react";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import { ContainerModal, WrapperInModal } from "../containers/StyledContainers";
-import FormAddSong from "./FormAddSong";
-import ModalPreviewSong from "./ModalPreviewSong";
+import FormAddSong from "./Form/FormAddSong";
+import ModalPreviewSong from "./Preview/ModalPreviewSong";
 import { db } from "../../App";
 import { withStyles } from "@material-ui/core/styles";
 

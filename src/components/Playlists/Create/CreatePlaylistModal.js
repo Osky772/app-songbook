@@ -6,15 +6,15 @@ import {
 	WrapperInModal,
 	FormWrapper,
 	ContainerModal
-} from "../containers/StyledContainers";
+} from "../../containers/StyledContainers";
 import { DragDropContext } from "react-beautiful-dnd";
-import SongsContainer from "./SongsContainer";
-import InfoSnackBar from "../InfoSnackBar";
-import ErrorValidateInfo from "../ErrorValidateInfo";
+import SongsContainer from "../SongsContainer";
+import InfoSnackBar from "../../SharedComponents/InfoSnackBar";
+import ErrorValidateInfo from "../../SharedComponents/ErrorValidateInfo";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
-import { db } from "../../App";
+import { db } from "../../../App";
 
 class PlaylistModal extends Component {
 	state = {

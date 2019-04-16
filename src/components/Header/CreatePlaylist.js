@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import Button from "@material-ui/core/Button";
-import PlaylistModal from "./PlaylistModal";
+import PlaylistModal from "../Playlists/Create/CreatePlaylistModal";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = {

@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from "react";
-import Header from "./components/Header";
-import Playlists from "./components/Playlists/Playlists";
-import SongsList from "./components/SongsList/SongsList";
+import Header from "./components/Header/Header";
+import Playlists from "./components/Playlists/List/Playlists";
+import SongsList from "./components/Songs/List/SongsList";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Route } from "react-router-dom";
-import Song from "./components/Song";
+import Song from "./components/Songs/Song/Song";
 import InitPage from "./components/InitPage";
-import Playlist from "./components/Playlists/Playlist";
+import Playlist from "./components/Playlists/Page/Playlist";
 import * as firebase from "firebase";
 import AdminPage from "./components/Admin/AdminPage";
 

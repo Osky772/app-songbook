@@ -4,11 +4,11 @@ import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import SearchForm from "../SearchForm";
-import { PageWrapper } from "../containers/StyledContainers";
-import SongRow from "./SongRow";
+import SearchForm from "../../SharedComponents/SearchForm";
+import { PageWrapper } from "../../containers/StyledContainers";
+import SongRow from "./Row/SongRow";
 import Button from "@material-ui/core/Button";
-import { db } from "../../App";
+import { db } from "../../../App";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 

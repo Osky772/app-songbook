@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import Checkbox from "@material-ui/core/Checkbox";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
-import { SongsListRow } from "../containers/StyledContainers";
+import { SongsListRow } from "../../../containers/StyledContainers";
 
 const SongRow = props => {
 	const {

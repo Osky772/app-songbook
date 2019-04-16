@@ -1,9 +1,12 @@
 import React from "react";
 import Modal from "@material-ui/core/Modal";
-import { ContainerModal, WrapperInModal } from "../containers/StyledContainers";
+import {
+	ContainerModal,
+	WrapperInModal
+} from "../../containers/StyledContainers";
 import Button from "@material-ui/core/Button";
 
-import { styles, formatSongDescription } from "../Song";
+import { styles, formatSongDescription } from "../../Songs/Page/Song";
 
 const ModalPreviewSong = props => {
 	const { isPreviewed, handleSongPreview } = props;

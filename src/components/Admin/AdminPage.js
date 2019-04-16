@@ -4,7 +4,10 @@ import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
-import { formatSongDescription, styles as songStyles } from "../Song";
+import {
+	formatSongDescription,
+	styles as songStyles
+} from "../Songs/Song/Song";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { PageWrapper, ListContainer } from "../containers/StyledContainers";
 import Button from "@material-ui/core/Button";

@@ -2,17 +2,20 @@ import React, { Component } from "react";
 import {
 	PageWrapper,
 	SongPaper as PlaylistPaper
-} from "../containers/StyledContainers";
+} from "../../containers/StyledContainers";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { formatSongDescription, styles as songStyles } from "../Song";
-import CreatePDF from "../CreatePDF";
+import {
+	formatSongDescription,
+	styles as songStyles
+} from "../../Songs/Song/Song";
+import CreatePDF from "../../SharedComponents/CreatePDF";
 import Button from "@material-ui/core/Button";
-import PlaylistModal from "./PlaylistModal";
-import { db } from "../../App";
+import PlaylistModal from "../Create/CreatePlaylistModal";
+import { db } from "../../../App";
 
 class Playlist extends Component {
 	state = {
