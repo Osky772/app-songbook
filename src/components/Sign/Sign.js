@@ -45,7 +45,7 @@ const styles = theme => ({
 	}
 });
 
-class SignModal extends Component {
+class Sign extends Component {
 	state = {
 		email: "",
 		password: "",
@@ -156,4 +156,4 @@ class SignModal extends Component {
 	}
 }
 
-export default withStyles(styles)(SignModal);
+export default withStyles(styles)(Sign);

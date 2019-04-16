@@ -10,9 +10,11 @@ import { withStyles } from "@material-ui/core/styles";
 const styles = theme => ({
 	Btn: {
 		color: "white",
-		borderColor: "white",
 		fontSize: "13px",
 		fontWeight: "bold",
+		textTransform: "none",
+		padding: "3px 25px",
+		borderColor: "white",
 		marginLeft: 15,
 		"&:hover": {
 			backgroundColor: "#02a8f4"

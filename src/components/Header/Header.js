@@ -8,10 +8,10 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Grid from "@material-ui/core/Grid";
 import { FaItunesNote } from "react-icons/fa";
-import CreateSongModal from "../CreateSong/CreateSongModal";
+import CreateSong from "../CreateSong/CreateSong";
 import CreatePDF from "../SharedComponents/CreatePDF";
 import CreatePlaylist from "./CreatePlaylist";
-import SignModal from "../Sign/SignModal";
+import Sign from "../Sign/Sign";
 import { withStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
 import * as firebase from "firebase";
@@ -51,17 +51,18 @@ const styles = theme => ({
 	Btn: {
 		color: "white",
 		fontSize: "13px",
+		textTransform: "none",
 		fontWeight: "bold",
+		padding: "3px 25px",
 		marginLeft: 15
 	},
 	loginBtn: {
-		borderColor: theme.palette.secondary.main,
 		color: "white",
 		fontSize: "13px",
 		fontWeight: "bold",
 		"&:hover": {
-			backgroundColor: theme.palette.secondary.light,
-			borderColor: theme.palette.secondary.light
+			backgroundColor: theme.palette.secondary.dark,
+			color: "#ececec"
 		}
 	},
 	registerBtn: {
@@ -144,13 +145,12 @@ class Header extends Component {
 								</Fragment>
 							) : (
 								<Fragment>
-									<SignModal
+									<Sign
 										isOpen={isOpen}
 										isSignedUp={isSignedUp}
 										handleClose={this.handleClose}
 									/>
 									<Button
-										variant="outlined"
 										className={classNames(classes.Btn, classes.loginBtn)}
 										onClick={this.handleSignInOpen}
 									>
@@ -183,7 +183,7 @@ class Header extends Component {
 							</Toolbar>
 						</Grid>
 						<Grid item lg={8} className={classes.flexEnd}>
-							<CreateSongModal />
+							<CreateSong />
 							{user ? (
 								<CreatePlaylist
 									editedPlaylist={editedPlaylist}

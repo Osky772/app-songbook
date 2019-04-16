@@ -12,6 +12,8 @@ const styles = theme => ({
 		color: "white",
 		fontSize: "13px",
 		fontWeight: "bold",
+		textTransform: "none",
+		padding: "3px 25px",
 		marginLeft: 15
 	},
 	active: {
@@ -141,7 +143,7 @@ class CreatePDF extends Component {
 				disabled={Boolean(!songs.length)}
 				onClick={songs.length ? this.createPDF : null}
 			>
-				Create PDF
+				Pobierz plik PDF
 			</Button>
 		);
 	}
