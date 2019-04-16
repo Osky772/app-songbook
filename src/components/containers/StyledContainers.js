@@ -54,7 +54,6 @@ export const ItemElement = styled(PaperContainer)`
 export const PlaylistItem = styled(PaperContainer)`
 	width: 100%;
 	margin: 0 auto 20px auto;
-	padding: 10px;
 `;
 
 export const SongPaper = styled(PaperContainer)`

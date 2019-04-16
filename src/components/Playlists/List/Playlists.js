@@ -21,7 +21,11 @@ const BASE_URL = "https://app-songbook.firebaseio.com/";
 const styles = theme => ({
 	playlistTitle: {
 		fontSize: 18,
-		fontWeight: "bold"
+		fontWeight: "bold",
+		padding: "15px 15px 5px 15px"
+	},
+	playlistDescription: {
+		padding: "0px 15px 15px 15px"
 	},
 	link: {
 		textDecoration: "none"
@@ -148,7 +152,7 @@ class Playlists extends Component {
 										<Typography className={classes.playlistTitle}>
 											{playlist.title}
 										</Typography>
-										<Typography>
+										<Typography className={classes.playlistDescription}>
 											{playlist.songs !== undefined &&
 												playlist.songs.map(
 													({ performer, title, id }, nr, songs) =>
