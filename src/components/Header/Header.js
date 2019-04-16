@@ -74,6 +74,12 @@ const styles = theme => ({
 			color: "#ececec"
 		}
 	},
+	logoutBtn: {
+		"&:hover": {
+			backgroundColor: theme.palette.secondary.dark,
+			color: "#ececec"
+		}
+	},
 	label: {
 		textTransform: "none"
 	}
@@ -150,8 +156,7 @@ class Header extends Component {
 									</Typography>
 
 									<Button
-										variant="outlined"
-										className={classes.Btn}
+										className={classNames(classes.Btn, classes.logoutBtn)}
 										onClick={this.logOut}
 									>
 										Wyloguj się

@@ -9,6 +9,8 @@ const styles = {
 		borderColor: "white",
 		fontSize: "14px",
 		fontWeight: "bold",
+		textTransform: "none",
+		padding: "3px 25px",
 		marginLeft: 15,
 		"&:hover": {
 			backgroundColor: "#02a8f4"
@@ -47,7 +49,7 @@ class CreatePlaylist extends Component {
 					className={classes.Btn}
 					onClick={selectedSongs.length > 0 ? this.handleCreate : null}
 				>
-					DODAJ PLAYLISTĘ
+					Dodaj playlistę
 				</Button>
 				{isCreating && (
 					<PlaylistModal
