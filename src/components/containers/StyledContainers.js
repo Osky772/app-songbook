@@ -23,10 +23,11 @@ export const ListContainer = styled.div`
 `;
 
 export const SongsListRow = styled(PaperContainer)`
-	padding: 15px 20px;
+	padding: 10px 15px;
 	margin: 0px 10px 15px 10px;
 	border-radius: 0;
 	display: flex;
+	align-items: start;
 `;
 
 export const Container = styled.div`

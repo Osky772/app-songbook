@@ -9,8 +9,16 @@ import { PageWrapper } from "../../containers/StyledContainers";
 import SongRow from "./Row/SongRow";
 import Button from "@material-ui/core/Button";
 import { db } from "../../../App";
+import { withStyles } from "@material-ui/core/styles";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
+
+const styles = {
+	btn: {
+		textTransform: "none",
+		marginRight: 15
+	}
+};
 
 class SongsList extends Component {
 	state = {
@@ -156,6 +164,7 @@ class SongsList extends Component {
 
 	render() {
 		const { songs = [], category = "", searchText = "", checked } = this.state;
+		const { classes } = this.props;
 		let songsList = category
 			? songs.filter(song => song.category === category)
 			: songs;
@@ -181,7 +190,7 @@ class SongsList extends Component {
 										button
 										onClick={() => this.handleCategorySelect("")}
 									>
-										<ListItemText primary={"WSZYSTKIE"} />
+										<ListItemText primary={"wszystkie"} />
 									</ListItem>
 								}
 								{uniqueCategories.map(category => {
@@ -191,7 +200,7 @@ class SongsList extends Component {
 											onClick={() => this.handleCategorySelect(category)}
 											key={category}
 										>
-											<ListItemText primary={category.toUpperCase()} />
+											<ListItemText primary={category} />
 										</ListItem>
 									);
 								})}
@@ -199,16 +208,32 @@ class SongsList extends Component {
 						</Paper>
 					</Grid>
 					<Grid item md={8}>
-						<SearchForm
-							style={{ width: "80%" }}
-							handleChange={this.handleChangeForm}
-							placeholder="Wpisz nazwę artysty lub tytuł piosenki..."
-							label="Wyszukaj piosenkę"
-						/>
-						<Button onClick={() => this.handleSelectAll(songsList)}>
+						<Button
+							onClick={() => this.handleSelectAll(songsList)}
+							variant="outlined"
+							className={classes.btn}
+						>
 							Zaznacz wszystkie
 						</Button>
-						<Button onClick={this.handleClearSelectAll}>Wyczyść</Button>
+						<Button
+							onClick={this.handleClearSelectAll}
+							variant="outlined"
+							className={classes.btn}
+						>
+							Wyczyść
+						</Button>
+						<div
+							style={{
+								width: "100%",
+								margin: "5px 0 15px 0"
+							}}
+						>
+							<SearchForm
+								handleChange={this.handleChangeForm}
+								placeholder="Wpisz nazwę artysty lub tytuł piosenki..."
+								label="Wyszukaj piosenkę"
+							/>
+						</div>
 						{songsList.map(song => (
 							<SongRow
 								key={song.id}
@@ -224,4 +249,4 @@ class SongsList extends Component {
 	}
 }
 
-export default SongsList;
+export default withStyles(styles)(SongsList);
