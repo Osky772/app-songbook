@@ -14,7 +14,6 @@ const theme = createMuiTheme({
 			light: "#ee6a03"
 		}
 	},
-
 	typography: {
 		useNextVariants: true
 	}

@@ -15,11 +15,12 @@ import Sign from "../Sign/Sign";
 import { withStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
 import * as firebase from "firebase";
+import "typeface-montserrat";
 
 const styles = theme => ({
 	AppBar: {
 		backgroundColor: theme.palette.primary.main,
-		height: 48,
+		height: 55,
 		alignItems: "center"
 	},
 	firstAppBar: {
@@ -29,8 +30,11 @@ const styles = theme => ({
 	secondAppBar: {
 		position: "sticky"
 	},
-	Toolbar: {
-		// padding: "5px 10px 0 10px"
+	logoText: {
+		letterSpacing: 3,
+		fontSize: 22,
+		textDecoration: "none",
+		fontFamily: "'Montserrat', sans-serif"
 	},
 	flexContainer: {
 		display: "flex",
@@ -125,13 +129,13 @@ class Header extends Component {
 				<AppBar className={classNames(classes.AppBar, classes.firstAppBar)}>
 					<Grid container className={classes.maxWidth}>
 						<Grid item lg={4} className={classes.flexContainer}>
-							<FaItunesNote style={{ fontSize: "40px", marginRight: "25px" }} />
+							<FaItunesNote style={{ fontSize: "38px", marginRight: "25px" }} />
 							<Typography
 								component={Link}
 								to="/lista-piosenek"
 								variant="h6"
 								color="inherit"
-								style={{ textDecoration: "none" }}
+								className={classes.logoText}
 							>
 								Śpiewnik
 							</Typography>
@@ -180,7 +184,7 @@ class Header extends Component {
 				<AppBar className={classNames(classes.AppBar, classes.secondAppBar)}>
 					<Grid container className={classes.maxWidth}>
 						<Grid item lg={6}>
-							<Toolbar variant="dense" className={classes.Toolbar}>
+							<Toolbar variant="dense">
 								<Tabs value={value} onChange={this.handleChange}>
 									<Tab
 										component={Link}
