@@ -16,6 +16,7 @@ import { withStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
 import * as firebase from "firebase";
 import "typeface-montserrat";
+import "../../App.css";
 
 const styles = theme => ({
 	AppBar: {
@@ -54,16 +55,13 @@ const styles = theme => ({
 	},
 	Btn: {
 		color: "white",
-		fontSize: "13px",
+		fontSize: "14px",
 		textTransform: "none",
 		fontWeight: "bold",
 		padding: "3px 25px",
 		marginLeft: 15
 	},
 	loginBtn: {
-		color: "white",
-		fontSize: "13px",
-		fontWeight: "bold",
 		"&:hover": {
 			backgroundColor: theme.palette.secondary.dark,
 			color: "#ececec"
@@ -75,6 +73,9 @@ const styles = theme => ({
 			backgroundColor: theme.palette.secondary.dark,
 			color: "#ececec"
 		}
+	},
+	label: {
+		textTransform: "none"
 	}
 });
 
@@ -190,8 +191,18 @@ class Header extends Component {
 										component={Link}
 										to="/lista-piosenek"
 										label="Lista piosenek"
+										classes={{
+											label: "logo-text"
+										}}
 									/>
-									<Tab component={Link} to="/playlisty" label="Playlisty" />
+									<Tab
+										component={Link}
+										to="/playlisty"
+										label="Playlisty"
+										classes={{
+											label: "logo-text"
+										}}
+									/>
 								</Tabs>
 							</Toolbar>
 						</Grid>

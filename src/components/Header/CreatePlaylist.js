@@ -7,7 +7,7 @@ const styles = {
 	Btn: {
 		color: "white",
 		borderColor: "white",
-		fontSize: "13px",
+		fontSize: "14px",
 		fontWeight: "bold",
 		marginLeft: 15,
 		"&:hover": {

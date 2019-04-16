@@ -4,3 +4,11 @@ html, body {
     height: 100%;
     width: 100%;
 }
+
+.logo-text {
+    text-transform: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    opacity: 1
+}

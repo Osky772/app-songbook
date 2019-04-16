@@ -10,7 +10,7 @@ import { withStyles } from "@material-ui/core/styles";
 const styles = theme => ({
 	Btn: {
 		color: "white",
-		fontSize: "13px",
+		fontSize: "14px",
 		fontWeight: "bold",
 		textTransform: "none",
 		padding: "3px 25px",
