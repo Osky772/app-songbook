@@ -15,6 +15,7 @@ import { MdFilterList } from "react-icons/md";
 import Fab from "@material-ui/core/Fab";
 import withWidth from "@material-ui/core/withWidth";
 import toRenderProps from "recompose/toRenderProps";
+import Drawer from "@material-ui/core/Drawer";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -66,7 +67,8 @@ class SongsList extends Component {
 		category: "",
 		searchText: "",
 		selectedSongs: [],
-		checked: {}
+		checked: {},
+		isDrawerOpen: false
 	};
 
 	fetchSongs = () => {
@@ -203,6 +205,10 @@ class SongsList extends Component {
 		this.props.handleSelectSongs([]);
 	};
 
+	toggleDrawer = open => {
+		this.setState({ ...this.state, isDrawerOpen: open });
+	};
+
 	render() {
 		const { songs = [], category = "", searchText = "", checked } = this.state;
 		const { classes } = this.props;
@@ -239,6 +245,17 @@ class SongsList extends Component {
 			}, {});
 
 		const uniqueCategories = [...new Set(songs.map(song => song.category))];
+		const categories = uniqueCategories.map(category => {
+			return (
+				<ListItem
+					button
+					onClick={() => this.handleCategorySelect(category)}
+					key={category}
+				>
+					<ListItemText primary={category} />
+				</ListItem>
+			);
+		});
 
 		return (
 			<WithWidth>
@@ -246,34 +263,48 @@ class SongsList extends Component {
 					<PageWrapper>
 						<Grid container spacing={24}>
 							<Grid item md={4}>
-								{width === "xs" && (
-									<Fab className={classes.xs} onClick={this.handleOpen}>
-										<MdFilterList />
-									</Fab>
-								)}
-								<Paper>
-									<List component="nav" style={{ background: "white" }}>
-										{
-											<ListItem
-												button
-												onClick={() => this.handleCategorySelect("")}
+								{width === "xs" ? (
+									<Fragment>
+										<Fab
+											className={classes.xs}
+											onClick={() => this.toggleDrawer(true)}
+										>
+											<MdFilterList />
+										</Fab>
+										<Drawer
+											open={this.state.isDrawerOpen}
+											onClose={() => this.toggleDrawer(false)}
+										>
+											<div
+											// role="button"
+											// onClick={() => this.toggleDrawer(false)}
+											// onKeyDown={() => this.toggleDrawer(false)}
 											>
-												<ListItemText primary={"wszystkie"} />
-											</ListItem>
-										}
-										{uniqueCategories.map(category => {
-											return (
 												<ListItem
 													button
-													onClick={() => this.handleCategorySelect(category)}
-													key={category}
+													onClick={() => this.handleCategorySelect("")}
 												>
-													<ListItemText primary={category} />
+													<ListItemText primary={"wszystkie"} />
 												</ListItem>
-											);
-										})}
-									</List>
-								</Paper>
+												{categories}
+											</div>
+										</Drawer>
+									</Fragment>
+								) : (
+									<Paper>
+										<List component="nav" style={{ background: "white" }}>
+											{
+												<ListItem
+													button
+													onClick={() => this.handleCategorySelect("")}
+												>
+													<ListItemText primary={"wszystkie"} />
+												</ListItem>
+											}
+											{categories}
+										</List>
+									</Paper>
+								)}
 							</Grid>
 							<Grid item md={8}>
 								<Button
