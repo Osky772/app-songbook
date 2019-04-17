@@ -87,7 +87,6 @@ class AdminPage extends Component {
 	submitSong = id => {
 		const { songs } = this.state;
 		const song = songs.find(song => song.id === id);
-		console.log(song);
 		db.ref(`songs/${song.id}`)
 			.set({ ...song })
 			.then(() => {

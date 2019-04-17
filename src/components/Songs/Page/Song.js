@@ -52,11 +52,9 @@ class Song extends Component {
 
 	componentWillMount() {
 		const { songId } = this.props.match.params;
-		console.log(songId);
 		fetch(`${BASE_URL}/songs/${songId}.json`)
 			.then(r => r.json())
 			.then(song => {
-				console.log(song);
 				this.setState({ song });
 			});
 	}

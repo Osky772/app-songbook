@@ -134,13 +134,15 @@ class SongsList extends Component {
 	};
 
 	handleSelectAll = songs => {
+		console.log(songs);
 		const { checked } = this.state;
 		const allChecked = Object.keys(checked).reduce((acc, next) => {
 			return {
 				...acc,
-				[next]: true
+				[next]: false
 			};
 		}, {});
+		songs.forEach(song => (allChecked[song.id] = true));
 
 		this.setState({
 			...this.state,
@@ -168,7 +170,7 @@ class SongsList extends Component {
 		let songsList = category
 			? songs.filter(song => song.category === category)
 			: songs;
-
+		console.log(songsList);
 		songsList = searchText
 			? songsList.filter(song => {
 					const songTitle =
@@ -176,7 +178,7 @@ class SongsList extends Component {
 					return songTitle.includes(searchText);
 			  })
 			: songsList;
-
+		console.log(songsList);
 		const uniqueCategories = [...new Set(songs.map(song => song.category))];
 
 		return (
