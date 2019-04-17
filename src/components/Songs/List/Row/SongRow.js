@@ -29,7 +29,6 @@ const SongRow = props => {
 		checked = {},
 		classes
 	} = props;
-
 	return (
 		<SongsListRow elevation={1}>
 			<Checkbox

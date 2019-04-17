@@ -134,7 +134,6 @@ class SongsList extends Component {
 	};
 
 	handleSelectAll = songs => {
-		console.log(songs);
 		const { checked } = this.state;
 		const allChecked = Object.keys(checked).reduce((acc, next) => {
 			return {
@@ -170,7 +169,6 @@ class SongsList extends Component {
 		let songsList = category
 			? songs.filter(song => song.category === category)
 			: songs;
-		console.log(songsList);
 		songsList = searchText
 			? songsList.filter(song => {
 					const songTitle =
@@ -178,7 +176,11 @@ class SongsList extends Component {
 					return songTitle.includes(searchText);
 			  })
 			: songsList;
-		console.log(songsList);
+		const sortedSongs = songsList.sort((a, b) => {
+			const phraseA = a.performer + a.title;
+			const phraseB = b.performer + b.title;
+			return phraseA.localeCompare(phraseB);
+		});
 		const uniqueCategories = [...new Set(songs.map(song => song.category))];
 
 		return (
@@ -236,7 +238,7 @@ class SongsList extends Component {
 								label="Wyszukaj piosenkę"
 							/>
 						</div>
-						{songsList.map(song => (
+						{sortedSongs.map(song => (
 							<SongRow
 								key={song.id}
 								song={song}
