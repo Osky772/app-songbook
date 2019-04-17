@@ -6,6 +6,10 @@ import FormAddSong from "./Form/FormAddSong";
 import ModalPreviewSong from "./Preview/ModalPreviewSong";
 import { db } from "../../App";
 import { withStyles } from "@material-ui/core/styles";
+import { MdAdd } from "react-icons/md";
+import Fab from "@material-ui/core/Fab";
+import withWidth from "@material-ui/core/withWidth";
+import toRenderProps from "recompose/toRenderProps";
 
 const styles = theme => ({
 	Btn: {
@@ -19,8 +23,23 @@ const styles = theme => ({
 		"&:hover": {
 			backgroundColor: "#02a8f4"
 		}
+	},
+	xs: {
+		fontSize: 35,
+		position: "fixed",
+		width: 50,
+		height: 50,
+		padding: 0,
+		borderRadius: 50,
+		bottom: 20,
+		right: 200,
+		backgroundColor: theme.palette.primary.main,
+		color: "white",
+		boxShadow: "#464646 1px 2px 4px 0"
 	}
 });
+
+const WithWidth = toRenderProps(withWidth());
 
 class CreateSongModal extends Component {
 	state = {
@@ -150,36 +169,43 @@ class CreateSongModal extends Component {
 		const { song, open, isPreviewed, isError, error } = this.state;
 		const { classes } = this.props;
 		return (
-			<Fragment>
-				<Button
-					className={classes.Btn}
-					variant="outlined"
-					onClick={this.handleOpen}
-				>
-					Dodaj utwór
-				</Button>
-				<Modal open={open} disableBackdropClick={true}>
-					<ContainerModal>
-						<WrapperInModal>
-							<FormAddSong
-								song={song}
-								handleSubmit={this.handleFormSubmit}
-								handleChange={this.handleChange}
-								handleChangeSongText={this.handleChangeSongText}
-								handleCloseModal={this.handleClose}
-								handleSongPreview={this.handleSongPreview}
-								error={error}
-								isError={isError}
-							/>
-						</WrapperInModal>
-					</ContainerModal>
-				</Modal>
-				<ModalPreviewSong
-					isPreviewed={isPreviewed}
-					handleSongPreview={this.handleSongPreview}
-					song={song}
-				/>
-			</Fragment>
+			<WithWidth>
+				{({ width }) => (
+					<Fragment>
+						{width === "xs" ? (
+							<Fab className={classes.xs} onClick={this.handleOpen}>
+								<MdAdd />
+							</Fab>
+						) : (
+							<Button className={classes.Btn} variant="outlined">
+								Dodaj utwór
+							</Button>
+						)}
+
+						<Modal open={open} disableBackdropClick={true}>
+							<ContainerModal>
+								<WrapperInModal>
+									<FormAddSong
+										song={song}
+										handleSubmit={this.handleFormSubmit}
+										handleChange={this.handleChange}
+										handleChangeSongText={this.handleChangeSongText}
+										handleCloseModal={this.handleClose}
+										handleSongPreview={this.handleSongPreview}
+										error={error}
+										isError={isError}
+									/>
+								</WrapperInModal>
+							</ContainerModal>
+						</Modal>
+						<ModalPreviewSong
+							isPreviewed={isPreviewed}
+							handleSongPreview={this.handleSongPreview}
+							song={song}
+						/>
+					</Fragment>
+				)}
+			</WithWidth>
 		);
 	}
 }
