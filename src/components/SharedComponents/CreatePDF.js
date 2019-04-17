@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
@@ -29,6 +29,7 @@ const styles = theme => ({
 		padding: 0,
 		borderRadius: 50,
 		bottom: 20,
+		right: 60,
 		boxShadow: "#464646 1px 2px 4px 0",
 		"&:disabled": {
 			backgroundColor: "#c5c5c5",
