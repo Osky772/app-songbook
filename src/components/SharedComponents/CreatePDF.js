@@ -7,6 +7,7 @@ import classNames from "classnames";
 import { MdFileDownload } from "react-icons/md";
 import withWidth from "@material-ui/core/withWidth";
 import toRenderProps from "recompose/toRenderProps";
+import Fab from "@material-ui/core/Fab";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -18,11 +19,21 @@ const styles = theme => ({
 		textTransform: "none",
 		padding: "3px 25px",
 		marginLeft: 15,
-		display: "inline-flex",
-		[theme.breakpoints.down("xs")]: {
-			display: "inline-flex",
-			position: "fixed",
-			bottom: 20
+		display: "inline-flex"
+	},
+	xs: {
+		fontSize: 35,
+		position: "fixed",
+		width: 50,
+		height: 50,
+		padding: 0,
+		borderRadius: 50,
+		bottom: 20,
+		boxShadow: "#464646 1px 2px 4px 0",
+		"&:disabled": {
+			backgroundColor: "#c5c5c5",
+			color: "white",
+			boxShadow: "#464646 1px 2px 4px 0"
 		}
 	},
 	active: {
@@ -151,14 +162,13 @@ class CreatePDF extends Component {
 			<WithWidth>
 				{({ width }) =>
 					width === "xs" ? (
-						<Button
-							variant="contained"
-							className={classNames(classes.Btn, classes.active)}
+						<Fab
+							className={classNames(classes.xs, classes.active)}
 							disabled={Boolean(!songs.length)}
 							onClick={songs.length ? this.createPDF : null}
 						>
 							<MdFileDownload />
-						</Button>
+						</Fab>
 					) : (
 						<Button
 							variant="contained"
