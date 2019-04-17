@@ -11,15 +11,36 @@ import Button from "@material-ui/core/Button";
 import { db } from "../../../App";
 import { withStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
+import { MdFilterList } from "react-icons/md";
+import Fab from "@material-ui/core/Fab";
+import withWidth from "@material-ui/core/withWidth";
+import toRenderProps from "recompose/toRenderProps";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
-const styles = {
+const styles = theme => ({
 	btn: {
 		textTransform: "none",
 		marginRight: 15
+	},
+	xs: {
+		fontSize: 35,
+		position: "fixed",
+		width: 50,
+		height: 50,
+		padding: 0,
+		borderRadius: 50,
+		bottom: 20,
+		right: 270,
+		backgroundColor: theme.palette.primary.main,
+		color: "white",
+		boxShadow: "#464646 1px 2px 4px 0",
+		"&:hover": {
+			backgroundColor: theme.palette.primary.main,
+			color: "white"
+		}
 	}
-};
+});
 
 const getFirstLetter = (song, id, songs, letters) => {
 	const songTitle = song.performer ? song.performer : song.title;
@@ -36,6 +57,8 @@ const getFirstLetter = (song, id, songs, letters) => {
 			: letters[songTitle.charAt(0)]
 		: letters[songTitle.charAt(0)];
 };
+
+const WithWidth = toRenderProps(withWidth());
 
 class SongsList extends Component {
 	state = {
@@ -218,76 +241,85 @@ class SongsList extends Component {
 		const uniqueCategories = [...new Set(songs.map(song => song.category))];
 
 		return (
-			<PageWrapper>
-				<Grid container spacing={24}>
-					<Grid item md={4}>
-						<Paper>
-							<List component="nav" style={{ background: "white" }}>
-								{
-									<ListItem
-										button
-										onClick={() => this.handleCategorySelect("")}
-									>
-										<ListItemText primary={"wszystkie"} />
-									</ListItem>
-								}
-								{uniqueCategories.map(category => {
-									return (
-										<ListItem
-											button
-											onClick={() => this.handleCategorySelect(category)}
-											key={category}
-										>
-											<ListItemText primary={category} />
-										</ListItem>
-									);
-								})}
-							</List>
-						</Paper>
-					</Grid>
-					<Grid item md={8}>
-						<Button
-							onClick={() => this.handleSelectAll(songsList)}
-							variant="outlined"
-							className={classes.btn}
-						>
-							Zaznacz wszystkie
-						</Button>
-						<Button
-							onClick={this.handleClearSelectAll}
-							variant="outlined"
-							className={classes.btn}
-						>
-							Wyczyść
-						</Button>
-						<div
-							style={{
-								width: "100%",
-								margin: "5px 0 15px 0"
-							}}
-						>
-							<SearchForm
-								handleChange={this.handleChangeForm}
-								placeholder="Wpisz nazwę artysty lub tytuł piosenki..."
-								label="Wyszukaj piosenkę"
-							/>
-						</div>
-						{sortedSongs.map((song, id, songs) => (
-							<Fragment key={id}>
-								<Typography variant="h4" style={{ paddingLeft: 10 }}>
-									{getFirstLetter(song, id, songs, firstLetters)}
-								</Typography>
-								<SongRow
-									key={song.id}
-									song={song}
-									checked={checked}
-									handleCheckboxSelect={this.handleCheckboxSelect}
-								/>
-							</Fragment>
-						))}
-					</Grid>
-				</Grid>
-			</PageWrapper>
+			<WithWidth>
+				{({ width }) => (
+					<PageWrapper>
+						<Grid container spacing={24}>
+							<Grid item md={4}>
+								{width === "xs" && (
+									<Fab className={classes.xs} onClick={this.handleOpen}>
+										<MdFilterList />
+									</Fab>
+								)}
+								<Paper>
+									<List component="nav" style={{ background: "white" }}>
+										{
+											<ListItem
+												button
+												onClick={() => this.handleCategorySelect("")}
+											>
+												<ListItemText primary={"wszystkie"} />
+											</ListItem>
+										}
+										{uniqueCategories.map(category => {
+											return (
+												<ListItem
+													button
+													onClick={() => this.handleCategorySelect(category)}
+													key={category}
+												>
+													<ListItemText primary={category} />
+												</ListItem>
+											);
+										})}
+									</List>
+								</Paper>
+							</Grid>
+							<Grid item md={8}>
+								<Button
+									onClick={() => this.handleSelectAll(songsList)}
+									variant="outlined"
+									className={classes.btn}
+								>
+									Zaznacz wszystkie
+								</Button>
+								<Button
+									onClick={this.handleClearSelectAll}
+									variant="outlined"
+									className={classes.btn}
+								>
+									Wyczyść
+								</Button>
+								<div
+									style={{
+										width: "100%",
+										margin: "5px 0 15px 0"
+									}}
+								>
+									<SearchForm
+										handleChange={this.handleChangeForm}
+										placeholder="Wpisz nazwę artysty lub tytuł piosenki..."
+										label="Wyszukaj piosenkę"
+									/>
+								</div>
+								{sortedSongs.map((song, id, songs) => (
+									<Fragment key={id}>
+										<Typography variant="h4" style={{ paddingLeft: 10 }}>
+											{getFirstLetter(song, id, songs, firstLetters)}
+										</Typography>
+										<SongRow
+											key={song.id}
+											song={song}
+											checked={checked}
+											handleCheckboxSelect={this.handleCheckboxSelect}
+										/>
+									</Fragment>
+								))}
+							</Grid>
+						</Grid>
+					</PageWrapper>
+				)}
+			</WithWidth>
 		);
 	}
 }
