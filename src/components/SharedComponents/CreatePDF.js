@@ -1,9 +1,12 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import Button from "@material-ui/core/Button";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import { withStyles } from "@material-ui/core/styles";
 import classNames from "classnames";
+import { MdFileDownload } from "react-icons/md";
+import withWidth from "@material-ui/core/withWidth";
+import toRenderProps from "recompose/toRenderProps";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -14,7 +17,13 @@ const styles = theme => ({
 		fontWeight: "bold",
 		textTransform: "none",
 		padding: "3px 25px",
-		marginLeft: 15
+		marginLeft: 15,
+		display: "inline-flex",
+		[theme.breakpoints.down("xs")]: {
+			display: "inline-flex",
+			position: "fixed",
+			bottom: 20
+		}
 	},
 	active: {
 		backgroundColor: "#DC244A",
@@ -28,6 +37,8 @@ const styles = theme => ({
 		backgroundColor: "#a4b0bd"
 	}
 });
+
+const WithWidth = toRenderProps(withWidth());
 
 class CreatePDF extends Component {
 	state = {
@@ -137,14 +148,29 @@ class CreatePDF extends Component {
 		const { classes } = this.props;
 
 		return (
-			<Button
-				variant="contained"
-				className={classNames(classes.Btn, classes.active)}
-				disabled={Boolean(!songs.length)}
-				onClick={songs.length ? this.createPDF : null}
-			>
-				Pobierz plik PDF
-			</Button>
+			<WithWidth>
+				{({ width }) =>
+					width === "xs" ? (
+						<Button
+							variant="contained"
+							className={classNames(classes.Btn, classes.active)}
+							disabled={Boolean(!songs.length)}
+							onClick={songs.length ? this.createPDF : null}
+						>
+							<MdFileDownload />
+						</Button>
+					) : (
+						<Button
+							variant="contained"
+							className={classNames(classes.Btn, classes.active)}
+							disabled={Boolean(!songs.length)}
+							onClick={songs.length ? this.createPDF : null}
+						>
+							Pobierz plik PDF
+						</Button>
+					)
+				}
+			</WithWidth>
 		);
 	}
 }

@@ -17,6 +17,7 @@ import classNames from "classnames";
 import * as firebase from "firebase";
 import "typeface-montserrat";
 import "../../App.css";
+import withWidth from "@material-ui/core/withWidth";
 
 const styles = theme => ({
 	AppBar: {
