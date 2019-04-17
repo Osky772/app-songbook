@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
@@ -10,6 +10,7 @@ import SongRow from "./Row/SongRow";
 import Button from "@material-ui/core/Button";
 import { db } from "../../../App";
 import { withStyles } from "@material-ui/core/styles";
+import { Typography } from "@material-ui/core";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -18,6 +19,22 @@ const styles = {
 		textTransform: "none",
 		marginRight: 15
 	}
+};
+
+const getFirstLetter = (song, id, songs, letters) => {
+	const songTitle = song.performer ? song.performer : song.title;
+	const previousSong = id > 0 ? songs[id - 1] : null;
+	const previousSongTitle = previousSong
+		? previousSong.performer
+			? previousSong.performer
+			: previousSong.title
+		: null;
+
+	return previousSong
+		? songTitle === previousSongTitle
+			? null
+			: letters[songTitle.charAt(0)]
+		: letters[songTitle.charAt(0)];
 };
 
 class SongsList extends Component {
@@ -181,6 +198,23 @@ class SongsList extends Component {
 			const phraseB = b.performer + b.title;
 			return phraseA.localeCompare(phraseB);
 		});
+
+		const firstLetters = [
+			...new Set(
+				sortedSongs.map(song => {
+					const songTitle = song.performer ? song.performer : song.title;
+					return songTitle;
+				})
+			)
+		]
+			.map(performer => performer.charAt(0))
+			.reduce((acc, next) => {
+				return {
+					...acc,
+					[next]: next
+				};
+			}, {});
+
 		const uniqueCategories = [...new Set(songs.map(song => song.category))];
 
 		return (
@@ -238,13 +272,18 @@ class SongsList extends Component {
 								label="Wyszukaj piosenkę"
 							/>
 						</div>
-						{sortedSongs.map(song => (
-							<SongRow
-								key={song.id}
-								song={song}
-								checked={checked}
-								handleCheckboxSelect={this.handleCheckboxSelect}
-							/>
+						{sortedSongs.map((song, id, songs) => (
+							<Fragment key={id}>
+								<Typography variant="h4" style={{ paddingLeft: 10 }}>
+									{getFirstLetter(song, id, songs, firstLetters)}
+								</Typography>
+								<SongRow
+									key={song.id}
+									song={song}
+									checked={checked}
+									handleCheckboxSelect={this.handleCheckboxSelect}
+								/>
+							</Fragment>
 						))}
 					</Grid>
 				</Grid>
