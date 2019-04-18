@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Grid from "@material-ui/core/Grid";
-import { FaItunesNote } from "react-icons/fa";
+import { FaItunesNote, FaColumns } from "react-icons/fa";
 import CreateSong from "../CreateSong/CreateSong";
 import CreatePDF from "../SharedComponents/CreatePDF";
 import CreatePlaylist from "./CreatePlaylist";
@@ -26,7 +26,12 @@ const styles = theme => ({
 	},
 	firstAppBar: {
 		position: "static",
-		boxShadow: "none"
+		boxShadow: "none",
+		[theme.breakpoints.down("xs")]: {
+			height: 95,
+			display: "flex",
+			flexDirection: "column"
+		}
 	},
 	secondAppBar: {
 		position: "sticky"
@@ -37,14 +42,21 @@ const styles = theme => ({
 		textDecoration: "none",
 		fontFamily: "'Montserrat', sans-serif"
 	},
-	flexContainer: {
+	logoContainer: {
 		display: "flex",
-		alignItems: "center"
+		alignItems: "center",
+		[theme.breakpoints.down("xs")]: {
+			width: "100%"
+		}
 	},
-	flexEnd: {
+	userContainer: {
 		display: "flex",
 		justifyContent: "flex-end",
-		alignItems: "center"
+		alignItems: "center",
+		[theme.breakpoints.down("xs")]: {
+			width: "100%",
+			justifyContent: "flex-start"
+		}
 	},
 	maxWidth: {
 		height: "100%",
@@ -60,6 +72,13 @@ const styles = theme => ({
 		fontWeight: "bold",
 		padding: "3px 25px",
 		marginLeft: 15
+	},
+	logoIcon: {
+		fontSize: "38px",
+		marginRight: "25px",
+		[theme.breakpoints.down("xs")]: {
+			marginRight: 5
+		}
 	},
 	loginBtn: {
 		"&:hover": {
@@ -78,6 +97,9 @@ const styles = theme => ({
 		"&:hover": {
 			backgroundColor: theme.palette.secondary.dark,
 			color: "#ececec"
+		},
+		[theme.breakpoints.down("xs")]: {
+			padding: 0
 		}
 	},
 	label: {
@@ -135,8 +157,8 @@ class Header extends Component {
 			<Fragment>
 				<AppBar className={classNames(classes.AppBar, classes.firstAppBar)}>
 					<Grid container className={classes.maxWidth}>
-						<Grid item lg={4} className={classes.flexContainer}>
-							<FaItunesNote style={{ fontSize: "38px", marginRight: "25px" }} />
+						<Grid item lg={4} className={classes.logoContainer}>
+							<FaItunesNote className={classes.logoIcon} />
 							<Typography
 								component={Link}
 								to="/lista-piosenek"
@@ -147,7 +169,7 @@ class Header extends Component {
 								Śpiewnik
 							</Typography>
 						</Grid>
-						<Grid item lg={8} className={classes.flexEnd}>
+						<Grid item lg={8} className={classes.userContainer}>
 							{user ? (
 								<Fragment>
 									<Typography variant="subtitle2" style={{ color: "white" }}>
