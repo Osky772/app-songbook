@@ -35,7 +35,8 @@ const styles = theme => ({
 	},
 	secondAppBar: {
 		position: "sticky",
-		top: 0
+		top: 0,
+		zIndex: 9999
 	},
 	logoIcon: {
 		fontSize: "38px",
@@ -56,7 +57,8 @@ const styles = theme => ({
 		display: "flex",
 		alignItems: "center",
 		[theme.breakpoints.down("xs")]: {
-			width: "100%"
+			width: "100%",
+			justifyContent: "flex-start"
 		}
 	},
 	userContainer: {
@@ -65,7 +67,7 @@ const styles = theme => ({
 		alignItems: "center",
 		[theme.breakpoints.down("xs")]: {
 			width: "100%",
-			justifyContent: "flex-start"
+			justifyContent: "flex-end"
 		}
 	},
 	maxWidth: {
@@ -77,7 +79,9 @@ const styles = theme => ({
 		justifyContent: "space-between",
 		[theme.breakpoints.down("xs")]: {
 			flexDirection: "column",
-			justifyContent: "space-around"
+			justifyContent: "space-around",
+			margin: 0,
+			width: "100%"
 		}
 	},
 	Btn: {
@@ -112,6 +116,11 @@ const styles = theme => ({
 	},
 	label: {
 		textTransform: "none"
+	},
+	toolBarGrid: {
+		[theme.breakpoints.down("xs")]: {
+			alignSelf: "flex-start"
+		}
 	}
 });
 
@@ -219,7 +228,7 @@ class Header extends Component {
 				</div>
 				<div className={classNames(classes.AppBar, classes.secondAppBar)}>
 					<Grid container className={classes.maxWidth}>
-						<Grid item lg={6}>
+						<Grid item lg={6} className={classes.toolBarGrid}>
 							<Toolbar variant="dense">
 								<Tabs value={value} onChange={this.handleChange}>
 									<Tab
