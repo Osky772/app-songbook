@@ -15,6 +15,19 @@ import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import { db } from "../../../App";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = theme => ({
+	wrapper: {
+		zIndex: 999999
+	},
+	form: {
+		marginTop: 70,
+		[theme.breakpoints.down("xs")]: {
+			marginTop: 0
+		}
+	}
+});
 
 class PlaylistModal extends Component {
 	state = {
@@ -248,19 +261,20 @@ class PlaylistModal extends Component {
 			error,
 			playlist: { songs = [], title = "", isPublic = false }
 		} = this.state;
-		const { selectedSongs, user } = this.props;
+		const { classes, selectedSongs, user } = this.props;
 
 		return (
 			<DragDropContext onDragEnd={this.onDragEnd}>
-				<Modal open={isCreating || isEditing} disableBackdropClick={true}>
+				<Modal
+					open={isCreating || isEditing}
+					disableBackdropClick={true}
+					className={classes.wrapper}
+				>
 					<ContainerModal>
 						<WrapperInModal>
 							<FormWrapper>
 								{isError && <ErrorValidateInfo type="playlist" error={error} />}
-								<form
-									onSubmit={this.handleFormSubmit}
-									style={{ marginTop: "70px" }}
-								>
+								<form onSubmit={this.handleFormSubmit} className={classes.form}>
 									<TextField
 										id="outlined-full-width"
 										label="Nazwa"
@@ -316,4 +330,4 @@ class PlaylistModal extends Component {
 	}
 }
 
-export default PlaylistModal;
+export default withStyles(styles)(PlaylistModal);
