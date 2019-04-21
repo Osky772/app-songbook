@@ -8,10 +8,7 @@ import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import {
-	formatSongDescription,
-	styles as songStyles
-} from "../../Songs/Page/Song";
+import { formatSongDescription } from "../../Songs/Page/Song";
 import CreatePDF from "../../SharedComponents/CreatePDF";
 import Button from "@material-ui/core/Button";
 import PlaylistModal from "../Create/PlaylistModal";
@@ -20,6 +17,17 @@ import { withStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 
 const styles = theme => ({
+	wrapper: {
+		[theme.breakpoints.down("xs")]: {
+			paddingTop: 0
+		}
+	},
+	container: {
+		[theme.breakpoints.down("xs")]: {
+			width: "100%",
+			padding: 10
+		}
+	},
 	buttonsWrapper: {
 		width: "100%",
 		paddingBottom: "15px"
@@ -46,11 +54,33 @@ const styles = theme => ({
 			color: "#ececec"
 		}
 	},
+	summaryContainer: {
+		padding: 5
+	},
+	detailsContainer: {
+		display: "block",
+		padding: 5
+	},
 	title: {
 		fontSize: 18
 	},
 	verse: {
-		fontSize: 14
+		fontSize: 14,
+		display: "flex",
+		justifyContent: "space-between",
+		margin: "10px 0"
+	},
+	text: {
+		width: "75%",
+		[theme.breakpoints.down("xs")]: {
+			width: "70%"
+		}
+	},
+	chords: {
+		width: "20%",
+		[theme.breakpoints.down("xs")]: {
+			width: "25%"
+		}
 	},
 	paper: {
 		position: "absolute",
@@ -62,6 +92,10 @@ const styles = theme => ({
 		boxShadow: theme.shadows[5],
 		padding: theme.spacing.unit * 4,
 		outline: "none"
+	},
+	container: {
+		width: "100%",
+		padding: 15
 	}
 });
 
@@ -151,7 +185,7 @@ class Playlist extends Component {
 		const { classes, selectedSongs, handleSelectSongs, user } = this.props;
 
 		return (
-			<PageWrapper>
+			<PageWrapper className={classes.wrapper}>
 				{isEditing && (
 					<PlaylistModal
 						isEditing={isEditing}
@@ -163,7 +197,7 @@ class Playlist extends Component {
 						user={user}
 					/>
 				)}
-				<PlaylistPaper>
+				<PlaylistPaper className={classes.container}>
 					<h1>{title}</h1>
 					<p>Stworzone przez: {playlist.userEmail}</p>
 					<div className={classes.buttonsWrapper}>
@@ -211,14 +245,17 @@ class Playlist extends Component {
 					</div>
 					{songs.map(song => (
 						<ExpansionPanel key={song.id}>
-							<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+							<ExpansionPanelSummary
+								expandIcon={<ExpandMoreIcon />}
+								className={classes.summaryContainer}
+							>
 								<Typography>
 									{song.performer
 										? song.performer + " - " + song.title
 										: song.title}
 								</Typography>
 							</ExpansionPanelSummary>
-							<ExpansionPanelDetails style={{ display: "block" }}>
+							<ExpansionPanelDetails className={classes.detailsContainer}>
 								<Typography className={classes.title}>
 									{song.performer
 										? song.performer + " - " + song.title
@@ -226,13 +263,9 @@ class Playlist extends Component {
 								</Typography>
 								{formatSongDescription(song).map((verse, i) => {
 									return verse.text !== null ? (
-										<Typography
-											className={classes.verse}
-											key={i}
-											style={songStyles.verse}
-										>
-											<span style={songStyles.text}>{verse.text}</span>
-											<span style={songStyles.chords}>
+										<Typography className={classes.verse} key={i}>
+											<span className={classes.text}>{verse.text}</span>
+											<span className={classes.chords}>
 												{verse.chords ? verse.chords : null}
 											</span>
 										</Typography>
