@@ -40,6 +40,9 @@ const styles = theme => ({
 			backgroundColor: theme.palette.primary.main,
 			color: "white"
 		}
+	},
+	contentGrid: {
+		width: "100%"
 	}
 });
 
@@ -302,7 +305,7 @@ class SongsList extends Component {
 									</Paper>
 								)}
 							</Grid>
-							<Grid item md={8}>
+							<Grid item md={8} className={classes.contentGrid}>
 								<Button
 									onClick={() => this.handleSelectAll(songsList)}
 									variant="outlined"

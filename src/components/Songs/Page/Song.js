@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { PageWrapper, SongPaper } from "../../containers/StyledContainers";
+import { withStyles } from "@material-ui/core/styles";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -32,18 +33,29 @@ export const formatSongDescription = ({ description = "" }) => {
 	return textWithChords;
 };
 
-export const styles = {
+export const styles = theme => ({
 	verse: {
 		display: "flex",
+		justifyContent: "space-between",
 		margin: "10px 0"
 	},
 	text: {
-		width: "75%"
+		width: "75%",
+		[theme.breakpoints.down("xs")]: {
+			width: "70%"
+		}
 	},
 	chords: {
-		width: "20%"
+		width: "20%",
+		[theme.breakpoints.down("xs")]: {
+			width: "25%"
+		}
+	},
+	container: {
+		width: "100%",
+		padding: 15
 	}
-};
+});
 
 class Song extends Component {
 	state = {
@@ -64,19 +76,19 @@ class Song extends Component {
 			song,
 			song: { performer = "", title = "", category = "" }
 		} = this.state;
-
+		const { classes } = this.props;
 		const textWithChords = formatSongDescription(song);
 
 		return (
 			<PageWrapper>
-				<SongPaper>
+				<SongPaper className={classes.container}>
 					<h2>{performer ? performer + " - " + title : title}</h2>
 					<h4>{category}</h4>
 					{textWithChords.map((verse, i) => {
 						return verse.text !== null ? (
-							<p key={i} style={styles.verse}>
-								<span style={styles.text}>{verse.text}</span>
-								<span style={styles.chords}>
+							<p key={i} className={classes.verse}>
+								<span className={classes.text}>{verse.text}</span>
+								<span className={classes.chords}>
 									{verse.chords ? verse.chords : null}
 								</span>
 							</p>
@@ -90,4 +102,4 @@ class Song extends Component {
 	}
 }
 
-export default Song;
+export default withStyles(styles)(Song);
