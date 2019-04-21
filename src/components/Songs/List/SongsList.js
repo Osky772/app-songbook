@@ -261,7 +261,7 @@ class SongsList extends Component {
 			<WithWidth>
 				{({ width }) => (
 					<PageWrapper>
-						<Grid container spacing={24}>
+						<Grid container spacing={width === "xs" ? 0 : 24}>
 							<Grid item md={4}>
 								{width === "xs" ? (
 									<Fragment>
@@ -275,11 +275,7 @@ class SongsList extends Component {
 											open={this.state.isDrawerOpen}
 											onClose={() => this.toggleDrawer(false)}
 										>
-											<div
-											// role="button"
-											// onClick={() => this.toggleDrawer(false)}
-											// onKeyDown={() => this.toggleDrawer(false)}
-											>
+											<div>
 												<ListItem
 													button
 													onClick={() => this.handleCategorySelect("")}

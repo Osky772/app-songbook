@@ -29,7 +29,7 @@ const styles = theme => ({
 		padding: 0,
 		borderRadius: 50,
 		bottom: 20,
-		right: 60,
+		right: 130,
 		boxShadow: "#464646 1px 2px 4px 0",
 		"&:disabled": {
 			backgroundColor: "#c5c5c5",

@@ -72,8 +72,13 @@ const styles = theme => ({
 		height: "100%",
 		maxWidth: 1030,
 		margin: "0 auto",
+		display: "flex",
 		alignItems: "center",
-		justifyContent: "space-between"
+		justifyContent: "space-between",
+		[theme.breakpoints.down("xs")]: {
+			flexDirection: "column",
+			justifyContent: "space-around"
+		}
 	},
 	Btn: {
 		color: "white",
@@ -159,8 +164,8 @@ class Header extends Component {
 		return (
 			<Fragment>
 				<div className={classNames(classes.AppBar, classes.firstAppBar)}>
-					<Grid container className={classes.maxWidth}>
-						<Grid item lg={4} className={classes.logoContainer}>
+					<div className={classes.maxWidth}>
+						<div className={classes.logoContainer}>
 							<FaItunesNote className={classes.logoIcon} />
 							<Typography
 								component={Link}
@@ -171,8 +176,8 @@ class Header extends Component {
 							>
 								Śpiewnik
 							</Typography>
-						</Grid>
-						<Grid item lg={8} className={classes.userContainer}>
+						</div>
+						<div className={classes.userContainer}>
 							{user ? (
 								<Fragment>
 									<Typography variant="subtitle2" style={{ color: "white" }}>
@@ -209,8 +214,8 @@ class Header extends Component {
 									</Button>
 								</Fragment>
 							)}
-						</Grid>
-					</Grid>
+						</div>
+					</div>
 				</div>
 				<div className={classNames(classes.AppBar, classes.secondAppBar)}>
 					<Grid container className={classes.maxWidth}>
