@@ -13,6 +13,9 @@ import Typography from "@material-ui/core/Typography";
 import * as firebase from "firebase";
 
 const styles = theme => ({
+	wrapper: {
+		zIndex: 9999999999
+	},
 	main: {
 		width: "auto",
 		display: "block", // Fix IE 11 issue.
@@ -106,7 +109,11 @@ class Sign extends Component {
 		const { classes, isSignedUp, isOpen, handleClose } = this.props;
 		const title = isSignedUp ? "Zarejestruj się" : "Zaloguj się";
 		return (
-			<Modal open={isOpen} onClose={() => handleClose()}>
+			<Modal
+				open={isOpen}
+				onClose={() => handleClose()}
+				className={classes.wrapper}
+			>
 				<main className={classes.main}>
 					<CssBaseline />
 					<Paper className={classes.paper}>

@@ -13,12 +13,12 @@ import { PageWrapper, ListContainer } from "../containers/StyledContainers";
 import Button from "@material-ui/core/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-const styles = theme => ({
+const styles = {
 	songsWrapper: {
 		width: "80%",
 		marginBottom: 16
 	}
-});
+};
 
 class AdminPage extends Component {
 	state = {

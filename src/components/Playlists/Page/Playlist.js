@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import {
 	PageWrapper,
 	SongPaper as PlaylistPaper
@@ -183,7 +183,10 @@ class Playlist extends Component {
 			playlist: { title, songs = [] }
 		} = this.state;
 		const { classes, selectedSongs, handleSelectSongs, user } = this.props;
-
+		const isLoggedIn = user !== null;
+		const isOwnerOfPlaylist = isLoggedIn
+			? user.email === playlist.userEmail
+			: false;
 		return (
 			<PageWrapper className={classes.wrapper}>
 				{isEditing && (
@@ -201,45 +204,49 @@ class Playlist extends Component {
 					<h1>{title}</h1>
 					<p>Stworzone przez: {playlist.userEmail}</p>
 					<div className={classes.buttonsWrapper}>
-						<Button
-							className={classes.btn}
-							onClick={() => this.handleEditPlaylist(playlist)}
-						>
-							Edytuj
-						</Button>
-						<Button className={classes.btn} onClick={this.handleOpen}>
-							Usuń
-						</Button>
-						<Modal
-							aria-labelledby="simple-modal-title"
-							aria-describedby="simple-modal-description"
-							open={this.state.open}
-							onClose={this.handleClose}
-						>
-							<div className={classes.paper}>
-								<Typography variant="h6">
-									Czy na pewno chcesz usunąć playlistę?
-								</Typography>
-								<Typography variant="subtitle1">
-									Pamiętaj, że po usunięciu playlisty nie ma możliwości jej
-									przywrócenia.
-								</Typography>
+						{isOwnerOfPlaylist ? (
+							<Fragment>
 								<Button
-									className={classes.yesBtn}
-									onClick={() => this.handleRemovePlaylist(playlist.id)}
+									className={classes.btn}
+									onClick={() => this.handleEditPlaylist(playlist)}
 								>
-									Tak
+									Edytuj
 								</Button>
-								<Button
-									variant="contained"
-									className={classes.noBtn}
-									onClick={this.handleClose}
+								<Button className={classes.btn} onClick={this.handleOpen}>
+									Usuń
+								</Button>
+								<Modal
+									aria-labelledby="simple-modal-title"
+									aria-describedby="simple-modal-description"
+									open={this.state.open}
+									onClose={this.handleClose}
 								>
-									{" "}
-									Nie
-								</Button>
-							</div>
-						</Modal>
+									<div className={classes.paper}>
+										<Typography variant="h6">
+											Czy na pewno chcesz usunąć playlistę?
+										</Typography>
+										<Typography variant="subtitle1">
+											Pamiętaj, że po usunięciu playlisty nie ma możliwości jej
+											przywrócenia.
+										</Typography>
+										<Button
+											className={classes.yesBtn}
+											onClick={() => this.handleRemovePlaylist(playlist.id)}
+										>
+											Tak
+										</Button>
+										<Button
+											variant="contained"
+											className={classes.noBtn}
+											onClick={this.handleClose}
+										>
+											{" "}
+											Nie
+										</Button>
+									</div>
+								</Modal>
+							</Fragment>
+						) : null}
 
 						<CreatePDF title={title} songs={songs} />
 					</div>
