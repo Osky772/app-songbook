@@ -54,6 +54,11 @@ export const styles = theme => ({
 	container: {
 		width: "100%",
 		padding: 15
+	},
+	wrapper: {
+		[theme.breakpoints.down("xs")]: {
+			paddingTop: 0
+		}
 	}
 });
 
@@ -80,7 +85,7 @@ class Song extends Component {
 		const textWithChords = formatSongDescription(song);
 
 		return (
-			<PageWrapper>
+			<PageWrapper className={classes.wrapper}>
 				<SongPaper className={classes.container}>
 					<h2>{performer ? performer + " - " + title : title}</h2>
 					<h4>{category}</h4>

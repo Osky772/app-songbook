@@ -18,6 +18,14 @@ import { withStyles } from "@material-ui/core/styles";
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
 const styles = theme => ({
+	wrapper: {
+		[theme.breakpoints.down("xs")]: {
+			paddingTop: 0
+		}
+	},
+	playlistsContainer: {
+		padding: 10
+	},
 	playlistTitle: {
 		fontSize: 18,
 		padding: "15px 15px 5px 15px"
@@ -27,6 +35,11 @@ const styles = theme => ({
 	},
 	link: {
 		textDecoration: "none"
+	},
+	categoriesContainer: {
+		[theme.breakpoints.down("xs")]: {
+			margin: 10
+		}
 	},
 	categoryTitle: {
 		fontSize: 20,
@@ -104,10 +117,10 @@ class Playlists extends Component {
 		});
 
 		return (
-			<PageWrapper>
+			<PageWrapper className={classes.wrapper}>
 				<Grid container spacing={24}>
-					<Grid item md={4}>
-						<Paper>
+					<Grid item md={4} xs={12}>
+						<Paper className={classes.categoriesContainer}>
 							<List component="nav" style={{ background: "white" }}>
 								<ListItem
 									button
@@ -126,8 +139,8 @@ class Playlists extends Component {
 							</List>
 						</Paper>
 					</Grid>
-					<Grid item md={8}>
-						<ListContainer>
+					<Grid item md={8} xs={12}>
+						<ListContainer className={classes.playlistsContainer}>
 							<Typography className={classes.categoryTitle}>
 								{isPublic ? "Playlisty publiczne" : "Playlisty prywatne"}
 							</Typography>
