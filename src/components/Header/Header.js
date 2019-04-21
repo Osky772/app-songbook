@@ -34,12 +34,22 @@ const styles = theme => ({
 		}
 	},
 	secondAppBar: {
-		position: "sticky"
+		position: "sticky",
+		top: 0
+	},
+	logoIcon: {
+		fontSize: "38px",
+		color: "white",
+		marginRight: "25px",
+		[theme.breakpoints.down("xs")]: {
+			marginRight: 5
+		}
 	},
 	logoText: {
 		letterSpacing: 3,
 		fontSize: 22,
 		textDecoration: "none",
+		color: "white",
 		fontFamily: "'Montserrat', sans-serif"
 	},
 	logoContainer: {
@@ -72,13 +82,6 @@ const styles = theme => ({
 		fontWeight: "bold",
 		padding: "3px 25px",
 		marginLeft: 15
-	},
-	logoIcon: {
-		fontSize: "38px",
-		marginRight: "25px",
-		[theme.breakpoints.down("xs")]: {
-			marginRight: 5
-		}
 	},
 	loginBtn: {
 		"&:hover": {
@@ -155,7 +158,7 @@ class Header extends Component {
 
 		return (
 			<Fragment>
-				<AppBar className={classNames(classes.AppBar, classes.firstAppBar)}>
+				<div className={classNames(classes.AppBar, classes.firstAppBar)}>
 					<Grid container className={classes.maxWidth}>
 						<Grid item lg={4} className={classes.logoContainer}>
 							<FaItunesNote className={classes.logoIcon} />
@@ -208,8 +211,8 @@ class Header extends Component {
 							)}
 						</Grid>
 					</Grid>
-				</AppBar>
-				<AppBar className={classNames(classes.AppBar, classes.secondAppBar)}>
+				</div>
+				<div className={classNames(classes.AppBar, classes.secondAppBar)}>
 					<Grid container className={classes.maxWidth}>
 						<Grid item lg={6}>
 							<Toolbar variant="dense">
@@ -246,7 +249,7 @@ class Header extends Component {
 							<CreatePDF songs={selectedSongs} />
 						</Grid>
 					</Grid>
-				</AppBar>
+				</div>
 			</Fragment>
 		);
 	}
