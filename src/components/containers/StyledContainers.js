@@ -71,7 +71,7 @@ export const WrapperInModal = styled.div`
 `;
 
 export const FormWrapper = styled.div`
-	padding: 0px 25px 25px 25px;
+	padding: 0px 25px 70px 25px;
 	height: 100%;
 	overflow: auto;
 	position: relative;
