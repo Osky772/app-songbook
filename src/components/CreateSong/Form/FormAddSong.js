@@ -12,6 +12,7 @@ import { withStyles } from "@material-ui/core/styles";
 const styles = theme => ({
 	form: {
 		marginTop: 70,
+		marginBottom: 70,
 	},
 	textField: {
 		display: "block",

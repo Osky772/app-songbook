@@ -273,7 +273,7 @@ class PlaylistModal extends Component {
 			<DragDropContext onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}>
 				<Modal
 					open={isCreating || isEditing}
-					disableBackdropClick={true}
+					// disableBackdropClick={true}
 					className={classes.wrapper}
 				>
 					<ContainerModal>

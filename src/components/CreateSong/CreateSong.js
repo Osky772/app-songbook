@@ -15,6 +15,23 @@ const styles = theme => ({
 	wrapper: {
 		zIndex: 5000
 	},
+	modalWrapper: {
+		transform: "translateZ(0)",
+		backfaceVisibility: "hidden",
+		perspective: "1000",
+		position: "absolute",
+		top: 0,
+		height: "100%",
+		width: "700px",
+		background: "white",
+		outline: "none",
+		[theme.breakpoints.down("sm")]: {
+			width: '100%',
+			maxWidth: "100%",
+			width: "100%",
+			left: 0,
+		}
+	},
 	Btn: {
 		color: "white",
 		fontSize: "14px",
@@ -25,6 +42,11 @@ const styles = theme => ({
 		marginLeft: 15,
 		"&:hover": {
 			backgroundColor: "#02a8f4"
+		},
+		[theme.breakpoints.down("sm")]: {
+			"&:hover": {
+				backgroundColor: theme.palette.primary.main
+			}	
 		}
 	},
 	xs: {
@@ -184,7 +206,7 @@ class CreateSongModal extends Component {
 							<Button
 								className={classes.Btn}
 								variant="outlined"
-								onClick={() => console.log(width === "xs")}
+								onClick={this.handleOpen}
 							>
 								Dodaj utwór
 							</Button>
@@ -192,11 +214,11 @@ class CreateSongModal extends Component {
 
 						<Modal
 							open={open}
-							disableBackdropClick={true}
+							// disableBackdropClick={true}
 							className={classes.wrapper}
 						>
 							<ContainerModal>
-								<WrapperInModal>
+								<div className={classes.modalWrapper}>
 									<FormAddSong
 										song={song}
 										handleSubmit={this.handleFormSubmit}
@@ -207,7 +229,7 @@ class CreateSongModal extends Component {
 										error={error}
 										isError={isError}
 									/>
-								</WrapperInModal>
+								</div>
 							</ContainerModal>
 						</Modal>
 						<ModalPreviewSong
