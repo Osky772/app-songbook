@@ -23,6 +23,8 @@ const styles = theme => ({
 		}
 	},
 	container: {
+		width: "100%",
+		padding: 15,
 		[theme.breakpoints.down("xs")]: {
 			width: "100%",
 			padding: 10
@@ -92,10 +94,6 @@ const styles = theme => ({
 		boxShadow: theme.shadows[5],
 		padding: theme.spacing.unit * 4,
 		outline: "none"
-	},
-	container: {
-		width: "100%",
-		padding: 15
 	}
 });
 

@@ -22,7 +22,10 @@ const styles = theme => ({
 		zIndex: 10000
 	},
 	form: {
-		marginTop: 70,
+		margin: 70,
+		[theme.breakpoints.down("sm")]: {
+			margin: "70px 0"
+		}
 	}
 });
 
