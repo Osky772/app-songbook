@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "6e5c758d637f573671cc",
+    "revision": "e354255c3a425a4dcf7e",
     "url": "/app-songbook/static/css/main.20998995.chunk.css"
   },
   {
-    "revision": "6e5c758d637f573671cc",
-    "url": "/app-songbook/static/js/main.4b94fa3d.chunk.js"
+    "revision": "e354255c3a425a4dcf7e",
+    "url": "/app-songbook/static/js/main.e23d327b.chunk.js"
   },
   {
     "revision": "fcf634717eb232d4270c",
@@ -164,7 +164,7 @@ self.__precacheManifest = [
     "url": "/app-songbook/static/media/montserrat-latin-900italic.43b527fe.woff"
   },
   {
-    "revision": "9de92ac89f78f2285d058e5002793120",
+    "revision": "ff39cc49d433c545be843aeea331a0c2",
     "url": "/app-songbook/index.html"
   }
 ];
