@@ -250,7 +250,7 @@ class Header extends Component {
 								</Tabs>
 							</Toolbar>
 						</Grid>
-						<Grid item lg={6} className={classes.flexEnd}>
+						<Grid item md={6} sm={6} xs={12} className={classes.flexEnd}>
 							<CreateSong />
 							{user ? (
 								<CreatePlaylist

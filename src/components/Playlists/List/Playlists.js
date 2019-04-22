@@ -14,6 +14,10 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { db } from "../../../App";
 import { withStyles } from "@material-ui/core/styles";
+import withWidth from "@material-ui/core/withWidth";
+import toRenderProps from "recompose/toRenderProps";
+
+const WithWidth = toRenderProps(withWidth());
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -117,75 +121,83 @@ class Playlists extends Component {
 		});
 
 		return (
-			<PageWrapper className={classes.wrapper}>
-				<Grid container spacing={24}>
-					<Grid item md={4} xs={12}>
-						<Paper className={classes.categoriesContainer}>
-							<List component="nav" style={{ background: "white" }}>
-								<ListItem
-									button
-									onClick={() => this.handleCategorySelect("public")}
-								>
-									<ListItemText primary={"publicze"} />
-								</ListItem>
-								<ListItem
-									button
-									onClick={
-										user ? () => this.handleCategorySelect("private") : null
-									}
-								>
-									<ListItemText primary={"prywatne"} />
-								</ListItem>
-							</List>
-						</Paper>
-					</Grid>
-					<Grid item md={8} xs={12}>
-						<ListContainer className={classes.playlistsContainer}>
-							<Typography className={classes.categoryTitle}>
-								{isPublic ? "Playlisty publiczne" : "Playlisty prywatne"}
-							</Typography>
-							<SearchForm
-								handleChange={this.handleInputChange}
-								label="Wyszukaj playlistę"
-								placeholder="Wpisz nazwę playlisty"
-							/>
-							{searchedPlaylists.map(playlist => (
-								<PlaylistItem key={playlist.id}>
-									<Link
-										key={playlist.id}
-										to={
-											isPublic
-												? `/playlisty/${playlist.id}`
-												: `users/${user.uid}/playlists/${playlist.id}`
-										}
-										className={classes.link}
-									>
-										<Typography className={classes.playlistTitle}>
-											{playlist.title}
-										</Typography>
-										<Typography className={classes.playlistDescription}>
-											{playlist.songs !== undefined &&
-												playlist.songs.map(
-													({ performer, title, id }, nr, songs) =>
-														nr < songs.length - 1 ? (
-															<span key={id}>
-																{performer ? performer + " - " + title : title}
-																{", "}
-															</span>
-														) : (
-															<span key={id}>
-																{performer ? performer + " - " + title : title}
-															</span>
-														)
-												)}
-										</Typography>
-									</Link>
-								</PlaylistItem>
-							))}
-						</ListContainer>
-					</Grid>
-				</Grid>
-			</PageWrapper>
+			<WithWidth>
+				{({ width }) => (
+					<PageWrapper className={classes.wrapper}>
+						<Grid container spacing={width === "sm" || width === "xs" ? 0 : 24}>
+							<Grid item md={4} xs={12}>
+								<Paper className={classes.categoriesContainer}>
+									<List component="nav" style={{ background: "white" }}>
+										<ListItem
+											button
+											onClick={() => this.handleCategorySelect("public")}
+										>
+											<ListItemText primary={"publicze"} />
+										</ListItem>
+										<ListItem
+											button
+											onClick={
+												user ? () => this.handleCategorySelect("private") : null
+											}
+										>
+											<ListItemText primary={"prywatne"} />
+										</ListItem>
+									</List>
+								</Paper>
+							</Grid>
+							<Grid item md={8} xs={12}>
+								<ListContainer className={classes.playlistsContainer}>
+									<Typography className={classes.categoryTitle}>
+										{isPublic ? "Playlisty publiczne" : "Playlisty prywatne"}
+									</Typography>
+									<SearchForm
+										handleChange={this.handleInputChange}
+										label="Wyszukaj playlistę"
+										placeholder="Wpisz nazwę playlisty"
+									/>
+									{searchedPlaylists.map(playlist => (
+										<PlaylistItem key={playlist.id}>
+											<Link
+												key={playlist.id}
+												to={
+													isPublic
+														? `/playlisty/${playlist.id}`
+														: `users/${user.uid}/playlists/${playlist.id}`
+												}
+												className={classes.link}
+											>
+												<Typography className={classes.playlistTitle}>
+													{playlist.title}
+												</Typography>
+												<Typography className={classes.playlistDescription}>
+													{playlist.songs !== undefined &&
+														playlist.songs.map(
+															({ performer, title, id }, nr, songs) =>
+																nr < songs.length - 1 ? (
+																	<span key={id}>
+																		{performer
+																			? performer + " - " + title
+																			: title}
+																		{", "}
+																	</span>
+																) : (
+																	<span key={id}>
+																		{performer
+																			? performer + " - " + title
+																			: title}
+																	</span>
+																)
+														)}
+												</Typography>
+											</Link>
+										</PlaylistItem>
+									))}
+								</ListContainer>
+							</Grid>
+						</Grid>
+					</PageWrapper>
+				)}
+			</WithWidth>
 		);
 	}
 }

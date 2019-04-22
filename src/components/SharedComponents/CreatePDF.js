@@ -162,7 +162,7 @@ class CreatePDF extends Component {
 		return (
 			<WithWidth>
 				{({ width }) =>
-					width === "xs" ? (
+					width === "xs" || width === "sm" ? (
 						<Fab
 							className={classNames(classes.xs, classes.active)}
 							disabled={Boolean(!songs.length) && !playlist}

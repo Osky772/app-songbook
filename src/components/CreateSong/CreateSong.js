@@ -176,12 +176,16 @@ class CreateSongModal extends Component {
 			<WithWidth>
 				{({ width }) => (
 					<Fragment>
-						{width === "xs" ? (
+						{width === "xs" || width === "sm" ? (
 							<Fab className={classes.xs} onClick={this.handleOpen}>
 								<MdAdd />
 							</Fab>
 						) : (
-							<Button className={classes.Btn} variant="outlined">
+							<Button
+								className={classes.Btn}
+								variant="outlined"
+								onClick={() => console.log(width === "xs")}
+							>
 								Dodaj utwór
 							</Button>
 						)}

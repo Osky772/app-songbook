@@ -270,7 +270,7 @@ class SongsList extends Component {
 					<PageWrapper>
 						<Grid container spacing={width === "xs" || width === "sm" ? 0 : 24}>
 							<Grid item md={4}>
-								{width === "xs" ? (
+								{width === "xs" || width === "sm" ? (
 									<Fragment>
 										<Fab
 											className={classes.xs}

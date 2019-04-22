@@ -70,7 +70,7 @@ class CreatePlaylist extends Component {
 			<WithWidth>
 				{({ width }) => (
 					<Fragment>
-						{width === "xs" ? (
+						{width === "xs" || width === "sm" ? (
 							<Fab
 								className={classes.xs}
 								disabled={selectedSongs.length === 0}
