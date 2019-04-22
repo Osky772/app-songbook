@@ -44,6 +44,9 @@ const styles = theme => ({
 	},
 	contentGrid: {
 		width: "100%"
+	},
+	drawer: {
+		zIndex: 5000
 	}
 });
 
@@ -278,6 +281,7 @@ class SongsList extends Component {
 										<Drawer
 											open={this.state.isDrawerOpen}
 											onClose={() => this.toggleDrawer(false)}
+											className={classes.drawer}
 										>
 											<div>
 												<ListItem
