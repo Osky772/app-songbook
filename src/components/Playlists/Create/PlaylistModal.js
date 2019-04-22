@@ -264,7 +264,7 @@ class PlaylistModal extends Component {
 			error,
 			playlist: { songs = [], title = "", isPublic = false }
 		} = this.state;
-		const { classes, selectedSongs, user } = this.props;
+		const { classes, selectedSongs } = this.props;
 
 		return (
 			<DragDropContext onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}>
