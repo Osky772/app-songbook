@@ -23,9 +23,6 @@ const styles = theme => ({
 	},
 	form: {
 		marginTop: 70,
-		[theme.breakpoints.down("xs")]: {
-			marginTop: 0
-		}
 	}
 });
 

@@ -12,9 +12,6 @@ import { withStyles } from "@material-ui/core/styles";
 const styles = theme => ({
 	form: {
 		marginTop: 70,
-		[theme.breakpoints.down("xs")]: {
-			marginTop: 0
-		}
 	},
 	textField: {
 		display: "block",
@@ -119,7 +116,7 @@ const FormAddSong = props => {
 						))}
 					</Select>
 				</FormControl>
-				<InfoSnackBar message="Kolejne wersy oddzielaj enterem. Chwyty przypisane do danego wersu dodawaj w tej samej linii w nawiasach ostrych, oddzielonymi przecinkami, np. Tak, tak, tam w lustrze... <G, d, C>." />
+				<InfoSnackBar message="Kolejne wersy oddzielaj enterem. Chwyty przypisane do danego wersu dodawaj w tej samej linii w nawiasach ostrych, oddzielonymi przecinkami, np. Gdzie strumyk płynie z wolna... <G, d, C>." />
 				<TextField
 					id="outlined-textarea"
 					label="Tekst piosenki *"
