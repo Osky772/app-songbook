@@ -33,6 +33,7 @@ const styles = theme => ({
 		borderRadius: 50,
 		bottom: 20,
 		right: 270,
+		zIndex: 4000,
 		backgroundColor: theme.palette.primary.main,
 		color: "white",
 		boxShadow: "#464646 1px 2px 4px 0",
@@ -264,7 +265,7 @@ class SongsList extends Component {
 			<WithWidth>
 				{({ width }) => (
 					<PageWrapper>
-						<Grid container spacing={width === "xs" ? 0 : 24}>
+						<Grid container spacing={width === "xs" || width === "sm" ? 0 : 24}>
 							<Grid item md={4}>
 								{width === "xs" ? (
 									<Fragment>
@@ -323,7 +324,8 @@ class SongsList extends Component {
 								<div
 									style={{
 										width: "100%",
-										margin: "5px 0 15px 0"
+										margin: "5px 0 15px 0",
+										padding: 8
 									}}
 								>
 									<SearchForm

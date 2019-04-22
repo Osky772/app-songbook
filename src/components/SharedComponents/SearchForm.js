@@ -7,7 +7,6 @@ const SearchForm = ({ handleChange, label, placeholder }) => {
 			<TextField
 				id="standard-full-width"
 				label={label}
-				style={{ margin: 8 }}
 				placeholder={placeholder}
 				fullWidth
 				onChange={handleChange}

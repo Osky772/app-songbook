@@ -11,7 +11,7 @@ import Fab from "@material-ui/core/Fab";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-const styles = theme => ({
+const styles = {
 	Btn: {
 		color: "white",
 		fontSize: "14px",
@@ -48,7 +48,7 @@ const styles = theme => ({
 		color: "#cbd3df",
 		backgroundColor: "#a4b0bd"
 	}
-});
+};
 
 const WithWidth = toRenderProps(withWidth());
 
@@ -157,8 +157,9 @@ class CreatePDF extends Component {
 
 	render() {
 		const { songs } = this.state;
-		const { classes } = this.props;
-
+		const { classes, playlist } = this.props;
+		console.log(playlist);
+		console.log(songs);
 		return (
 			<WithWidth>
 				{({ width }) =>

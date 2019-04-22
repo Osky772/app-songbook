@@ -248,7 +248,7 @@ class Playlist extends Component {
 							</Fragment>
 						) : null}
 
-						<CreatePDF title={title} songs={songs} />
+						<CreatePDF playlist title={title} songs={songs} />
 					</div>
 					{songs.map(song => (
 						<ExpansionPanel key={song.id}>

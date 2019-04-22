@@ -12,6 +12,9 @@ import withWidth from "@material-ui/core/withWidth";
 import toRenderProps from "recompose/toRenderProps";
 
 const styles = theme => ({
+	wrapper: {
+		zIndex: 5000
+	},
 	Btn: {
 		color: "white",
 		fontSize: "14px",
@@ -33,6 +36,7 @@ const styles = theme => ({
 		borderRadius: 50,
 		bottom: 20,
 		right: 200,
+		zIndex: 4000,
 		backgroundColor: theme.palette.primary.main,
 		color: "white",
 		boxShadow: "#464646 1px 2px 4px 0"
@@ -182,7 +186,11 @@ class CreateSongModal extends Component {
 							</Button>
 						)}
 
-						<Modal open={open} disableBackdropClick={true}>
+						<Modal
+							open={open}
+							disableBackdropClick={true}
+							className={classes.wrapper}
+						>
 							<ContainerModal>
 								<WrapperInModal>
 									<FormAddSong

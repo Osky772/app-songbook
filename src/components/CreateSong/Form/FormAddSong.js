@@ -7,8 +7,15 @@ import InfoSnackBar from "../../SharedComponents/InfoSnackBar";
 import Button from "@material-ui/core/Button";
 import InputLabel from "@material-ui/core/InputLabel";
 import ErrorValidateInfo from "../../SharedComponents/ErrorValidateInfo";
+import { withStyles } from "@material-ui/core/styles";
 
-const styles = {
+const styles = theme => ({
+	form: {
+		marginTop: 70,
+		[theme.breakpoints.down("xs")]: {
+			marginTop: 0
+		}
+	},
 	textField: {
 		display: "block",
 		marginBottom: 15,
@@ -24,7 +31,7 @@ const styles = {
 	btn: {
 		marginRight: 15
 	}
-};
+});
 
 const categories = [
 	"polskie piosenki",
@@ -49,13 +56,14 @@ const FormAddSong = props => {
 		handleCloseModal,
 		handleSongPreview,
 		isError,
-		error
+		error,
+		classes
 	} = props;
 
 	return (
 		<FormWrapper>
 			{isError && <ErrorValidateInfo type="song" error={error} />}
-			<form onSubmit={handleSubmit} style={{ marginTop: "70px" }}>
+			<form onSubmit={handleSubmit} className={classes.form}>
 				<TextField
 					id="outlined-full-width"
 					label="Tytuł *"
@@ -132,13 +140,13 @@ const FormAddSong = props => {
 					helperText="* pola obowiązkowe"
 				/>
 
-				<Button style={styles.btn} type="submit">
+				<Button className={classes.btn} type="submit">
 					Zatwierdź
 				</Button>
-				<Button style={styles.btn} onClick={handleCloseModal}>
+				<Button className={classes.btn} onClick={handleCloseModal}>
 					Wyjdź
 				</Button>
-				<Button style={styles.btn} onClick={handleSongPreview}>
+				<Button className={classes.btn} onClick={handleSongPreview}>
 					Podgląd
 				</Button>
 			</form>
@@ -146,4 +154,4 @@ const FormAddSong = props => {
 	);
 };
 
-export default FormAddSong;
+export default withStyles(styles)(FormAddSong);

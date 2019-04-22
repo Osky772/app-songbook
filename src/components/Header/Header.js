@@ -36,7 +36,7 @@ const styles = theme => ({
 	secondAppBar: {
 		position: "sticky",
 		top: 0,
-		zIndex: 9999
+		zIndex: 1000
 	},
 	logoIcon: {
 		fontSize: "38px",
