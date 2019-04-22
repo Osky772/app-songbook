@@ -19,7 +19,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 const styles = theme => ({
 	wrapper: {
-		zIndex: 2000
+		zIndex: 10000
 	},
 	form: {
 		marginTop: 70,
