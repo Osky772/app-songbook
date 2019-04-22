@@ -34,6 +34,15 @@ export const formatSongDescription = ({ description = "" }) => {
 };
 
 export const styles = theme => ({
+	wrapper: {
+		zIndex: 9000,
+		[theme.breakpoints.down("xs")]: {
+			paddingTop: 0
+		},
+		[theme.breakpoints.down("sm")]: {
+			position: "relative"
+		}
+	},
 	verse: {
 		display: "flex",
 		justifyContent: "space-between",
@@ -54,11 +63,6 @@ export const styles = theme => ({
 	container: {
 		width: "100%",
 		padding: 15
-	},
-	wrapper: {
-		[theme.breakpoints.down("xs")]: {
-			paddingTop: 0
-		}
 	}
 });
 
