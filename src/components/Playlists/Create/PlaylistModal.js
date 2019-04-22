@@ -210,6 +210,12 @@ class PlaylistModal extends Component {
 		handleClose();
 	};
 
+	onDragStart = () => {
+		if (window.navigator.vibrate) {
+		  window.navigator.vibrate(100);
+		}
+	  };
+
 	onDragEnd = result => {
 		const { destination, source, draggableId } = result;
 		const { songs } = this.state.playlist;
@@ -261,7 +267,7 @@ class PlaylistModal extends Component {
 		const { classes, selectedSongs, user } = this.props;
 
 		return (
-			<DragDropContext onDragEnd={this.onDragEnd}>
+			<DragDropContext onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}>
 				<Modal
 					open={isCreating || isEditing}
 					disableBackdropClick={true}
