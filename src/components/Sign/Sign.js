@@ -14,7 +14,7 @@ import * as firebase from "firebase";
 
 const styles = theme => ({
 	wrapper: {
-		zIndex: 4000
+		zIndex: 10000
 	},
 	main: {
 		width: "auto",
