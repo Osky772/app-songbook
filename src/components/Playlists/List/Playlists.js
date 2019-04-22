@@ -43,6 +43,9 @@ const styles = theme => ({
 	categoriesContainer: {
 		[theme.breakpoints.down("xs")]: {
 			margin: 10
+		},
+		[theme.breakpoints.down("sm")]: {
+			margin: 10
 		}
 	},
 	categoryTitle: {
