@@ -30,6 +30,7 @@ const styles = {
 		borderRadius: 50,
 		bottom: 20,
 		right: 130,
+		zIndex: 4000,
 		boxShadow: "#464646 1px 2px 4px 0",
 		"&:disabled": {
 			backgroundColor: "#c5c5c5",
@@ -158,15 +159,13 @@ class CreatePDF extends Component {
 	render() {
 		const { songs } = this.state;
 		const { classes, playlist } = this.props;
-		console.log(playlist);
-		console.log(songs);
 		return (
 			<WithWidth>
 				{({ width }) =>
 					width === "xs" ? (
 						<Fab
 							className={classNames(classes.xs, classes.active)}
-							disabled={Boolean(!songs.length)}
+							disabled={Boolean(!songs.length) && !playlist}
 							onClick={songs.length ? this.createPDF : null}
 						>
 							<MdFileDownload />
