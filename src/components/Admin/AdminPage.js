@@ -13,12 +13,32 @@ import { PageWrapper, ListContainer } from "../containers/StyledContainers";
 import Button from "@material-ui/core/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-const styles = {
+const styles = theme => ({
 	songsWrapper: {
 		width: "80%",
-		marginBottom: 16
+		margin: "0 8px 16px 8px",
+		[theme.breakpoints.down("sm")]: {
+			width: "100%"
+		}
+	},
+	verse: {
+		display: "flex",
+		justifyContent: "space-between",
+		margin: "10px 0"
+	},
+	text: {
+		width: "75%",
+		[theme.breakpoints.down("sm")]: {
+			width: "70%"
+		}
+	},
+	chords: {
+		width: "20%",
+		[theme.breakpoints.down("sm")]: {
+			width: "25%"
+		}
 	}
-};
+});
 
 class AdminPage extends Component {
 	state = {
@@ -139,9 +159,9 @@ class AdminPage extends Component {
 							<ExpansionPanelDetails style={{ display: "block" }}>
 								{formatSongDescription(song).map((verse, i) => {
 									return verse.text !== null ? (
-										<p key={i} style={songStyles.verse}>
-											<span style={songStyles.text}>{verse.text}</span>
-											<span style={songStyles.chords}>
+										<p key={i} className={classes.verse}>
+											<span className={classes.text}>{verse.text}</span>
+											<span className={classes.chords}>
 												{verse.chords ? verse.chords : null}
 											</span>
 										</p>

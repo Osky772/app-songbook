@@ -126,7 +126,7 @@ const styles = theme => ({
 class Header extends Component {
 	state = {
 		value: 0,
-		isSignedUp: false,
+		signUp: false,
 		isOpen: false
 	};
 
@@ -144,11 +144,15 @@ class Header extends Component {
 	};
 
 	handleSignInOpen = () => {
-		this.setState({ isOpen: true, isSignedUp: false });
+		this.setState({ isOpen: true, signUp: false });
+		const body = document.querySelector("body");
+		body.classList.add("not-scrollable");
 	};
 
 	handleSignUpOpen = () => {
-		this.setState({ isOpen: true, isSignedUp: true });
+		this.setState({ isOpen: true, signUp: true });
+		const body = document.querySelector("body");
+		body.classList.remove("not-scrollable");
 	};
 
 	handleClose = () => {
@@ -160,7 +164,7 @@ class Header extends Component {
 	};
 
 	render() {
-		const { value, isSignedUp, isOpen } = this.state;
+		const { value, signUp, isOpen } = this.state;
 		const {
 			classes,
 			user,
@@ -204,7 +208,7 @@ class Header extends Component {
 								<Fragment>
 									<Sign
 										isOpen={isOpen}
-										isSignedUp={isSignedUp}
+										signUp={signUp}
 										handleClose={this.handleClose}
 									/>
 									<Button

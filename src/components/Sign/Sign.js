@@ -73,7 +73,7 @@ class Sign extends Component {
 	handleSubmit = e => {
 		e.preventDefault();
 		const { email, password } = this.state;
-		if (this.props.isSignedUp) {
+		if (this.props.signUp) {
 			firebase
 				.auth()
 				.createUserWithEmailAndPassword(email, password)

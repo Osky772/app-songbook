@@ -59,7 +59,6 @@ const FormAddSong = props => {
 		handleChangeSongText,
 		handleCloseModal,
 		handleSongPreview,
-		isError,
 		error,
 		classes
 	} = props;
@@ -67,7 +66,9 @@ const FormAddSong = props => {
 	return (
 		<FormWrapper>
 			<Typography className={classes.modalTitle}>DODAJ PIOSENKĘ</Typography>
-			{isError && <ErrorValidateInfo type="song" error={error} />}
+			{/* {isError && screenSize !== "xs" && screenSize !== "sm" && (
+				<ErrorValidateInfo type="song" error={error} />
+			)} */}
 			<form onSubmit={handleSubmit} className={classes.form}>
 				<TextField
 					id="outlined-full-width"

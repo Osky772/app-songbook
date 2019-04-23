@@ -227,6 +227,7 @@ class CreateSongModal extends Component {
 										handleSongPreview={this.handleSongPreview}
 										error={error}
 										isError={isError}
+										screenSize={width}
 									/>
 								</div>
 							</ContainerModal>
