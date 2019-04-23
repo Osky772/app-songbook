@@ -12,3 +12,9 @@ html, body {
     color: white;
     opacity: 1
 }
+
+.not-scrollable {
+    overflow: hidden;
+    position: fixed;
+    touch-action: none;
+}

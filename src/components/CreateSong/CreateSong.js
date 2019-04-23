@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
-import { ContainerModal, WrapperInModal } from "../containers/StyledContainers";
+import { ContainerModal } from "../containers/StyledContainers";
 import FormAddSong from "./Form/FormAddSong";
 import ModalPreviewSong from "./Preview/ModalPreviewSong";
 import { db } from "../../App";
@@ -26,10 +26,9 @@ const styles = theme => ({
 		background: "white",
 		outline: "none",
 		[theme.breakpoints.down("sm")]: {
-			width: '100%',
-			maxWidth: "100%",
 			width: "100%",
-			left: 0,
+			maxWidth: "100%",
+			left: 0
 		}
 	},
 	Btn: {
@@ -46,7 +45,7 @@ const styles = theme => ({
 		[theme.breakpoints.down("sm")]: {
 			"&:hover": {
 				backgroundColor: theme.palette.primary.main
-			}	
+			}
 		}
 	},
 	xs: {
@@ -87,6 +86,8 @@ class CreateSongModal extends Component {
 
 	handleOpen = () => {
 		this.setState({ open: true });
+		const body = document.querySelector("body");
+		body.classList.add("not-scrollable");
 	};
 
 	handleClose = () => {
@@ -99,6 +100,8 @@ class CreateSongModal extends Component {
 				category: false
 			}
 		});
+		const body = document.querySelector("body");
+		body.classList.remove("not-scrollable");
 	};
 
 	handleChange = event => {
@@ -212,11 +215,7 @@ class CreateSongModal extends Component {
 							</Button>
 						)}
 
-						<Modal
-							open={open}
-							// disableBackdropClick={true}
-							className={classes.wrapper}
-						>
+						<Modal open={open} className={classes.wrapper}>
 							<ContainerModal>
 								<div className={classes.modalWrapper}>
 									<FormAddSong

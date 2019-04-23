@@ -8,11 +8,17 @@ import Button from "@material-ui/core/Button";
 import InputLabel from "@material-ui/core/InputLabel";
 import ErrorValidateInfo from "../../SharedComponents/ErrorValidateInfo";
 import { withStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 
 const styles = theme => ({
+	modalTitle: {
+		textAlign: "center",
+		fontSize: 28,
+		paddingTop: 25
+	},
 	form: {
-		marginTop: 70,
-		marginBottom: 70,
+		marginTop: 10,
+		marginBottom: 40
 	},
 	textField: {
 		display: "block",
@@ -60,6 +66,7 @@ const FormAddSong = props => {
 
 	return (
 		<FormWrapper>
+			<Typography className={classes.modalTitle}>DODAJ PIOSENKĘ</Typography>
 			{isError && <ErrorValidateInfo type="song" error={error} />}
 			<form onSubmit={handleSubmit} className={classes.form}>
 				<TextField
