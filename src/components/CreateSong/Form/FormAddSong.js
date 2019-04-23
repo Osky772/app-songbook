@@ -14,7 +14,7 @@ const styles = theme => ({
 	modalTitle: {
 		textAlign: "center",
 		fontSize: 28,
-		paddingTop: 25
+		paddingTop: 15
 	},
 	form: {
 		marginTop: 10,

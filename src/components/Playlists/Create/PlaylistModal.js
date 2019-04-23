@@ -2,11 +2,7 @@ import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import TextField from "@material-ui/core/TextField";
-import {
-	WrapperInModal,
-	FormWrapper,
-	ContainerModal
-} from "../../containers/StyledContainers";
+import { ContainerModal } from "../../containers/StyledContainers";
 import { DragDropContext } from "react-beautiful-dnd";
 import SongsContainer from "../UI/SongsContainer";
 import InfoSnackBar from "../../SharedComponents/InfoSnackBar";
@@ -16,10 +12,15 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import { db } from "../../../App";
 import { withStyles } from "@material-ui/core/styles";
+import { Typography } from "@material-ui/core";
 
 const styles = theme => ({
 	wrapper: {
 		zIndex: 10000
+	},
+	modalTitle: {
+		textAlign: "center",
+		fontSize: 28
 	},
 	modalWrapper: {
 		transform: "translateZ(0)",
@@ -38,7 +39,19 @@ const styles = theme => ({
 		}
 	},
 	form: {
-		marginTop: 70
+		marginTop: 70,
+		[theme.breakpoints.down("sm")]: {
+			marginTop: 10
+		}
+	},
+	formWrapper: {
+		padding: "0px 25px 25px 25px",
+		height: "100%",
+		overflowY: "auto",
+		position: "relative",
+		[theme.breakpoints.down("sm")]: {
+			padding: 8
+		}
 	}
 });
 
@@ -287,22 +300,22 @@ class PlaylistModal extends Component {
 				onDragStart={this.onDragStart}
 				onDragEnd={this.onDragEnd}
 			>
-				<Modal
-					open={isCreating || isEditing}
-					// disableBackdropClick={true}
-					className={classes.wrapper}
-				>
+				<Modal open={isCreating || isEditing} className={classes.wrapper}>
 					<ContainerModal>
 						<div className={classes.modalWrapper}>
-							<FormWrapper>
+							<div className={classes.formWrapper}>
 								{/* {isError && <ErrorValidateInfo type="playlist" error={error} />} */}
 								<form onSubmit={this.handleFormSubmit} className={classes.form}>
+									<Typography className={classes.modalTitle}>
+										DODAJ PLAYLISTĘ
+									</Typography>
 									<TextField
 										id="outlined-full-width"
 										label="Nazwa"
 										name="nazwa"
 										onChange={this.handleChange}
 										value={title}
+										error={isError}
 										autoComplete="off"
 										placeholder="Podaj nazwę dla playlisty"
 										margin="normal"
@@ -343,7 +356,7 @@ class PlaylistModal extends Component {
 									</Button>
 									<Button onClick={this.handleClose}>Wyjdź</Button>
 								</form>
-							</FormWrapper>
+							</div>
 						</div>
 					</ContainerModal>
 				</Modal>
