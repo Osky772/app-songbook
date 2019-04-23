@@ -18,7 +18,7 @@ const ModalPreviewSong = props => {
 	const textWithChords = formatSongDescription(song);
 
 	return (
-		<Modal open={isPreviewed}>
+		<Modal open={isPreviewed} style={{ zIndex: 11000 }}>
 			<ContainerModal>
 				<WrapperInModal>
 					<div

@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import TextField from "@material-ui/core/TextField";
-import { ContainerModal } from "../../containers/StyledContainers";
+import {
+	ContainerModal,
+	WrapperInModal,
+	FormWrapper
+} from "../../containers/StyledContainers";
 import { DragDropContext } from "react-beautiful-dnd";
 import SongsContainer from "../UI/SongsContainer";
 import InfoSnackBar from "../../SharedComponents/InfoSnackBar";
@@ -23,19 +27,22 @@ const styles = theme => ({
 		fontSize: 28
 	},
 	modalWrapper: {
-		transform: "translateZ(0)",
-		backfaceVisibility: "hidden",
-		perspective: "1000",
-		position: "absolute",
-		top: 0,
-		height: "100%",
-		width: "700px",
+		width: 700,
+		height: "100vh",
 		background: "white",
 		outline: "none",
+
 		[theme.breakpoints.down("sm")]: {
+			top: 0,
+			left: 0,
 			width: "100%",
-			maxWidth: "100%",
-			left: 0
+			transform: "translateZ(0)",
+			backfaceVisibility: "hidden",
+			perspective: "1000",
+			position: "absolute",
+			height: "100%",
+			background: "white",
+			outline: "none"
 		}
 	},
 	form: {
@@ -303,8 +310,7 @@ class PlaylistModal extends Component {
 				<Modal open={isCreating || isEditing} className={classes.wrapper}>
 					<ContainerModal>
 						<div className={classes.modalWrapper}>
-							<div className={classes.formWrapper}>
-								{/* {isError && <ErrorValidateInfo type="playlist" error={error} />} */}
+							<FormWrapper>
 								<form onSubmit={this.handleFormSubmit} className={classes.form}>
 									<Typography className={classes.modalTitle}>
 										DODAJ PLAYLISTĘ
@@ -356,7 +362,7 @@ class PlaylistModal extends Component {
 									</Button>
 									<Button onClick={this.handleClose}>Wyjdź</Button>
 								</form>
-							</div>
+							</FormWrapper>
 						</div>
 					</ContainerModal>
 				</Modal>
