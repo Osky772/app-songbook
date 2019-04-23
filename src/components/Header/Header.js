@@ -207,7 +207,6 @@ class Header extends Component {
 			editedPlaylist,
 			handleSelectSongs
 		} = this.props;
-
 		return (
 			<WithWidth>
 				{({ width }) => (
@@ -317,7 +316,7 @@ class Header extends Component {
 													user={user}
 												/>
 											) : null}
-											<CreatePDF songs={selectedSongs} />
+											<CreatePDF isButton songs={selectedSongs} />
 										</div>
 									) : (
 										<Fragment>

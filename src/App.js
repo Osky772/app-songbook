@@ -100,10 +100,10 @@ class App extends Component {
 					path={"/users/:userId/playlists/:playlistId"}
 					render={props => (
 						<Playlist
-							{...props}
 							selectedSongs={selectedSongs}
 							handleSelectSongs={this.handleSelectSongs}
 							user={user}
+							{...props}
 						/>
 					)}
 				/>

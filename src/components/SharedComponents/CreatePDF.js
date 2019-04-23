@@ -68,8 +68,8 @@ class CreatePDF extends Component {
 	createPDF = () => {
 		const { title = "", songs } = this.state;
 
-		const ddContent = songs.map(song => {
-			const title = song.title;
+		const ddContent = songs.map((song, nr) => {
+			const title = nr + 1 + ". " + song.title;
 
 			const text = song.description
 				.split("\n")
@@ -159,7 +159,7 @@ class CreatePDF extends Component {
 		return (
 			<WithWidth>
 				{({ width }) =>
-					width === "xs" || width === "sm" ? (
+					(width === "xs" || width === "sm") && !playlist ? (
 						<Fab
 							className={classNames(classes.xs, classes.active)}
 							disabled={Boolean(!songs.length) && !playlist}
