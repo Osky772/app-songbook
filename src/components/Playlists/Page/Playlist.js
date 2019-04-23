@@ -248,7 +248,7 @@ class Playlist extends Component {
 
 						<CreatePDF playlist title={title} songs={songs} />
 					</div>
-					{songs.map(song => (
+					{songs.map((song, nr) => (
 						<ExpansionPanel key={song.id}>
 							<ExpansionPanelSummary
 								expandIcon={<ExpandMoreIcon />}
@@ -256,11 +256,14 @@ class Playlist extends Component {
 							>
 								<Typography>
 									{song.performer
-										? song.performer + " - " + song.title
-										: song.title}
+										? nr + 1 + ". " + song.performer + " - " + song.title
+										: nr + 1 + ". " + song.title}
 								</Typography>
 							</ExpansionPanelSummary>
-							<ExpansionPanelDetails className={classes.detailsContainer}>
+							<ExpansionPanelDetails
+								onClick={() => console.log(nr.toString())}
+								className={classes.detailsContainer}
+							>
 								<Typography className={classes.title}>
 									{song.performer
 										? song.performer + " - " + song.title
