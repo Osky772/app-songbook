@@ -21,11 +21,24 @@ const styles = theme => ({
 	wrapper: {
 		zIndex: 10000
 	},
-	form: {
-		margin: 70,
+	modalWrapper: {
+		transform: "translateZ(0)",
+		backfaceVisibility: "hidden",
+		perspective: "1000",
+		position: "absolute",
+		top: 0,
+		height: "100%",
+		width: "700px",
+		background: "white",
+		outline: "none",
 		[theme.breakpoints.down("sm")]: {
-			margin: "70px 0"
+			width: "100%",
+			maxWidth: "100%",
+			left: 0
 		}
+	},
+	form: {
+		marginTop: 70
 	}
 });
 
@@ -215,9 +228,9 @@ class PlaylistModal extends Component {
 
 	onDragStart = () => {
 		if (window.navigator.vibrate) {
-		  window.navigator.vibrate(100);
+			window.navigator.vibrate(100);
 		}
-	  };
+	};
 
 	onDragEnd = result => {
 		const { destination, source, draggableId } = result;
@@ -270,16 +283,19 @@ class PlaylistModal extends Component {
 		const { classes, selectedSongs } = this.props;
 
 		return (
-			<DragDropContext onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}>
+			<DragDropContext
+				onDragStart={this.onDragStart}
+				onDragEnd={this.onDragEnd}
+			>
 				<Modal
 					open={isCreating || isEditing}
 					// disableBackdropClick={true}
 					className={classes.wrapper}
 				>
 					<ContainerModal>
-						<WrapperInModal>
+						<div className={classes.modalWrapper}>
 							<FormWrapper>
-								{isError && <ErrorValidateInfo type="playlist" error={error} />}
+								{/* {isError && <ErrorValidateInfo type="playlist" error={error} />} */}
 								<form onSubmit={this.handleFormSubmit} className={classes.form}>
 									<TextField
 										id="outlined-full-width"
@@ -328,7 +344,7 @@ class PlaylistModal extends Component {
 									<Button onClick={this.handleClose}>Wyjdź</Button>
 								</form>
 							</FormWrapper>
-						</WrapperInModal>
+						</div>
 					</ContainerModal>
 				</Modal>
 			</DragDropContext>

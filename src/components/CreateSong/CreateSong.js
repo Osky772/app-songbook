@@ -50,9 +50,6 @@ const styles = theme => ({
 	},
 	xs: {
 		fontSize: 35,
-		// position: "fixed",
-		// bottom: 20,
-		// right: 200,
 		width: 50,
 		height: 50,
 		padding: 0,

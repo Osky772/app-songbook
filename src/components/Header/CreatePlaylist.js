@@ -22,9 +22,6 @@ const styles = theme => ({
 	},
 	xs: {
 		fontSize: 35,
-		// position: "fixed",
-		// right: 60,
-		// bottom: 20,
 		width: 50,
 		height: 50,
 		padding: 0,
@@ -36,6 +33,9 @@ const styles = theme => ({
 			backgroundColor: "#c5c5c5",
 			color: "white",
 			boxShadow: "#464646 1px 2px 4px 0"
+		},
+		"&:hover": {
+			backgroundColor: theme.palette.primary.main
 		}
 	}
 });
@@ -49,10 +49,14 @@ class CreatePlaylist extends Component {
 
 	handleCreate = () => {
 		this.setState({ isCreating: true });
+		const body = document.querySelector("body");
+		body.classList.add("not-scrollable");
 	};
 
 	handleClose = () => {
 		this.setState({ isCreating: false });
+		const body = document.querySelector("body");
+		body.classList.remove("not-scrollable");
 	};
 
 	render() {
