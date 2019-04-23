@@ -14,7 +14,7 @@ export const PageWrapper = styled(Wrapper)`
 	max-width: 1000px;
 	margin: 0 auto;
 	padding-top: 40px;
-	padding-bottom: 70px;
+	margin-bottom: 40px;
 	display: flex;
 	justify-content: center;
 `;

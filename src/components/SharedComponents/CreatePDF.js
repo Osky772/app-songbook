@@ -23,13 +23,10 @@ const styles = {
 	},
 	xs: {
 		fontSize: 35,
-		position: "fixed",
 		width: 50,
 		height: 50,
 		padding: 0,
 		borderRadius: 50,
-		bottom: 20,
-		right: 130,
 		zIndex: 4000,
 		boxShadow: "#464646 1px 2px 4px 0",
 		"&:disabled": {

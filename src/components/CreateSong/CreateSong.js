@@ -50,17 +50,20 @@ const styles = theme => ({
 	},
 	xs: {
 		fontSize: 35,
-		position: "fixed",
+		// position: "fixed",
+		// bottom: 20,
+		// right: 200,
 		width: 50,
 		height: 50,
 		padding: 0,
 		borderRadius: 50,
-		bottom: 20,
-		right: 200,
 		zIndex: 4000,
 		backgroundColor: theme.palette.primary.main,
 		color: "white",
-		boxShadow: "#464646 1px 2px 4px 0"
+		boxShadow: "#464646 1px 2px 4px 0",
+		"&:hover": {
+			backgroundColor: theme.palette.primary.main
+		}
 	}
 });
 

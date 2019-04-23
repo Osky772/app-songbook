@@ -26,11 +26,16 @@ class App extends Component {
 	state = {
 		user: null,
 		song: "",
-		selectedSongs: []
+		selectedSongs: [],
+		isDrawerOpen: false
 	};
 
 	handleSelectSongs = selectedSongs => {
 		this.setState({ selectedSongs });
+	};
+
+	toggleDrawer = open => {
+		this.setState({ ...this.state, isDrawerOpen: open });
 	};
 
 	componentDidMount() {
@@ -50,7 +55,7 @@ class App extends Component {
 	}
 
 	render() {
-		const { selectedSongs, user } = this.state;
+		const { selectedSongs, user, isDrawerOpen } = this.state;
 		return (
 			<Fragment>
 				<CssBaseline />
@@ -58,6 +63,7 @@ class App extends Component {
 					selectedSongs={selectedSongs}
 					handleSelectSongs={this.handleSelectSongs}
 					user={user}
+					toggleDrawer={this.toggleDrawer}
 				/>
 				<Route exact path="/" render={props => <InitPage {...props} />} />
 				<Route path={"/lista-piosenek/:songId"} component={Song} />
@@ -68,6 +74,8 @@ class App extends Component {
 						<SongsList
 							handleSelectSongs={this.handleSelectSongs}
 							selectedSongs={selectedSongs}
+							isDrawerOpen={isDrawerOpen}
+							toggleDrawer={this.toggleDrawer}
 							{...props}
 						/>
 					)}

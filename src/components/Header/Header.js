@@ -5,8 +5,10 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import Fab from "@material-ui/core/Fab";
 import Grid from "@material-ui/core/Grid";
 import { FaItunesNote } from "react-icons/fa";
+import { MdFilterList } from "react-icons/md";
 import CreateSong from "../CreateSong/CreateSong";
 import CreatePDF from "../SharedComponents/CreatePDF";
 import CreatePlaylist from "./CreatePlaylist";
@@ -16,6 +18,10 @@ import classNames from "classnames";
 import * as firebase from "firebase";
 import "typeface-montserrat";
 import "../../App.css";
+import withWidth from "@material-ui/core/withWidth";
+import toRenderProps from "recompose/toRenderProps";
+
+const WithWidth = toRenderProps(withWidth());
 
 const styles = theme => ({
 	AppBar: {
@@ -120,6 +126,35 @@ const styles = theme => ({
 		[theme.breakpoints.down("xs")]: {
 			alignSelf: "flex-start"
 		}
+	},
+	filterBtn: {
+		fontSize: 35,
+		width: 50,
+		height: 50,
+		padding: 0,
+		borderRadius: 50,
+		zIndex: 4000,
+		backgroundColor: theme.palette.primary.main,
+		color: "white",
+		boxShadow: "#464646 1px 2px 4px 0",
+		"&:disabled": {
+			backgroundColor: "#c5c5c5",
+			color: "white",
+			boxShadow: "#464646 1px 2px 4px 0"
+		},
+		"&:hover": {
+			backgroundColor: theme.palette.primary.main,
+			color: "white"
+		}
+	},
+	mobileDeviceButtonsContainer: {
+		position: "fixed",
+		bottom: 45,
+		right: "50%",
+		transform: "translate(50%, 0%)",
+		width: 250,
+		display: "flex",
+		justifyContent: "space-evenly"
 	}
 });
 
@@ -174,100 +209,136 @@ class Header extends Component {
 		} = this.props;
 
 		return (
-			<Fragment>
-				<div className={classNames(classes.AppBar, classes.firstAppBar)}>
-					<div className={classes.maxWidth}>
-						<div className={classes.logoContainer}>
-							<FaItunesNote className={classes.logoIcon} />
-							<Typography
-								component={Link}
-								to="/lista-piosenek"
-								variant="h6"
-								color="inherit"
-								className={classes.logoText}
-							>
-								Śpiewnik
-							</Typography>
-						</div>
-						<div className={classes.userContainer}>
-							{user ? (
-								<Fragment>
-									<Typography variant="subtitle2" style={{ color: "white" }}>
-										Użytkownik:
-										<span style={{ fontWeight: "bold" }}> {user.email}</span>
-									</Typography>
-
-									<Button
-										className={classNames(classes.Btn, classes.logoutBtn)}
-										onClick={this.logOut}
-									>
-										Wyloguj się
-									</Button>
-								</Fragment>
-							) : (
-								<Fragment>
-									<Sign
-										isOpen={isOpen}
-										signUp={signUp}
-										handleClose={this.handleClose}
-									/>
-									<Button
-										className={classNames(classes.Btn, classes.loginBtn)}
-										onClick={this.handleSignInOpen}
-									>
-										Zaloguj się
-									</Button>
-									<Button
-										variant="contained"
-										className={classNames(classes.Btn, classes.registerBtn)}
-										onClick={this.handleSignUpOpen}
-									>
-										Zarejestruj się
-									</Button>
-								</Fragment>
-							)}
-						</div>
-					</div>
-				</div>
-				<div className={classNames(classes.AppBar, classes.secondAppBar)}>
-					<Grid container className={classes.maxWidth}>
-						<Grid item lg={6} className={classes.toolBarGrid}>
-							<Toolbar variant="dense">
-								<Tabs value={value} onChange={this.handleChange}>
-									<Tab
+			<WithWidth>
+				{({ width }) => (
+					<Fragment>
+						<div className={classNames(classes.AppBar, classes.firstAppBar)}>
+							<div className={classes.maxWidth}>
+								<div className={classes.logoContainer}>
+									<FaItunesNote className={classes.logoIcon} />
+									<Typography
 										component={Link}
 										to="/lista-piosenek"
-										label="Lista piosenek"
-										classes={{
-											label: "logo-text"
-										}}
-									/>
-									<Tab
-										component={Link}
-										to="/playlisty"
-										label="Playlisty"
-										classes={{
-											label: "logo-text"
-										}}
-									/>
-								</Tabs>
-							</Toolbar>
-						</Grid>
-						<Grid item md={6} sm={6} xs={12} className={classes.flexEnd}>
-							<CreateSong />
-							{user ? (
-								<CreatePlaylist
-									editedPlaylist={editedPlaylist}
-									selectedSongs={selectedSongs}
-									handleSelectSongs={handleSelectSongs}
-									user={user}
-								/>
-							) : null}
-							<CreatePDF songs={selectedSongs} />
-						</Grid>
-					</Grid>
-				</div>
-			</Fragment>
+										variant="h6"
+										color="inherit"
+										className={classes.logoText}
+									>
+										Śpiewnik
+									</Typography>
+								</div>
+								<div className={classes.userContainer}>
+									{user ? (
+										<Fragment>
+											<Typography
+												variant="subtitle2"
+												style={{ color: "white" }}
+											>
+												Użytkownik:
+												<span style={{ fontWeight: "bold" }}>
+													{" "}
+													{user.email}
+												</span>
+											</Typography>
+
+											<Button
+												className={classNames(classes.Btn, classes.logoutBtn)}
+												onClick={this.logOut}
+											>
+												Wyloguj się
+											</Button>
+										</Fragment>
+									) : (
+										<Fragment>
+											<Sign
+												isOpen={isOpen}
+												signUp={signUp}
+												handleClose={this.handleClose}
+											/>
+											<Button
+												className={classNames(classes.Btn, classes.loginBtn)}
+												onClick={this.handleSignInOpen}
+											>
+												Zaloguj się
+											</Button>
+											<Button
+												variant="contained"
+												className={classNames(classes.Btn, classes.registerBtn)}
+												onClick={this.handleSignUpOpen}
+											>
+												Zarejestruj się
+											</Button>
+										</Fragment>
+									)}
+								</div>
+							</div>
+						</div>
+						<div className={classNames(classes.AppBar, classes.secondAppBar)}>
+							<Grid container className={classes.maxWidth}>
+								<Grid item lg={6} className={classes.toolBarGrid}>
+									<Toolbar variant="dense">
+										<Tabs value={value} onChange={this.handleChange}>
+											<Tab
+												component={Link}
+												to="/lista-piosenek"
+												label="Lista piosenek"
+												classes={{
+													label: "logo-text"
+												}}
+											/>
+											<Tab
+												component={Link}
+												to="/playlisty"
+												label="Playlisty"
+												classes={{
+													label: "logo-text"
+												}}
+											/>
+										</Tabs>
+									</Toolbar>
+								</Grid>
+								<Grid item md={6} sm={6} xs={12} className={classes.flexEnd}>
+									{width === "xs" || width === "sm" ? (
+										<div className={classes.mobileDeviceButtonsContainer}>
+											<Fab
+												className={classes.filterBtn}
+												onClick={() => this.props.toggleDrawer(true)}
+												disabled={
+													window.location.pathname !== "/lista-piosenek"
+												}
+											>
+												<MdFilterList />
+											</Fab>
+											<CreateSong />
+											{user ? (
+												<CreatePlaylist
+													editedPlaylist={editedPlaylist}
+													selectedSongs={selectedSongs}
+													handleSelectSongs={handleSelectSongs}
+													user={user}
+												/>
+											) : null}
+											<CreatePDF songs={selectedSongs} />
+										</div>
+									) : (
+										<Fragment>
+											<CreateSong />
+											{user ? (
+												<CreatePlaylist
+													editedPlaylist={editedPlaylist}
+													selectedSongs={selectedSongs}
+													handleSelectSongs={handleSelectSongs}
+													user={user}
+												/>
+											) : null}
+											<CreatePDF songs={selectedSongs} />
+										</Fragment>
+									)}
+								</Grid>
+							</Grid>
+						</div>
+					</Fragment>
+				)}
+			</WithWidth>
 		);
 	}
 }

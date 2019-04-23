@@ -11,8 +11,6 @@ import Button from "@material-ui/core/Button";
 import { db } from "../../../App";
 import { withStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
-import { MdFilterList } from "react-icons/md";
-import Fab from "@material-ui/core/Fab";
 import withWidth from "@material-ui/core/withWidth";
 import toRenderProps from "recompose/toRenderProps";
 import Drawer from "@material-ui/core/Drawer";
@@ -74,8 +72,7 @@ class SongsList extends Component {
 		category: "",
 		searchText: "",
 		selectedSongs: [],
-		checked: {},
-		isDrawerOpen: false
+		checked: {}
 	};
 
 	fetchSongs = () => {
@@ -212,13 +209,9 @@ class SongsList extends Component {
 		this.props.handleSelectSongs([]);
 	};
 
-	toggleDrawer = open => {
-		this.setState({ ...this.state, isDrawerOpen: open });
-	};
-
 	render() {
 		const { songs = [], category = "", searchText = "", checked } = this.state;
-		const { classes } = this.props;
+		const { classes, isDrawerOpen } = this.props;
 		let songsList = category
 			? songs.filter(song => song.category === category)
 			: songs;
@@ -272,15 +265,9 @@ class SongsList extends Component {
 							<Grid item md={4}>
 								{width === "xs" || width === "sm" ? (
 									<Fragment>
-										<Fab
-											className={classes.xs}
-											onClick={() => this.toggleDrawer(true)}
-										>
-											<MdFilterList />
-										</Fab>
 										<Drawer
-											open={this.state.isDrawerOpen}
-											onClose={() => this.toggleDrawer(false)}
+											open={isDrawerOpen}
+											onClose={() => this.props.toggleDrawer(false)}
 											className={classes.drawer}
 										>
 											<div>
