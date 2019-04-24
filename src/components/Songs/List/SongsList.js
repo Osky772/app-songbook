@@ -203,14 +203,21 @@ class SongsList extends Component {
 				[next]: false
 			};
 		}, {});
-		songs.forEach(song => (allChecked[song.id] = true));
+
+		const checkedSongs = [...this.state.selectedSongs].concat(songs);
+		const unique = checkedSongs
+			.map(e => e["id"])
+			.map((e, i, final) => final.indexOf(e) === i && i)
+			.filter(e => checkedSongs[e])
+			.map(e => checkedSongs[e]);
+		unique.forEach(song => (allChecked[song.id] = true));
 
 		this.setState({
 			...this.state,
 			checked: allChecked,
-			selectedSongs: [...this.state.selectedSongs, ...songs]
+			selectedSongs: unique
 		});
-		this.props.handleSelectSongs(songs);
+		this.props.handleSelectSongs(unique);
 	};
 
 	handleClearSelectAll = () => {
