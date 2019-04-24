@@ -130,19 +130,9 @@ class SongsList extends Component {
 
 	static getDerivedStateFromProps(props, state) {
 		if (props.selectedSongs.length !== state.selectedSongs.length) {
-			const { songs } = state;
-			// const checked = songs.reduce(
-			// 	(options, song) => ({
-			// 		...options,
-			// 		[song.id]: false
-			// 	}),
-			// 	{}
-			// );
-			// songs.forEach(song => (checked[song.id] = true));
 			return {
 				...state,
 				selectedSongs: props.selectedSongs
-				// checked
 			};
 		}
 		return null;
@@ -198,7 +188,7 @@ class SongsList extends Component {
 		this.setState({
 			...this.state,
 			checked: allChecked,
-			selectedSongs: songs
+			selectedSongs: [...this.state.selectedSongs, ...songs]
 		});
 		this.props.handleSelectSongs(songs);
 	};
