@@ -2,15 +2,10 @@ import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import TextField from "@material-ui/core/TextField";
-import {
-	ContainerModal,
-	WrapperInModal,
-	FormWrapper
-} from "../../containers/StyledContainers";
+import { ContainerModal, FormWrapper } from "../../containers/StyledContainers";
 import { DragDropContext } from "react-beautiful-dnd";
 import SongsContainer from "../UI/SongsContainer";
 import InfoSnackBar from "../../SharedComponents/InfoSnackBar";
-import ErrorValidateInfo from "../../SharedComponents/ErrorValidateInfo";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -186,17 +181,26 @@ class PlaylistModal extends Component {
 		}
 		if (playlist.id === null && playlist.isPublic) {
 			const newPlaylistRef = db.ref("playlists").push();
+			const userPublicPlaylistRef = db.ref(
+				`users/${user.uid}/playlists/public/${newPlaylistRef.key}`
+			);
+
 			newPlaylistRef
 				.set({
 					...playlist,
 					id: newPlaylistRef.key,
-					userId: user.uid,
 					userEmail: user.email
 				})
 				.then(() => {
-					alert("Added playlist successfully");
-					this.props.handleSelectSongs([]);
-					this.props.handleClose();
+					userPublicPlaylistRef
+						.set({
+							isPublic: true
+						})
+						.then(() => {
+							alert("Added playlist successfully");
+							this.props.handleSelectSongs([]);
+							this.props.handleClose();
+						});
 				})
 				.catch(err => {
 					alert(err.message);
@@ -205,7 +209,7 @@ class PlaylistModal extends Component {
 		}
 		if (!playlist.isPublic && !playlist.id) {
 			const newPrivatePlaylistRef = db
-				.ref(`users/${user.uid}/playlists`)
+				.ref(`users/${user.uid}/playlists/private`)
 				.push();
 			newPrivatePlaylistRef
 				.set({
@@ -297,7 +301,6 @@ class PlaylistModal extends Component {
 			isCreating,
 			isEditing,
 			isError,
-			error,
 			playlist: { songs = [], title = "", isPublic = false }
 		} = this.state;
 		const { classes, selectedSongs } = this.props;

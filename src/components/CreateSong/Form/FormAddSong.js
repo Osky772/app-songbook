@@ -6,7 +6,6 @@ import { FormWrapper } from "../../containers/StyledContainers";
 import InfoSnackBar from "../../SharedComponents/InfoSnackBar";
 import Button from "@material-ui/core/Button";
 import InputLabel from "@material-ui/core/InputLabel";
-import ErrorValidateInfo from "../../SharedComponents/ErrorValidateInfo";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
