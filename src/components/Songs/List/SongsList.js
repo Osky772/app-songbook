@@ -134,6 +134,22 @@ class SongsList extends Component {
 
 	static getDerivedStateFromProps(props, state) {
 		if (props.selectedSongs.length !== state.selectedSongs.length) {
+			if (props.selectedSongs.length === 0) {
+				const { checked } = state;
+				const unChecked = Object.keys(checked).reduce((acc, next) => {
+					return {
+						...acc,
+						[next]: false
+					};
+				}, {});
+
+				return {
+					...state,
+					selectedSongs: [],
+					checked: unChecked
+				};
+			}
+
 			return {
 				...state,
 				selectedSongs: props.selectedSongs

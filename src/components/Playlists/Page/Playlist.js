@@ -113,7 +113,7 @@ class Playlist extends Component {
 	getPlaylist = () => {
 		const { userId, playlistId } = this.props.match.params;
 		if (userId) {
-			db.ref(`users/${userId}/playlists/private/${playlistId}`)
+			db.ref(`users/${userId}/playlists/${playlistId}`)
 				.once("value")
 				.then(snapshot => {
 					const playlist = snapshot.val();
@@ -161,22 +161,18 @@ class Playlist extends Component {
 	};
 
 	handleRemovePlaylist = id => {
-		const { userId, playlistId } = this.props.match.params;
-
-		if (userId) {
-			db.ref(`users/${userId}/playlists/${playlistId}`)
-				.remove()
-				.then(() => alert("Removed playlist successfully"))
-				.then(() => this.props.history.push("/playlisty"))
-				.catch(error => alert(error.message));
-
-			return;
-		}
+		const user = this.props.user;
 
 		db.ref(`playlists/${id}`)
 			.remove()
-			.then(() => alert("Playlist removed"))
-			.then(() => this.props.history.push("/playlisty"))
+			.then(() => {
+				db.ref(`users/${user.uid}/playlists/${id}`)
+					.remove()
+					.then(() => {
+						alert("Playlist removed");
+					})
+					.then(() => this.props.history.push("/playlisty"));
+			})
 			.catch(error => alert(error.message));
 	};
 

@@ -167,11 +167,17 @@ class PlaylistModal extends Component {
 			return;
 		}
 		if (playlist.id && playlist.isPublic) {
+			const userPlaylistRef = db.ref(
+				`users/${user.uid}/playlists/${playlist.id}`
+			);
+
 			db.ref(`playlists/${playlist.id}`)
 				.update(playlist)
 				.then(() => {
-					alert("Playlista została zedytowana");
-					this.props.handleSelectSongs([]);
+					userPlaylistRef.update(playlist).then(() => {
+						alert("Playlista została zedytowana");
+						this.props.handleSelectSongs([]);
+					});
 				})
 				.then(() => this.props.fetchData())
 				.catch(err => {
@@ -181,8 +187,8 @@ class PlaylistModal extends Component {
 		}
 		if (playlist.id === null && playlist.isPublic) {
 			const newPlaylistRef = db.ref("playlists").push();
-			const userPublicPlaylistRef = db.ref(
-				`users/${user.uid}/playlists/public/${newPlaylistRef.key}`
+			const userPlaylistRef = db.ref(
+				`users/${user.uid}/playlists/${newPlaylistRef.key}`
 			);
 
 			newPlaylistRef
@@ -192,8 +198,11 @@ class PlaylistModal extends Component {
 					userEmail: user.email
 				})
 				.then(() => {
-					userPublicPlaylistRef
+					userPlaylistRef
 						.set({
+							...playlist,
+							id: newPlaylistRef.key,
+							userEmail: user.email,
 							isPublic: true
 						})
 						.then(() => {
@@ -209,7 +218,7 @@ class PlaylistModal extends Component {
 		}
 		if (!playlist.isPublic && !playlist.id) {
 			const newPrivatePlaylistRef = db
-				.ref(`users/${user.uid}/playlists/private`)
+				.ref(`users/${user.uid}/playlists`)
 				.push();
 			newPrivatePlaylistRef
 				.set({
@@ -229,7 +238,7 @@ class PlaylistModal extends Component {
 			return;
 		}
 		if (!playlist.isPublic && playlist.id) {
-			db.ref(`users/${user.uid}/playlists/private/${playlist.id}`)
+			db.ref(`users/${user.uid}/playlists/${playlist.id}`)
 				.update(playlist)
 				.then(() => {
 					alert("Edycja playlisty powiodła się");
