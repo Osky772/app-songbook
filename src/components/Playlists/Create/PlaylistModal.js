@@ -170,7 +170,7 @@ class PlaylistModal extends Component {
 			db.ref(`playlists/${playlist.id}`)
 				.update(playlist)
 				.then(() => {
-					alert("Playlist edited successfully");
+					alert("Playlista została zedytowana");
 					this.props.handleSelectSongs([]);
 				})
 				.then(() => this.props.fetchData())
@@ -197,7 +197,7 @@ class PlaylistModal extends Component {
 							isPublic: true
 						})
 						.then(() => {
-							alert("Added playlist successfully");
+							alert("Dodałeś publiczną playlistę!");
 							this.props.handleSelectSongs([]);
 							this.props.handleClose();
 						});
@@ -219,7 +219,7 @@ class PlaylistModal extends Component {
 					userEmail: user.email
 				})
 				.then(() => {
-					alert("Your private playlist added successfully");
+					alert("Twoja prywatna playlista została dodana");
 					this.props.handleSelectSongs([]);
 					this.props.handleClose();
 				})
@@ -229,10 +229,10 @@ class PlaylistModal extends Component {
 			return;
 		}
 		if (!playlist.isPublic && playlist.id) {
-			db.ref(`users/${user.uid}/playlists/${playlist.id}`)
+			db.ref(`users/${user.uid}/playlists/private/${playlist.id}`)
 				.update(playlist)
 				.then(() => {
-					alert("Playlist edited successfully");
+					alert("Edycja playlisty powiodła się");
 					this.props.handleSelectSongs([]);
 				})
 				.then(() => this.props.fetchData())

@@ -113,7 +113,7 @@ class Playlist extends Component {
 	getPlaylist = () => {
 		const { userId, playlistId } = this.props.match.params;
 		if (userId) {
-			db.ref(`users/${userId}/playlists/${playlistId}`)
+			db.ref(`users/${userId}/playlists/private/${playlistId}`)
 				.once("value")
 				.then(snapshot => {
 					const playlist = snapshot.val();
