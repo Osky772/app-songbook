@@ -18,14 +18,14 @@ import Modal from "@material-ui/core/Modal";
 
 const styles = theme => ({
 	wrapper: {
-		[theme.breakpoints.down("xs")]: {
+		[theme.breakpoints.down("sm")]: {
 			paddingTop: 0
 		}
 	},
 	container: {
 		width: "100%",
 		padding: 15,
-		[theme.breakpoints.down("xs")]: {
+		[theme.breakpoints.down("sm")]: {
 			width: "100%",
 			padding: 10
 		}
@@ -57,11 +57,17 @@ const styles = theme => ({
 		}
 	},
 	summaryContainer: {
-		padding: 5
+		padding: "0 15px",
+		[theme.breakpoints.down("sm")]: {
+			padding: "0 5px"
+		}
 	},
 	detailsContainer: {
 		display: "block",
-		padding: 5
+		padding: 15,
+		[theme.breakpoints.down("sm")]: {
+			padding: "0 5px"
+		}
 	},
 	title: {
 		fontSize: 18
@@ -74,17 +80,17 @@ const styles = theme => ({
 	},
 	text: {
 		width: "75%",
-		[theme.breakpoints.down("xs")]: {
+		[theme.breakpoints.down("sm")]: {
 			width: "70%"
 		}
 	},
 	chords: {
 		width: "20%",
-		[theme.breakpoints.down("xs")]: {
+		[theme.breakpoints.down("sm")]: {
 			width: "25%"
 		}
 	},
-	paper: {
+	deleteModal: {
 		position: "absolute",
 		top: "50%",
 		left: "50%",
@@ -219,7 +225,7 @@ class Playlist extends Component {
 									open={this.state.open}
 									onClose={this.handleClose}
 								>
-									<div className={classes.paper}>
+									<div className={classes.deleteModal}>
 										<Typography variant="h6">
 											Czy na pewno chcesz usunąć playlistę?
 										</Typography>

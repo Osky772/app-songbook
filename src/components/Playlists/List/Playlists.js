@@ -176,7 +176,7 @@ class Playlists extends Component {
 													{playlist.songs !== undefined &&
 														playlist.songs.map(
 															({ performer, title, id }, nr, songs) =>
-																nr < songs.length - 1 ? (
+																nr < songs.length - 1 && nr <= 10 ? (
 																	<span key={id}>
 																		{performer
 																			? performer + " - " + title
