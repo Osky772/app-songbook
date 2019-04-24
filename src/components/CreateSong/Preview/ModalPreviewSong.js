@@ -5,11 +5,12 @@ import {
 	WrapperInModal
 } from "../../containers/StyledContainers";
 import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core/styles";
 
 import { styles, formatSongDescription } from "../../Songs/Page/Song";
 
 const ModalPreviewSong = props => {
-	const { isPreviewed, handleSongPreview } = props;
+	const { classes, isPreviewed, handleSongPreview } = props;
 	let {
 		song,
 		song: { performer = "", title = "", category = "" }
@@ -28,9 +29,9 @@ const ModalPreviewSong = props => {
 						<h4>{category}</h4>
 						{textWithChords.map((verse, i) => {
 							return verse.text !== null ? (
-								<p key={i} style={styles.verse}>
-									<span style={styles.text}>{verse.text}</span>
-									<span style={styles.chords}>
+								<p key={i} className={classes.verse}>
+									<span className={classes.text}>{verse.text}</span>
+									<span className={classes.chords}>
 										{verse.chords ? verse.chords : null}
 									</span>
 								</p>
@@ -38,7 +39,7 @@ const ModalPreviewSong = props => {
 								<br key={i} />
 							);
 						})}
-						<Button onClick={handleSongPreview}>Wyjdź</Button>
+						<Button onClick={handleSongPreview}>Wróć</Button>
 					</div>
 				</WrapperInModal>
 			</ContainerModal>
@@ -46,4 +47,4 @@ const ModalPreviewSong = props => {
 	);
 };
 
-export default ModalPreviewSong;
+export default withStyles(styles)(ModalPreviewSong);

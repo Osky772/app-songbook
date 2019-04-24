@@ -175,21 +175,29 @@ class Playlists extends Component {
 												<Typography className={classes.playlistDescription}>
 													{playlist.songs !== undefined &&
 														playlist.songs.map(
-															({ performer, title, id }, nr, songs) =>
-																nr < songs.length - 1 && nr <= 10 ? (
-																	<span key={id}>
-																		{performer
-																			? performer + " - " + title
-																			: title}
-																		{", "}
-																	</span>
-																) : (
-																	<span key={id}>
-																		{performer
-																			? performer + " - " + title
-																			: title}
-																	</span>
-																)
+															({ performer, title, id }, nr, songs) => {
+																if (nr < 10) {
+																	return nr < songs.length - 1 ? (
+																		<span key={id}>
+																			{performer
+																				? performer + " - " + title
+																				: title}
+																			{", "}
+																		</span>
+																	) : (
+																		<span key={id}>
+																			{performer
+																				? performer + " - " + title
+																				: title}
+																		</span>
+																	);
+																}
+																if (nr === 10) {
+																	return " ... ";
+																}
+
+																return null;
+															}
 														)}
 												</Typography>
 											</Link>

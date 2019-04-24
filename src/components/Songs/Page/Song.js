@@ -14,6 +14,8 @@ export const formatSongDescription = ({ description = "" }) => {
 					.split("<")[1]
 					.trim()
 					.slice(0, -1)
+					.split(",")
+					.join(", ")
 			: null;
 		return { text, chords };
 	});

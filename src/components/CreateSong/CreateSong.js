@@ -168,7 +168,9 @@ class CreateSongModal extends Component {
 				.push()
 				.set({ ...song, isApproved: false })
 				.then(() => {
-					alert("Added song successfully");
+					alert(
+						"Piosenka wysłana do moderacji! Akceptacja może potrwać do kilku dni."
+					);
 					this.setState({
 						open: false,
 						isError: false,
