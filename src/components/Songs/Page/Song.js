@@ -38,11 +38,10 @@ export const formatSongDescription = ({ description = "" }) => {
 export const styles = theme => ({
 	wrapper: {
 		zIndex: 9000,
-		[theme.breakpoints.down("xs")]: {
-			paddingTop: 0
-		},
+		paddingBottom: 115,
 		[theme.breakpoints.down("sm")]: {
-			position: "relative"
+			position: "relative",
+			paddingTop: 0
 		}
 	},
 	verse: {

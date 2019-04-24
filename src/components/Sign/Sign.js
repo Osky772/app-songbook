@@ -97,6 +97,7 @@ class Sign extends Component {
 				.signInWithEmailAndPassword(email, password)
 				.then(() => {
 					alert("Logowanie sie powiodło!");
+					this.props.handleClose();
 				})
 				.catch(error => {
 					alert(error.message);

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import {
 	PlaylistItem,
@@ -82,37 +82,41 @@ class Playlists extends Component {
 
 	getPrivatePlaylists = () => {
 		const { user } = this.props;
-		db.ref(`users/${user.uid}/playlists/`)
-			.once("value")
-			.then(snapshot => {
-				const playlists = snapshot.val();
-				const arrayPlaylists =
-					playlists &&
-					Object.keys(playlists).map(key => ({
-						id: key,
-						...playlists[key]
-					}));
-				const privatePlaylists = arrayPlaylists
-					? arrayPlaylists.filter(playlist => playlist.isPublic === false)
-					: [];
-				this.setState({ playlists: privatePlaylists || [] });
-			});
+		if (user) {
+			db.ref(`users/${user.uid}/playlists/`)
+				.once("value")
+				.then(snapshot => {
+					const playlists = snapshot.val();
+					const arrayPlaylists =
+						playlists &&
+						Object.keys(playlists).map(key => ({
+							id: key,
+							...playlists[key]
+						}));
+					const privatePlaylists = arrayPlaylists
+						? arrayPlaylists.filter(playlist => playlist.isPublic === false)
+						: [];
+					this.setState({ playlists: privatePlaylists || [] });
+				});
+		}
 	};
 
 	getUsersPlaylists = () => {
 		const { user } = this.props;
-		db.ref(`users/${user.uid}/playlists/`)
-			.once("value")
-			.then(snapshot => {
-				const playlists = snapshot.val();
-				const arrayPlaylists =
-					playlists &&
-					Object.keys(playlists).map(key => ({
-						id: key,
-						...playlists[key]
-					}));
-				this.setState({ playlists: arrayPlaylists || [] });
-			});
+		if (user) {
+			db.ref(`users/${user.uid}/playlists/`)
+				.once("value")
+				.then(snapshot => {
+					const playlists = snapshot.val();
+					const arrayPlaylists =
+						playlists &&
+						Object.keys(playlists).map(key => ({
+							id: key,
+							...playlists[key]
+						}));
+					this.setState({ playlists: arrayPlaylists || [] });
+				});
+		}
 	};
 
 	componentDidMount() {
@@ -171,22 +175,28 @@ class Playlists extends Component {
 											button
 											onClick={() => this.handleCategorySelect("public")}
 										>
-											<ListItemText primary={"publicze"} />
+											<ListItemText primary={"publiczne"} />
 										</ListItem>
-										<ListItem
-											button
-											onClick={
-												user ? () => this.handleCategorySelect("private") : null
-											}
-										>
-											<ListItemText primary={"prywatne"} />
-										</ListItem>
-										<ListItem
-											button
-											onClick={() => this.handleCategorySelect("yours")}
-										>
-											<ListItemText primary={"twoje"} />
-										</ListItem>
+										{user && (
+											<Fragment>
+												<ListItem
+													button
+													onClick={
+														user
+															? () => this.handleCategorySelect("private")
+															: null
+													}
+												>
+													<ListItemText primary={"prywatne"} />
+												</ListItem>
+												<ListItem
+													button
+													onClick={() => this.handleCategorySelect("yours")}
+												>
+													<ListItemText primary={"twoje"} />
+												</ListItem>
+											</Fragment>
+										)}
 									</List>
 								</Paper>
 							</Grid>
@@ -218,7 +228,7 @@ class Playlists extends Component {
 													{playlist.songs !== undefined &&
 														playlist.songs.map(
 															({ performer, title, id }, nr, songs) => {
-																if (nr < 5) {
+																if (nr < 4) {
 																	return nr < songs.length - 1 ? (
 																		<span key={id}>
 																			{performer

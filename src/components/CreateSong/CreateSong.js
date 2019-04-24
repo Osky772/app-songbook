@@ -13,7 +13,7 @@ import toRenderProps from "recompose/toRenderProps";
 
 const styles = theme => ({
 	wrapper: {
-		zIndex: 5000
+		zIndex: 9800
 	},
 	modalWrapper: {
 		transform: "translateZ(0)",

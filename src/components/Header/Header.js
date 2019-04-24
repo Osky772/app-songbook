@@ -149,7 +149,7 @@ const styles = theme => ({
 	},
 	mobileDeviceButtonsContainer: {
 		position: "fixed",
-		bottom: 45,
+		bottom: 30,
 		right: "50%",
 		transform: "translate(50%, 0%)",
 		width: 250,
