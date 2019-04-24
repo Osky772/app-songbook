@@ -50,6 +50,10 @@ const styles = theme => ({
 	},
 	drawer: {
 		zIndex: 5000
+	},
+	categories: {
+		position: "sticky",
+		top: 95
 	}
 });
 
@@ -278,7 +282,7 @@ class SongsList extends Component {
 										</Drawer>
 									</Fragment>
 								) : (
-									<Paper>
+									<Paper className={classes.categories}>
 										<List component="nav" style={{ background: "white" }}>
 											{
 												<ListItem
