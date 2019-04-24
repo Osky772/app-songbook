@@ -81,7 +81,7 @@ class Playlists extends Component {
 
 	getPrivatePlaylists = () => {
 		const { user } = this.props;
-		db.ref(`users/${user.uid}/playlists/private`)
+		db.ref(`users/${user.uid}/playlists/`)
 			.once("value")
 			.then(snapshot => {
 				const playlists = snapshot.val();
@@ -91,7 +91,10 @@ class Playlists extends Component {
 						id: key,
 						...playlists[key]
 					}));
-				this.setState({ playlists: arrayPlaylists || [] });
+				const privatePlaylists = arrayPlaylists.filter(
+					playlist => playlist.isPublic === false
+				);
+				this.setState({ playlists: privatePlaylists || [] });
 			});
 	};
 
