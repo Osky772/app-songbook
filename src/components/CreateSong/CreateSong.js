@@ -182,7 +182,7 @@ class CreateSongModal extends Component {
 						}
 					});
 				})
-				.catch(() => alert("Error has occurred"));
+				.catch(error => alert(error.message));
 		}
 	};
 

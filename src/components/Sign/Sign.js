@@ -86,7 +86,7 @@ class Sign extends Component {
 							password,
 							uid: value.user.uid
 						});
-					alert("rejestracja sie udala, yay !");
+					alert("Rejestracja sie powiodła!");
 				})
 				.catch(error => {
 					alert(error.message);
@@ -96,7 +96,7 @@ class Sign extends Component {
 				.auth()
 				.signInWithEmailAndPassword(email, password)
 				.then(() => {
-					alert("logowanie sie udalo, yay !");
+					alert("Logowanie sie powiodło!");
 				})
 				.catch(error => {
 					alert(error.message);

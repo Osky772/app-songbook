@@ -18,6 +18,11 @@ import Drawer from "@material-ui/core/Drawer";
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
 const styles = theme => ({
+	wrapper: {
+		[theme.breakpoints.down("xs")]: {
+			paddingBottom: "100px"
+		}
+	},
 	btn: {
 		textTransform: "none",
 		marginRight: 15
@@ -260,7 +265,7 @@ class SongsList extends Component {
 		return (
 			<WithWidth>
 				{({ width }) => (
-					<PageWrapper>
+					<PageWrapper className={classes.wrapper}>
 						<Grid container spacing={width === "xs" || width === "sm" ? 0 : 24}>
 							<Grid item md={4}>
 								{width === "xs" || width === "sm" ? (

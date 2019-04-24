@@ -24,7 +24,8 @@ const BASE_URL = "https://app-songbook.firebaseio.com/";
 const styles = theme => ({
 	wrapper: {
 		[theme.breakpoints.down("xs")]: {
-			paddingTop: 0
+			paddingTop: 0,
+			paddingBottom: "100px"
 		}
 	},
 	playlistsContainer: {
