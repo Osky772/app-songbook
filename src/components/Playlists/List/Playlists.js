@@ -62,7 +62,8 @@ class Playlists extends Component {
 		playlists: [],
 		editedPlaylist: {},
 		isEditing: false,
-		isPublic: true
+		isPublic: true,
+		category: "public"
 	};
 
 	getPublicPlaylists = () => {
@@ -91,10 +92,26 @@ class Playlists extends Component {
 						id: key,
 						...playlists[key]
 					}));
-				const privatePlaylists = arrayPlaylists.filter(
-					playlist => playlist.isPublic === false
-				);
+				const privatePlaylists = arrayPlaylists
+					? arrayPlaylists.filter(playlist => playlist.isPublic === false)
+					: [];
 				this.setState({ playlists: privatePlaylists || [] });
+			});
+	};
+
+	getUsersPlaylists = () => {
+		const { user } = this.props;
+		db.ref(`users/${user.uid}/playlists/`)
+			.once("value")
+			.then(snapshot => {
+				const playlists = snapshot.val();
+				const arrayPlaylists =
+					playlists &&
+					Object.keys(playlists).map(key => ({
+						id: key,
+						...playlists[key]
+					}));
+				this.setState({ playlists: arrayPlaylists || [] });
 			});
 	};
 
@@ -108,23 +125,39 @@ class Playlists extends Component {
 
 	handleCategorySelect = category => {
 		if (category === "public") {
-			this.setState({ isPublic: true });
+			this.setState({ category, isPublic: true });
 			this.getPublicPlaylists();
 		}
 		if (category === "private") {
-			this.setState({ isPublic: false });
+			this.setState({ category, isPublic: false });
 			this.getPrivatePlaylists();
+		}
+		if (category === "yours") {
+			this.setState({ category });
+			this.getUsersPlaylists();
 		}
 	};
 
 	render() {
-		const { inputValue = "", playlists = [], isPublic } = this.state;
+		const { inputValue = "", playlists = [], category, isPublic } = this.state;
 		const { classes, user } = this.props;
 		const searchedPlaylists = playlists.filter(playlist => {
 			const playlistTitle = playlist.title.toLowerCase();
 			const searchText = inputValue.trim().toLowerCase();
 			return playlistTitle.includes(searchText);
 		});
+
+		const title = () => {
+			if (category === "yours") {
+				return "Twoje utworzone playlisty";
+			}
+			if (category === "public") {
+				return "Publiczne playlisty";
+			}
+			if (category === "private") {
+				return "Prywatne playlisty";
+			}
+		};
 
 		return (
 			<WithWidth>
@@ -148,13 +181,19 @@ class Playlists extends Component {
 										>
 											<ListItemText primary={"prywatne"} />
 										</ListItem>
+										<ListItem
+											button
+											onClick={() => this.handleCategorySelect("yours")}
+										>
+											<ListItemText primary={"twoje"} />
+										</ListItem>
 									</List>
 								</Paper>
 							</Grid>
 							<Grid item md={8} xs={12}>
 								<ListContainer className={classes.playlistsContainer}>
 									<Typography className={classes.categoryTitle}>
-										{isPublic ? "Playlisty publiczne" : "Playlisty prywatne"}
+										{title()}
 									</Typography>
 									<SearchForm
 										handleChange={this.handleInputChange}
