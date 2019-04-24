@@ -41,7 +41,7 @@ const styles = theme => ({
 	secondAppBar: {
 		position: "sticky",
 		top: 0,
-		zIndex: 1000
+		zIndex: 9500
 	},
 	logoIcon: {
 		fontSize: "38px",
@@ -187,11 +187,13 @@ class Header extends Component {
 	handleSignUpOpen = () => {
 		this.setState({ isOpen: true, signUp: true });
 		const body = document.querySelector("body");
-		body.classList.remove("not-scrollable");
+		body.classList.add("not-scrollable");
 	};
 
 	handleClose = () => {
 		this.setState({ isOpen: false });
+		const body = document.querySelector("body");
+		body.classList.remove("not-scrollable");
 	};
 
 	logOut = () => {
