@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import { FaTrashAlt } from "react-icons/fa";
 import { withStyles } from "@material-ui/core/styles";
+import { MdMenu } from "react-icons/md";
 
 const styles = {
 	title: {
@@ -12,7 +13,20 @@ const styles = {
 		margin: "15px 0 15px 0"
 	},
 	songTitle: {
-		fontSize: 16
+		width: "100%",
+		fontSize: 16,
+		display: "flex",
+		alignItems: "center"
+	},
+	dragIcon: {
+		width: 35,
+		fontSize: 27,
+		marginRight: 15
+	},
+	trashIcon: {
+		width: 35,
+		fontSize: 20,
+		marginRight: 15
 	}
 };
 
@@ -38,26 +52,32 @@ class SongsContainer extends Component {
 											<Paper
 												style={{
 													width: "100%",
-													padding: "10px",
-													display: "flex",
-													alignItems: "center",
-													justifyContent: "space-between"
+													padding: "10px"
 												}}
 												elevation={1}
 											>
-												<Typography className={classes.songTitle}>
-													{nr + 1}
-													{". "}
-													{performer ? performer + " - " + title : title}
-												</Typography>
-												<FaTrashAlt
-													onMouseEnter={e =>
-														(e.target.style.cursor = "pointer")
-													}
-													onClick={() => removeSong(id)}
-													fontSize={20}
-													style={{ marginRight: 15 }}
-												/>
+												<div
+													style={{
+														display: "flex",
+														alignItems: "center",
+														justifyContent: "space-between"
+													}}
+												>
+													<MdMenu className={classes.dragIcon} />
+
+													<Typography className={classes.songTitle}>
+														{nr + 1}
+														{". "}
+														{performer ? performer + " - " + title : title}
+													</Typography>
+													<FaTrashAlt
+														onMouseEnter={e =>
+															(e.target.style.cursor = "pointer")
+														}
+														onClick={() => removeSong(id)}
+														className={classes.trashIcon}
+													/>
+												</div>
 											</Paper>
 										</Container>
 									)}
