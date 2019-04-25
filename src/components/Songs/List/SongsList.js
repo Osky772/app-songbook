@@ -50,7 +50,7 @@ const styles = theme => ({
 		width: "100%"
 	},
 	drawer: {
-		zIndex: 5000
+		zIndex: 9600
 	},
 	categories: {
 		position: "sticky",

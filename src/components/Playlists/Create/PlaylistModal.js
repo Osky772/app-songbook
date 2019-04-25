@@ -361,14 +361,14 @@ class PlaylistModal extends Component {
 											<option value={false}>Prywatne</option>
 										</Select>
 									</FormControl>
+									{isEditing && (
+										<InfoSnackBar message="Jesli chcesz dodać utwory, wróć do listy piosenek, zaznacz utwory i wróć tutaj ponownie. Wybrane piosenki pojawią się na dole listy. Pamiętaj, że nie pojawi się piosenka, która już znajduje się na liście. " />
+									)}
 									<SongsContainer
 										songs={songs}
 										selectedSongs={selectedSongs}
 										removeSong={this.handleRemovePlaylistSong}
 									/>
-									{isEditing && (
-										<InfoSnackBar message="Jesli chcesz dodać utwory, wróć do listy piosenek, zaznacz utwory i wróć tutaj ponownie. Wybrane piosenki pojawią się na dole listy. Pamiętaj, że nie pojawi się piosenka, która już znajduje się na liście. " />
-									)}
 									<Button style={{ marginRight: 15 }} type="submit">
 										Zatwierdź
 									</Button>
