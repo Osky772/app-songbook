@@ -11,6 +11,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import * as firebase from "firebase";
+import Loader from "react-loader-spinner";
 
 const styles = theme => ({
 	wrapper: {
@@ -30,6 +31,7 @@ const styles = theme => ({
 	paper: {
 		marginTop: theme.spacing.unit * 8,
 		display: "flex",
+		position: "relative",
 		flexDirection: "column",
 		alignItems: "center",
 		padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
@@ -45,6 +47,17 @@ const styles = theme => ({
 	},
 	submit: {
 		marginTop: theme.spacing.unit * 3
+	},
+	spinner: {
+		color: "#ee6a03",
+		width: 120,
+		height: 120
+	},
+	spinnerWrapper: {
+		position: "absolute",
+		top: "50%",
+		transform: "translateY(-50%)",
+		zIndex: 12000
 	}
 });
 
@@ -52,7 +65,8 @@ class Sign extends Component {
 	state = {
 		email: "",
 		password: "",
-		open: false
+		open: false,
+		fetchInProgress: null
 	};
 
 	static getDerivedStateFromProps(props, state) {
@@ -74,6 +88,7 @@ class Sign extends Component {
 		e.preventDefault();
 		const { email, password } = this.state;
 		if (this.props.signUp) {
+			this.setState({ fetchInProgress: true });
 			firebase
 				.auth()
 				.createUserWithEmailAndPassword(email, password)
@@ -87,16 +102,19 @@ class Sign extends Component {
 							uid: value.user.uid
 						});
 					alert("Rejestracja sie powiodła!");
+					this.setState({ fetchInProgress: false });
 				})
 				.catch(error => {
 					alert(error.message);
 				});
 		} else {
+			this.setState({ fetchInProgress: true });
 			firebase
 				.auth()
 				.signInWithEmailAndPassword(email, password)
 				.then(() => {
 					alert("Logowanie sie powiodło!");
+					this.setState({ fetchInProgress: false });
 					this.props.handleClose();
 				})
 				.catch(error => {
@@ -108,6 +126,7 @@ class Sign extends Component {
 
 	render() {
 		const { classes, isSignedUp, isOpen, handleClose } = this.props;
+		const { fetchInProgress } = this.state;
 		const title = isSignedUp ? "Zarejestruj się" : "Zaloguj się";
 		return (
 			<Modal
@@ -124,6 +143,11 @@ class Sign extends Component {
 						<Typography component="h1" variant="h5">
 							{title}
 						</Typography>
+						{fetchInProgress ? (
+							<div className={classes.spinnerWrapper}>
+								<Loader type="Oval" color="#ee6a03" width={120} height={120} />
+							</div>
+						) : null}
 						<form className={classes.form} onSubmit={this.handleSubmit}>
 							<FormControl margin="normal" required fullWidth>
 								<InputLabel htmlFor="email">Adres email</InputLabel>
