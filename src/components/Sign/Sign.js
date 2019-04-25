@@ -48,11 +48,6 @@ const styles = theme => ({
 	submit: {
 		marginTop: theme.spacing.unit * 3
 	},
-	spinner: {
-		color: "#ee6a03",
-		width: 120,
-		height: 120
-	},
 	spinnerWrapper: {
 		position: "absolute",
 		top: "50%",

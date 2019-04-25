@@ -14,6 +14,7 @@ import { Typography } from "@material-ui/core";
 import withWidth from "@material-ui/core/withWidth";
 import toRenderProps from "recompose/toRenderProps";
 import Drawer from "@material-ui/core/Drawer";
+import Loader from "react-loader-spinner";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -54,6 +55,10 @@ const styles = theme => ({
 	categories: {
 		position: "sticky",
 		top: 95
+	},
+	spinnerWrapper: {
+		display: "flex",
+		justifyContent: "center"
 	}
 });
 
@@ -358,7 +363,14 @@ class SongsList extends Component {
 									/>
 								</div>
 								{fetchInProgress ? (
-									<Typography variant="h5">Loading...</Typography>
+									<div className={classes.spinnerWrapper}>
+										<Loader
+											type="Oval"
+											color="#039be5"
+											width={120}
+											height={120}
+										/>
+									</div>
 								) : (
 									sortedSongs.map((song, id, songs) => (
 										<Fragment key={id}>

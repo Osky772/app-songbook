@@ -16,6 +16,7 @@ import { db } from "../../../App";
 import { withStyles } from "@material-ui/core/styles";
 import withWidth from "@material-ui/core/withWidth";
 import toRenderProps from "recompose/toRenderProps";
+import Loader from "react-loader-spinner";
 
 const WithWidth = toRenderProps(withWidth());
 
@@ -53,6 +54,10 @@ const styles = theme => ({
 		fontSize: 20,
 		fontWeight: "bold",
 		marginBottom: 15
+	},
+	spinnerWrapper: {
+		display: "flex",
+		justifyContent: "center"
 	}
 });
 
@@ -224,7 +229,14 @@ class Playlists extends Component {
 										placeholder="Wpisz nazwę playlisty"
 									/>
 									{fetchInProgress ? (
-										<Typography variant="h5">Loading...</Typography>
+										<div className={classes.spinnerWrapper}>
+											<Loader
+												type="Oval"
+												color="#039be5"
+												width={120}
+												height={120}
+											/>
+										</div>
 									) : (
 										searchedPlaylists.map(playlist => (
 											<PlaylistItem key={playlist.id}>
