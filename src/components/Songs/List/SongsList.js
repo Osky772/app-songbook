@@ -81,10 +81,12 @@ class SongsList extends Component {
 		category: "",
 		searchText: "",
 		selectedSongs: [],
-		checked: {}
+		checked: {},
+		fetchInProgress: null
 	};
 
 	fetchSongs = () => {
+		this.setState({ fetchInProgress: true });
 		fetch(`${BASE_URL}/songs.json`)
 			.then(r => r.json())
 			.then(songs => {
@@ -115,6 +117,7 @@ class SongsList extends Component {
 					selectedSongs,
 					checked: Object.assign(checked, checkedSelectedSongs)
 				});
+				this.setState({ fetchInProgress: false });
 			});
 	};
 
@@ -233,7 +236,13 @@ class SongsList extends Component {
 	};
 
 	render() {
-		const { songs = [], category = "", searchText = "", checked } = this.state;
+		const {
+			songs = [],
+			category = "",
+			searchText = "",
+			checked,
+			fetchInProgress
+		} = this.state;
 		const { classes, isDrawerOpen } = this.props;
 		let songsList = category
 			? songs.filter(song => song.category === category)
@@ -348,19 +357,23 @@ class SongsList extends Component {
 										label="Wyszukaj piosenkę"
 									/>
 								</div>
-								{sortedSongs.map((song, id, songs) => (
-									<Fragment key={id}>
-										<Typography variant="h4" style={{ paddingLeft: 10 }}>
-											{getFirstLetter(song, id, songs, firstLetters)}
-										</Typography>
-										<SongRow
-											key={song.id}
-											song={song}
-											checked={checked}
-											handleCheckboxSelect={this.handleCheckboxSelect}
-										/>
-									</Fragment>
-								))}
+								{fetchInProgress ? (
+									<Typography variant="h5">Loading...</Typography>
+								) : (
+									sortedSongs.map((song, id, songs) => (
+										<Fragment key={id}>
+											<Typography variant="h4" style={{ paddingLeft: 10 }}>
+												{getFirstLetter(song, id, songs, firstLetters)}
+											</Typography>
+											<SongRow
+												key={song.id}
+												song={song}
+												checked={checked}
+												handleCheckboxSelect={this.handleCheckboxSelect}
+											/>
+										</Fragment>
+									))
+								)}
 							</Grid>
 						</Grid>
 					</PageWrapper>

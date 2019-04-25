@@ -63,10 +63,12 @@ class Playlists extends Component {
 		editedPlaylist: {},
 		isEditing: false,
 		isPublic: true,
-		category: "public"
+		category: "public",
+		fetchInProgress: null
 	};
 
 	getPublicPlaylists = () => {
+		this.setState({ fetchInProgress: true });
 		fetch(`${BASE_URL}/playlists.json`)
 			.then(r => r.json())
 			.then(playlists => {
@@ -77,12 +79,14 @@ class Playlists extends Component {
 						...playlists[key]
 					}));
 				this.setState({ playlists: arrayPlaylists || [] });
+				this.setState({ fetchInProgress: false });
 			});
 	};
 
 	getPrivatePlaylists = () => {
 		const { user } = this.props;
 		if (user) {
+			this.setState({ fetchInProgress: true });
 			db.ref(`users/${user.uid}/playlists/`)
 				.once("value")
 				.then(snapshot => {
@@ -97,6 +101,7 @@ class Playlists extends Component {
 						? arrayPlaylists.filter(playlist => playlist.isPublic === false)
 						: [];
 					this.setState({ playlists: privatePlaylists || [] });
+					this.setState({ fetchInProgress: false });
 				});
 		}
 	};
@@ -104,6 +109,7 @@ class Playlists extends Component {
 	getUsersPlaylists = () => {
 		const { user } = this.props;
 		if (user) {
+			this.setState({ fetchInProgress: true });
 			db.ref(`users/${user.uid}/playlists/`)
 				.once("value")
 				.then(snapshot => {
@@ -115,6 +121,7 @@ class Playlists extends Component {
 							...playlists[key]
 						}));
 					this.setState({ playlists: arrayPlaylists || [] });
+					this.setState({ fetchInProgress: false });
 				});
 		}
 	};
@@ -143,7 +150,13 @@ class Playlists extends Component {
 	};
 
 	render() {
-		const { inputValue = "", playlists = [], category, isPublic } = this.state;
+		const {
+			inputValue = "",
+			playlists = [],
+			category,
+			isPublic,
+			fetchInProgress
+		} = this.state;
 		const { classes, user } = this.props;
 		const searchedPlaylists = playlists.filter(playlist => {
 			const playlistTitle = playlist.title.toLowerCase();
@@ -210,51 +223,55 @@ class Playlists extends Component {
 										label="Wyszukaj playlistę"
 										placeholder="Wpisz nazwę playlisty"
 									/>
-									{searchedPlaylists.map(playlist => (
-										<PlaylistItem key={playlist.id}>
-											<Link
-												key={playlist.id}
-												to={
-													isPublic
-														? `/playlisty/${playlist.id}`
-														: `users/${user.uid}/playlists/${playlist.id}`
-												}
-												className={classes.link}
-											>
-												<Typography className={classes.playlistTitle}>
-													{playlist.title}
-												</Typography>
-												<Typography className={classes.playlistDescription}>
-													{playlist.songs !== undefined &&
-														playlist.songs.map(
-															({ performer, title, id }, nr, songs) => {
-																if (nr < 4) {
-																	return nr < songs.length - 1 ? (
-																		<span key={id}>
-																			{performer
-																				? performer + " - " + title
-																				: title}
-																			{", "}
-																		</span>
-																	) : (
-																		<span key={id}>
-																			{performer
-																				? performer + " - " + title
-																				: title}
-																		</span>
-																	);
-																}
-																if (nr === 10) {
-																	return " ... ";
-																}
+									{fetchInProgress ? (
+										<Typography variant="h5">Loading...</Typography>
+									) : (
+										searchedPlaylists.map(playlist => (
+											<PlaylistItem key={playlist.id}>
+												<Link
+													key={playlist.id}
+													to={
+														isPublic
+															? `/playlisty/${playlist.id}`
+															: `users/${user.uid}/playlists/${playlist.id}`
+													}
+													className={classes.link}
+												>
+													<Typography className={classes.playlistTitle}>
+														{playlist.title}
+													</Typography>
+													<Typography className={classes.playlistDescription}>
+														{playlist.songs !== undefined &&
+															playlist.songs.map(
+																({ performer, title, id }, nr, songs) => {
+																	if (nr < 4) {
+																		return nr < songs.length - 1 ? (
+																			<span key={id}>
+																				{performer
+																					? performer + " - " + title
+																					: title}
+																				{", "}
+																			</span>
+																		) : (
+																			<span key={id}>
+																				{performer
+																					? performer + " - " + title
+																					: title}
+																			</span>
+																		);
+																	}
+																	if (nr === 10) {
+																		return " ... ";
+																	}
 
-																return null;
-															}
-														)}
-												</Typography>
-											</Link>
-										</PlaylistItem>
-									))}
+																	return null;
+																}
+															)}
+													</Typography>
+												</Link>
+											</PlaylistItem>
+										))
+									)}
 								</ListContainer>
 							</Grid>
 						</Grid>
