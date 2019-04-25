@@ -15,6 +15,7 @@ import PlaylistModal from "../Create/PlaylistModal";
 import { db } from "../../../App";
 import { withStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
+import Loader from "react-loader-spinner";
 
 const styles = theme => ({
 	wrapper: {
@@ -100,6 +101,10 @@ const styles = theme => ({
 		boxShadow: theme.shadows[5],
 		padding: theme.spacing.unit * 4,
 		outline: "none"
+	},
+	spinnerWrapper: {
+		display: "flex",
+		justifyContent: "center"
 	}
 });
 
@@ -107,12 +112,14 @@ class Playlist extends Component {
 	state = {
 		isEditing: false,
 		playlist: {},
-		open: false
+		open: false,
+		fetchInProgress: null
 	};
 
 	getPlaylist = () => {
 		const { userId, playlistId } = this.props.match.params;
 		if (userId) {
+			this.setState({ fetchInProgress: true });
 			db.ref(`users/${userId}/playlists/${playlistId}`)
 				.once("value")
 				.then(snapshot => {
@@ -123,10 +130,11 @@ class Playlist extends Component {
 							id: playlistId
 						}
 					});
+					this.setState({ fetchInProgress: false });
 				});
 			return;
 		}
-
+		this.setState({ fetchInProgress: true });
 		db.ref(`playlists/${playlistId}`)
 			.once("value")
 			.then(snapshot => {
@@ -137,6 +145,7 @@ class Playlist extends Component {
 						id: playlistId
 					}
 				});
+				this.setState({ fetchInProgress: false });
 			});
 	};
 
@@ -162,7 +171,6 @@ class Playlist extends Component {
 
 	handleRemovePlaylist = id => {
 		const user = this.props.user;
-
 		db.ref(`playlists/${id}`)
 			.remove()
 			.then(() => {
@@ -180,7 +188,8 @@ class Playlist extends Component {
 		const {
 			isEditing,
 			playlist,
-			playlist: { title, songs = [] }
+			playlist: { title, songs = [] },
+			fetchInProgress
 		} = this.state;
 		const { classes, selectedSongs, handleSelectSongs, user } = this.props;
 		const isLoggedIn = user !== null;
@@ -250,42 +259,48 @@ class Playlist extends Component {
 
 						<CreatePDF playlist title={title} songs={songs} />
 					</div>
-					{songs.map((song, nr) => (
-						<ExpansionPanel key={song.id}>
-							<ExpansionPanelSummary
-								expandIcon={<ExpandMoreIcon />}
-								className={classes.summaryContainer}
-							>
-								<Typography>
-									{song.performer
-										? nr + 1 + ". " + song.performer + " - " + song.title
-										: nr + 1 + ". " + song.title}
-								</Typography>
-							</ExpansionPanelSummary>
-							<ExpansionPanelDetails
-								onClick={() => console.log(nr.toString())}
-								className={classes.detailsContainer}
-							>
-								<Typography className={classes.title}>
-									{song.performer
-										? song.performer + " - " + song.title
-										: song.title}
-								</Typography>
-								{formatSongDescription(song).map((verse, i) => {
-									return verse.text !== null ? (
-										<Typography className={classes.verse} key={i}>
-											<span className={classes.text}>{verse.text}</span>
-											<span className={classes.chords}>
-												{verse.chords ? verse.chords : null}
-											</span>
-										</Typography>
-									) : (
-										<br key={i} />
-									);
-								})}
-							</ExpansionPanelDetails>
-						</ExpansionPanel>
-					))}
+					{fetchInProgress ? (
+						<div className={classes.spinnerWrapper}>
+							<Loader type="Oval" color="#039be5" width={120} height={120} />
+						</div>
+					) : (
+						songs.map((song, nr) => (
+							<ExpansionPanel key={song.id}>
+								<ExpansionPanelSummary
+									expandIcon={<ExpandMoreIcon />}
+									className={classes.summaryContainer}
+								>
+									<Typography>
+										{song.performer
+											? nr + 1 + ". " + song.performer + " - " + song.title
+											: nr + 1 + ". " + song.title}
+									</Typography>
+								</ExpansionPanelSummary>
+								<ExpansionPanelDetails
+									onClick={() => console.log(nr.toString())}
+									className={classes.detailsContainer}
+								>
+									<Typography className={classes.title}>
+										{song.performer
+											? song.performer + " - " + song.title
+											: song.title}
+									</Typography>
+									{formatSongDescription(song).map((verse, i) => {
+										return verse.text !== null ? (
+											<Typography className={classes.verse} key={i}>
+												<span className={classes.text}>{verse.text}</span>
+												<span className={classes.chords}>
+													{verse.chords ? verse.chords : null}
+												</span>
+											</Typography>
+										) : (
+											<br key={i} />
+										);
+									})}
+								</ExpansionPanelDetails>
+							</ExpansionPanel>
+						))
+					)}
 				</PlaylistPaper>
 			</PageWrapper>
 		);
