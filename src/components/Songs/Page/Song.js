@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { PageWrapper, SongPaper } from "../../containers/StyledContainers";
 import { withStyles } from "@material-ui/core/styles";
+import Loader from "react-loader-spinner";
 
 const BASE_URL = "https://app-songbook.firebaseio.com/";
 
@@ -64,27 +65,34 @@ export const styles = theme => ({
 	container: {
 		width: "100%",
 		padding: 15
+	},
+	spinnerWrapper: {
+		display: "flex",
+		justifyContent: "center"
 	}
 });
 
 class Song extends Component {
 	state = {
-		song: {}
+		song: {},
+		fetchInProgress: null
 	};
 
 	componentWillMount() {
 		const { songId } = this.props.match.params;
+		this.setState({ fetchInProgress: true });
 		fetch(`${BASE_URL}/songs/${songId}.json`)
 			.then(r => r.json())
 			.then(song => {
-				this.setState({ song });
+				this.setState({ song, fetchInProgress: false });
 			});
 	}
 
 	render() {
 		let {
 			song,
-			song: { performer = "", title = "", category = "" }
+			song: { performer = "", title = "", category = "" },
+			fetchInProgress
 		} = this.state;
 		const { classes } = this.props;
 		const textWithChords = formatSongDescription(song);
@@ -92,20 +100,28 @@ class Song extends Component {
 		return (
 			<PageWrapper className={classes.wrapper}>
 				<SongPaper className={classes.container}>
-					<h2>{performer ? performer + " - " + title : title}</h2>
-					<h4>{category}</h4>
-					{textWithChords.map((verse, i) => {
-						return verse.text !== null ? (
-							<p key={i} className={classes.verse}>
-								<span className={classes.text}>{verse.text}</span>
-								<span className={classes.chords}>
-									{verse.chords ? verse.chords : null}
-								</span>
-							</p>
-						) : (
-							<br key={i} />
-						);
-					})}
+					{fetchInProgress ? (
+						<div className={classes.spinnerWrapper}>
+							<Loader type="Oval" color="#039be5" width={120} height={120} />
+						</div>
+					) : (
+						<Fragment>
+							<h2>{performer ? performer + " - " + title : title}</h2>
+							<h4>{category}</h4>
+							{textWithChords.map((verse, i) => {
+								return verse.text !== null ? (
+									<p key={i} className={classes.verse}>
+										<span className={classes.text}>{verse.text}</span>
+										<span className={classes.chords}>
+											{verse.chords ? verse.chords : null}
+										</span>
+									</p>
+								) : (
+									<br key={i} />
+								);
+							})}
+						</Fragment>
+					)}
 				</SongPaper>
 			</PageWrapper>
 		);
