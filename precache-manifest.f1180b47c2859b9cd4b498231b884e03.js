@@ -32,12 +32,12 @@ self.__precacheManifest = [
     "url": "/app-spiewnik/static/media/montserrat-latin-100italic.e4bf47bd.woff2"
   },
   {
-    "revision": "d1f3f2d02ee4d7d2d4b1ad865014f189",
-    "url": "/app-spiewnik/static/media/montserrat-latin-100italic.d1f3f2d0.woff"
-  },
-  {
     "revision": "444ae007121264bc1969d49b4031f9b2",
     "url": "/app-spiewnik/static/media/montserrat-latin-200.444ae007.woff2"
+  },
+  {
+    "revision": "d1f3f2d02ee4d7d2d4b1ad865014f189",
+    "url": "/app-spiewnik/static/media/montserrat-latin-100italic.d1f3f2d0.woff"
   },
   {
     "revision": "edbce16a90aa22c297a0307b85789837",
@@ -72,12 +72,12 @@ self.__precacheManifest = [
     "url": "/app-spiewnik/static/media/montserrat-latin-400.501ce09c.woff2"
   },
   {
-    "revision": "882908d9950d9c86ebd380877f293d95",
-    "url": "/app-spiewnik/static/media/montserrat-latin-400italic.882908d9.woff2"
-  },
-  {
     "revision": "f29d2b8559699b6beb5b29b25b8bc572",
     "url": "/app-spiewnik/static/media/montserrat-latin-400.f29d2b85.woff"
+  },
+  {
+    "revision": "882908d9950d9c86ebd380877f293d95",
+    "url": "/app-spiewnik/static/media/montserrat-latin-400italic.882908d9.woff2"
   },
   {
     "revision": "22e7b04e5f2a901d49d4d342315a715a",
@@ -112,12 +112,12 @@ self.__precacheManifest = [
     "url": "/app-spiewnik/static/media/montserrat-latin-600italic.6d10b805.woff2"
   },
   {
-    "revision": "79982cd1f74c6fa7451bf9b37ead09ff",
-    "url": "/app-spiewnik/static/media/montserrat-latin-700.79982cd1.woff2"
-  },
-  {
     "revision": "02c4833312d94b1b0866f073023a250e",
     "url": "/app-spiewnik/static/media/montserrat-latin-600italic.02c48333.woff"
+  },
+  {
+    "revision": "79982cd1f74c6fa7451bf9b37ead09ff",
+    "url": "/app-spiewnik/static/media/montserrat-latin-700.79982cd1.woff2"
   },
   {
     "revision": "957e93fbbe131a59791cd820d98b7109",
