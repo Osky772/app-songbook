@@ -1,16 +1,16 @@
 {
   "main.css": "/app-songbook/static/css/main.39d30c54.chunk.css",
-  "main.js": "/app-songbook/static/js/main.1398833d.chunk.js",
-  "main.js.map": "/app-songbook/static/js/main.1398833d.chunk.js.map",
+  "main.js": "/app-songbook/static/js/main.321d8710.chunk.js",
+  "main.js.map": "/app-songbook/static/js/main.321d8710.chunk.js.map",
   "runtime~main.js": "/app-songbook/static/js/runtime~main.b1358a8b.js",
   "runtime~main.js.map": "/app-songbook/static/js/runtime~main.b1358a8b.js.map",
-  "static/css/2.27176514.chunk.css": "/app-songbook/static/css/2.27176514.chunk.css",
-  "static/js/2.95d585de.chunk.js": "/app-songbook/static/js/2.95d585de.chunk.js",
-  "static/js/2.95d585de.chunk.js.map": "/app-songbook/static/js/2.95d585de.chunk.js.map",
+  "static/css/2.0ae71a4f.chunk.css": "/app-songbook/static/css/2.0ae71a4f.chunk.css",
+  "static/js/2.91e358a4.chunk.js": "/app-songbook/static/js/2.91e358a4.chunk.js",
+  "static/js/2.91e358a4.chunk.js.map": "/app-songbook/static/js/2.91e358a4.chunk.js.map",
   "index.html": "/app-songbook/index.html",
-  "precache-manifest.00a0bf5afe6c5bbf29a835408f24d4b3.js": "/app-songbook/precache-manifest.00a0bf5afe6c5bbf29a835408f24d4b3.js",
+  "precache-manifest.55d18e247eba142ec9d24ce988e82576.js": "/app-songbook/precache-manifest.55d18e247eba142ec9d24ce988e82576.js",
   "service-worker.js": "/app-songbook/service-worker.js",
-  "static/css/2.27176514.chunk.css.map": "/app-songbook/static/css/2.27176514.chunk.css.map",
+  "static/css/2.0ae71a4f.chunk.css.map": "/app-songbook/static/css/2.0ae71a4f.chunk.css.map",
   "static/css/main.39d30c54.chunk.css.map": "/app-songbook/static/css/main.39d30c54.chunk.css.map",
   "static/media/index.css": "/app-songbook/static/media/montserrat-latin-900italic.d785fb9f.woff2"
 }
