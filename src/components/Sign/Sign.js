@@ -12,6 +12,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import * as firebase from "firebase";
 import Loader from "react-loader-spinner";
+import { db } from "../../App";
 
 const styles = theme => ({
 	wrapper: {
@@ -111,6 +112,16 @@ class Sign extends Component {
 					alert("Logowanie sie powiodło!");
 					this.setState({ fetchInProgress: false });
 					this.props.handleClose();
+					db.ref("admins")
+						.once("value")
+						.then(snapshot => {
+							if (snapshot.val()) {
+								console.log("admin logged");
+							}
+						})
+						.catch(() => {
+							return;
+						});
 				})
 				.catch(error => {
 					alert(error.message);

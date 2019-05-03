@@ -22,6 +22,8 @@ firebase.initializeApp(config);
 
 export const db = firebase.database();
 
+const BASE_URL = "https://app-songbook.firebaseio.com";
+
 class App extends Component {
 	state = {
 		user: null,

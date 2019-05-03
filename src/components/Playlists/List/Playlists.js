@@ -20,7 +20,7 @@ import Loader from "react-loader-spinner";
 
 const WithWidth = toRenderProps(withWidth());
 
-const BASE_URL = "https://app-songbook.firebaseio.com/";
+const BASE_URL = "https://app-songbook.firebaseio.com";
 
 const styles = theme => ({
 	wrapper: {

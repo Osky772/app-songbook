@@ -3,7 +3,7 @@ import { PageWrapper, SongPaper } from "../../containers/StyledContainers";
 import { withStyles } from "@material-ui/core/styles";
 import Loader from "react-loader-spinner";
 
-const BASE_URL = "https://app-songbook.firebaseio.com/";
+const BASE_URL = "https://app-songbook.firebaseio.com";
 
 export const formatSongDescription = ({ description = "" }) => {
 	let verses = description.split("\n");

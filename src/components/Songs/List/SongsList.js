@@ -16,7 +16,7 @@ import toRenderProps from "recompose/toRenderProps";
 import Drawer from "@material-ui/core/Drawer";
 import Loader from "react-loader-spinner";
 
-const BASE_URL = "https://app-songbook.firebaseio.com/";
+const BASE_URL = "https://app-songbook.firebaseio.com";
 
 const styles = theme => ({
 	wrapper: {
