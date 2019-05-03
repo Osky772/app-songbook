@@ -200,6 +200,10 @@ class Header extends Component {
 		firebase.auth().signOut();
 	};
 
+	goToAdminPage = () => {
+		this.props.history.push("/spiewnik/admin");
+	};
+
 	render() {
 		const { value, signUp, isOpen } = this.state;
 		const {
@@ -207,8 +211,11 @@ class Header extends Component {
 			user,
 			selectedSongs,
 			editedPlaylist,
-			handleSelectSongs
+			handleSelectSongs,
+			handleAdmin,
+			isAdmin
 		} = this.props;
+		console.log(isAdmin);
 		return (
 			<WithWidth>
 				{({ width }) => (
@@ -226,6 +233,9 @@ class Header extends Component {
 									>
 										Śpiewnik
 									</Typography>
+									{isAdmin && (
+										<Button onClick={this.goToAdminPage}>Admin</Button>
+									)}
 								</div>
 								<div className={classes.userContainer}>
 									{user ? (
@@ -254,6 +264,7 @@ class Header extends Component {
 												isOpen={isOpen}
 												signUp={signUp}
 												handleClose={this.handleClose}
+												handleAdmin={handleAdmin}
 											/>
 											<Button
 												className={classNames(classes.Btn, classes.loginBtn)}

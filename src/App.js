@@ -22,11 +22,10 @@ firebase.initializeApp(config);
 
 export const db = firebase.database();
 
-const BASE_URL = "https://app-songbook.firebaseio.com";
-
 class App extends Component {
 	state = {
 		user: null,
+		isAdmin: false,
 		song: "",
 		selectedSongs: [],
 		isDrawerOpen: false
@@ -56,17 +55,37 @@ class App extends Component {
 		this.state.ref && this.state.ref();
 	}
 
+	handleAdmin = () => {
+		this.setState({ isAdmin: !this.state.isAdmin });
+	};
+
 	render() {
-		const { selectedSongs, user, isDrawerOpen } = this.state;
+		const { selectedSongs, user, isDrawerOpen, isAdmin } = this.state;
 		return (
 			<Fragment>
 				<CssBaseline />
-				<Header
+				<Route
+					path="/"
+					render={props => (
+						<Header
+							{...props}
+							selectedSongs={selectedSongs}
+							handleSelectSongs={this.handleSelectSongs}
+							user={user}
+							toggleDrawer={this.toggleDrawer}
+							handleAdmin={this.handleAdmin}
+							isAdmin={isAdmin}
+						/>
+					)}
+				/>
+				{/* <Header
 					selectedSongs={selectedSongs}
 					handleSelectSongs={this.handleSelectSongs}
 					user={user}
 					toggleDrawer={this.toggleDrawer}
-				/>
+					handleAdmin={this.handleAdmin}
+					isAdmin={isAdmin}
+				/> */}
 				<Route
 					exact
 					path="/spiewnik"

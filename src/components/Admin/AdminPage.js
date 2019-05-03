@@ -44,6 +44,10 @@ class AdminPage extends Component {
 		user: null
 	};
 
+	componentDidMount() {
+		this.getSongs();
+	}
+
 	getSongs = () => {
 		const { user } = this.props;
 		db.ref("songs-to-approve")
