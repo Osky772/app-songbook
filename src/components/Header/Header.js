@@ -315,7 +315,8 @@ class Header extends Component {
 												className={classes.filterBtn}
 												onClick={() => this.props.toggleDrawer(true)}
 												disabled={
-													window.location.pathname !== "/lista-piosenek"
+													window.location.pathname !==
+													"/spiewnik/lista-piosenek"
 												}
 											>
 												<MdFilterList />

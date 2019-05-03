@@ -293,7 +293,6 @@ class SongsList extends Component {
 				</ListItem>
 			);
 		});
-
 		return (
 			<WithWidth>
 				{({ width }) => (
