@@ -216,6 +216,9 @@ class Header extends Component {
 			handleAdmin,
 			isAdmin
 		} = this.props;
+
+		const isUserOnSongPage = window.location.pathname.includes("/-");
+		console.log(isUserOnSongPage);
 		return (
 			<WithWidth>
 				{({ width }) => (
@@ -226,7 +229,7 @@ class Header extends Component {
 									<FaItunesNote className={classes.logoIcon} />
 									<Typography
 										component={Link}
-										to="/lista-piosenek"
+										to="/spiewnik/lista-piosenek"
 										variant="h6"
 										color="inherit"
 										className={classes.logoText}
@@ -311,17 +314,19 @@ class Header extends Component {
 								<Grid item md={6} sm={6} xs={12} className={classes.flexEnd}>
 									{width === "xs" || width === "sm" ? (
 										<div className={classes.mobileDeviceButtonsContainer}>
-											<Fab
-												className={classes.filterBtn}
-												onClick={() => this.props.toggleDrawer(true)}
-												disabled={
-													window.location.pathname !==
-													"/spiewnik/lista-piosenek"
-												}
-											>
-												<MdFilterList />
-											</Fab>
-											<CreateSong />
+											{!isUserOnSongPage && (
+												<Fab
+													className={classes.filterBtn}
+													onClick={() => this.props.toggleDrawer(true)}
+													disabled={
+														window.location.pathname !==
+														"/spiewnik/lista-piosenek"
+													}
+												>
+													<MdFilterList />
+												</Fab>
+											)}
+											{!isUserOnSongPage && <CreateSong />}
 											{user ? (
 												<CreatePlaylist
 													editedPlaylist={editedPlaylist}
@@ -330,7 +335,9 @@ class Header extends Component {
 													user={user}
 												/>
 											) : null}
-											<CreatePDF isButton songs={selectedSongs} />
+											{!isUserOnSongPage && (
+												<CreatePDF isButton songs={selectedSongs} />
+											)}
 										</div>
 									) : (
 										<Fragment>
