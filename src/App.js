@@ -55,8 +55,8 @@ class App extends Component {
 		this.state.ref && this.state.ref();
 	}
 
-	handleAdmin = () => {
-		this.setState({ isAdmin: !this.state.isAdmin });
+	handleAdmin = val => {
+		this.setState({ isAdmin: val });
 	};
 
 	render() {

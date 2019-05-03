@@ -117,7 +117,7 @@ class Sign extends Component {
 						.then(snapshot => {
 							if (snapshot.val()) {
 								console.log("admin logged");
-								this.props.handleAdmin();
+								this.props.handleAdmin(true);
 							}
 						})
 						.catch(() => {

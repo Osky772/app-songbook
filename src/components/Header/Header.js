@@ -198,6 +198,7 @@ class Header extends Component {
 
 	logOut = () => {
 		firebase.auth().signOut();
+		this.props.handleAdmin(false);
 	};
 
 	goToAdminPage = () => {
@@ -215,7 +216,6 @@ class Header extends Component {
 			handleAdmin,
 			isAdmin
 		} = this.props;
-		console.log(isAdmin);
 		return (
 			<WithWidth>
 				{({ width }) => (
