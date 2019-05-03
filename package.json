@@ -1,6 +1,6 @@
 {
-	"name": "app-songbook",
-	"homepage": "https://osky772.github.io/app-songbook",
+	"name": "spiewnik",
+	"homepage": "https://osky772.github.io/spiewnik",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {

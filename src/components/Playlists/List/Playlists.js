@@ -244,8 +244,10 @@ class Playlists extends Component {
 													key={playlist.id}
 													to={
 														isPublic
-															? `/playlisty/${playlist.id}`
-															: `users/${user.uid}/playlists/${playlist.id}`
+															? `/spiewnik/playlisty/${playlist.id}`
+															: `/spiewnik/users/${user.uid}/playlists/${
+																	playlist.id
+															  }`
 													}
 													className={classes.link}
 												>

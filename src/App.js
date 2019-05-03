@@ -65,11 +65,19 @@ class App extends Component {
 					user={user}
 					toggleDrawer={this.toggleDrawer}
 				/>
-				<Route exact path="/" render={props => <InitPage {...props} />} />
-				<Route path={"/lista-piosenek/:songId"} component={Song} />
 				<Route
 					exact
-					path="/lista-piosenek"
+					path="/spiewnik"
+					render={props => <InitPage {...props} />}
+				/>
+				<Route
+					exact
+					path={"/spiewnik/lista-piosenek/:songId"}
+					component={Song}
+				/>
+				<Route
+					exact
+					path="/spiewnik/lista-piosenek"
 					render={props => (
 						<SongsList
 							handleSelectSongs={this.handleSelectSongs}
@@ -82,11 +90,12 @@ class App extends Component {
 				/>
 				<Route
 					exact
-					path="/playlisty"
+					path="/spiewnik/playlisty"
 					render={props => <Playlists user={user} {...props} />}
 				/>
 				<Route
-					path={"/playlisty/:playlistId"}
+					exact
+					path={"/spiewnik/playlisty/:playlistId"}
 					render={props => (
 						<Playlist
 							{...props}
@@ -97,7 +106,8 @@ class App extends Component {
 					)}
 				/>
 				<Route
-					path={"/users/:userId/playlists/:playlistId"}
+					exact
+					path={"/spiewnik/users/:userId/playlists/:playlistId"}
 					render={props => (
 						<Playlist
 							selectedSongs={selectedSongs}
@@ -108,7 +118,8 @@ class App extends Component {
 					)}
 				/>
 				<Route
-					path={"/admin"}
+					exact
+					path={"/spiewnik/admin"}
 					render={props => <AdminPage user={user} {...props} />}
 				/>
 			</Fragment>

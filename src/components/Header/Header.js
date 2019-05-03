@@ -280,7 +280,7 @@ class Header extends Component {
 										<Tabs value={value} onChange={this.handleChange}>
 											<Tab
 												component={Link}
-												to="/lista-piosenek"
+												to="/spiewnik/lista-piosenek"
 												label="Lista piosenek"
 												classes={{
 													label: "logo-text"
@@ -288,7 +288,7 @@ class Header extends Component {
 											/>
 											<Tab
 												component={Link}
-												to="/playlisty"
+												to="/spiewnik/playlisty"
 												label="Playlisty"
 												classes={{
 													label: "logo-text"

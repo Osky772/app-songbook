@@ -1,7 +1,8 @@
 import React from "react";
 
 const InitPage = props => {
-	props.history.push("/lista-piosenek");
+	console.log(props.history.location);
+	props.history.push("/spiewnik/lista-piosenek");
 	return <div>hello</div>;
 };
 
