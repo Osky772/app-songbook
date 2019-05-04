@@ -51,9 +51,8 @@ const styles = theme => ({
 		}
 	},
 	categoryTitle: {
-		fontSize: 20,
-		fontWeight: "bold",
-		marginBottom: 15
+		fontSize: 25,
+		fontWeight: "bold"
 	},
 	spinnerWrapper: {
 		display: "flex",
@@ -159,7 +158,6 @@ class Playlists extends Component {
 			inputValue = "",
 			playlists = [],
 			category,
-			isPublic,
 			fetchInProgress
 		} = this.state;
 		const { classes, user } = this.props;
@@ -243,7 +241,7 @@ class Playlists extends Component {
 												<Link
 													key={playlist.id}
 													to={
-														isPublic
+														playlist.isPublic
 															? `/spiewnik/playlisty/${playlist.id}`
 															: `/spiewnik/users/${user.uid}/playlists/${
 																	playlist.id

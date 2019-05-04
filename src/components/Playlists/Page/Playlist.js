@@ -100,7 +100,10 @@ const styles = theme => ({
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
 		padding: theme.spacing.unit * 4,
-		outline: "none"
+		outline: "none",
+		[theme.breakpoints.down("sm")]: {
+			width: "100%"
+		}
 	},
 	spinnerWrapper: {
 		display: "flex",
@@ -177,9 +180,9 @@ class Playlist extends Component {
 				db.ref(`users/${user.uid}/playlists/${id}`)
 					.remove()
 					.then(() => {
-						alert("Playlist removed");
+						alert("Usunąłeś swoją playlistę ");
 					})
-					.then(() => this.props.history.push("/playlisty"));
+					.then(() => this.props.history.push("/spiewnik/playlisty"));
 			})
 			.catch(error => alert(error.message));
 	};
@@ -207,6 +210,7 @@ class Playlist extends Component {
 						handleSelectSongs={handleSelectSongs}
 						fetchData={this.getPlaylist}
 						user={user}
+						routerHistory={this.props.history}
 					/>
 				)}
 				<PlaylistPaper className={classes.container}>
@@ -229,6 +233,7 @@ class Playlist extends Component {
 									aria-describedby="simple-modal-description"
 									open={this.state.open}
 									onClose={this.handleClose}
+									style={{ zIndex: 10000 }}
 								>
 									<div className={classes.deleteModal}>
 										<Typography variant="h6">

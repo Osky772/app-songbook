@@ -169,7 +169,10 @@ class Header extends Component {
 		if (window.location.pathname === "/lista-piosenek") {
 			this.setState({ value: 0 });
 		}
-		if (window.location.pathname === "/playlisty") {
+		if (
+			window.location.pathname.includes("/playlisty") ||
+			window.location.pathname.includes("/playlists")
+		) {
 			this.setState({ value: 1 });
 		}
 	}

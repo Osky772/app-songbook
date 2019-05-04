@@ -24,8 +24,8 @@ export const ListContainer = styled.div`
 `;
 
 export const SongsListRow = styled(PaperContainer)`
-	padding: 10px 15px;
-	margin: 0px 10px 15px 10px;
+	padding: 7px 10px;
+	margin: 0px 10px 10px 10px;
 	border-radius: 0;
 	display: flex;
 	align-items: start;

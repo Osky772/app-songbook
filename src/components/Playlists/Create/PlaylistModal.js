@@ -62,6 +62,7 @@ class PlaylistModal extends Component {
 		isCreating: false,
 		isEditing: false,
 		isError: false,
+		isPlaylistPublicBeforeChange: null,
 		playlist: {
 			id: null,
 			title: "",
@@ -84,6 +85,7 @@ class PlaylistModal extends Component {
 			return {
 				...state,
 				isCreating: true,
+				isPlaylistPublicBeforeChange: state.playlist.isPublic,
 				playlist: {
 					...state.playlist,
 					title: "",
@@ -111,6 +113,7 @@ class PlaylistModal extends Component {
 				.map(e => songs[e]);
 			return {
 				...state,
+				isPlaylistPublicBeforeChange: props.editedPlaylist.isPublic,
 				playlist: {
 					...props.editedPlaylist,
 					songs: unique
@@ -136,7 +139,7 @@ class PlaylistModal extends Component {
 			...this.state,
 			playlist: {
 				...this.state.playlist,
-				isPublic: Boolean(e.target.value)
+				isPublic: e.target.value === "true" ? true : false
 			}
 		});
 	};
@@ -164,25 +167,6 @@ class PlaylistModal extends Component {
 				isError: true,
 				error
 			});
-			return;
-		}
-		if (playlist.id && playlist.isPublic) {
-			const userPlaylistRef = db.ref(
-				`users/${user.uid}/playlists/${playlist.id}`
-			);
-
-			db.ref(`playlists/${playlist.id}`)
-				.update(playlist)
-				.then(() => {
-					userPlaylistRef.update(playlist).then(() => {
-						alert("Playlista została zedytowana");
-						this.props.handleSelectSongs([]);
-					});
-				})
-				.then(() => this.props.fetchData())
-				.catch(err => {
-					alert(err.message);
-				});
 			return;
 		}
 		if (playlist.id === null && playlist.isPublic) {
@@ -237,18 +221,86 @@ class PlaylistModal extends Component {
 				});
 			return;
 		}
-		if (!playlist.isPublic && playlist.id) {
-			db.ref(`users/${user.uid}/playlists/${playlist.id}`)
-				.update(playlist)
-				.then(() => {
-					alert("Edycja playlisty powiodła się");
-					this.props.handleSelectSongs([]);
-				})
-				.then(() => this.props.fetchData())
-				.catch(err => {
-					alert(err.message);
-				});
-			return;
+		if (playlist.id && this.state.isPlaylistPublicBeforeChange) {
+			const userPlaylistRef = db.ref(
+				`users/${user.uid}/playlists/${playlist.id}`
+			);
+			if (playlist.isPublic) {
+				db.ref(`playlists/${playlist.id}`)
+					.update(playlist)
+					.then(() => {
+						userPlaylistRef.update(playlist).then(() => {
+							alert("Zaktualizowałeś twoją publiczną playlistę");
+							this.props.handleSelectSongs([]);
+							this.props.handleClose();
+						});
+					})
+					.then(() => this.props.fetchData())
+					.catch(err => {
+						alert(err.message);
+					});
+				return;
+			}
+			if (!playlist.isPublic) {
+				db.ref(`playlists/${playlist.id}`)
+					.remove()
+					.then(() => {
+						userPlaylistRef.update(playlist).then(() => {
+							alert("Zmieniłeś publiczną playlistę na prywatną");
+							this.props.routerHistory.push("/spiewnik/playlisty");
+							this.props.fetchData();
+							this.props.handleSelectSongs([]);
+							this.props.handleClose();
+						});
+					})
+					.catch(err => {
+						alert(err.message);
+					});
+				return;
+			}
+		}
+		if (playlist.id && !this.state.isPlaylistPublicBeforeChange) {
+			if (playlist.isPublic) {
+				db.ref(`playlists/${playlist.id}`)
+					.set({
+						...playlist,
+						id: playlist.id,
+						userEmail: user.email
+					})
+					.then(() => {
+						db.ref(`users/${user.uid}/playlists/${playlist.id}`).update(
+							playlist
+						);
+					})
+					.then(() => {
+						alert("Zmieniłeś prywatną playlistę na publiczną");
+						this.props.handleSelectSongs([]);
+						this.props.handleClose();
+					})
+					.then(() => {
+						this.props.routerHistory.push("/spiewnik/playlisty");
+						this.props.fetchData();
+					})
+					.then(() => this.props.fetchData())
+					.catch(err => {
+						alert(err.message);
+					});
+				return;
+			}
+			if (!playlist.isPublic) {
+				db.ref(`users/${user.uid}/playlists/${playlist.id}`)
+					.update(playlist)
+					.then(() => {
+						alert("Zaktualizowałeś twoją prywatną playlistę");
+						this.props.handleSelectSongs([]);
+						this.props.handleClose();
+					})
+					.then(() => this.props.fetchData())
+					.catch(err => {
+						alert(err.message);
+					});
+				return;
+			}
 		}
 	};
 
@@ -313,7 +365,6 @@ class PlaylistModal extends Component {
 			playlist: { songs = [], title = "", isPublic = false }
 		} = this.state;
 		const { classes, selectedSongs } = this.props;
-
 		return (
 			<DragDropContext
 				onDragStart={this.onDragStart}
@@ -357,8 +408,8 @@ class PlaylistModal extends Component {
 											}}
 										>
 											<option value="">Wybierz kategorię...</option>
-											<option value={true}>Publiczne</option>
-											<option value={false}>Prywatne</option>
+											<option value="true">Publiczne</option>
+											<option value="false">Prywatne</option>
 										</Select>
 									</FormControl>
 									{isEditing && (
