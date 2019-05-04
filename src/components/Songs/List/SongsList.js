@@ -20,13 +20,14 @@ const BASE_URL = "https://app-songbook.firebaseio.com";
 
 const styles = theme => ({
 	wrapper: {
-		[theme.breakpoints.down("xs")]: {
-			paddingBottom: 100
+		[theme.breakpoints.down("sm")]: {
+			paddingBottom: 100,
+			paddingTop: 15
 		}
 	},
 	btn: {
 		textTransform: "none",
-		marginRight: 15
+		marginLeft: 8
 	},
 	xs: {
 		fontSize: 35,
@@ -55,6 +56,12 @@ const styles = theme => ({
 	categories: {
 		position: "sticky",
 		top: 95
+	},
+	categoryTitle: {
+		fontSize: 25,
+		fontWeight: "bold",
+		marginBottom: 10,
+		marginLeft: 8
 	},
 	spinnerWrapper: {
 		display: "flex",
@@ -168,6 +175,7 @@ class SongsList extends Component {
 
 	handleCategorySelect = category => {
 		this.setState({ category });
+		this.props.toggleDrawer(false);
 	};
 
 	handleChangeForm = e => {
@@ -283,17 +291,20 @@ class SongsList extends Component {
 
 		const uniqueCategories = [...new Set(songs.map(song => song.category))];
 		const categories = uniqueCategories.map(category => {
+			const firstLetterUppercased =
+				category.slice(0, 1).toUpperCase() + category.slice(1);
 			return (
 				<ListItem
 					button
 					onClick={() => this.handleCategorySelect(category)}
 					key={category}
 				>
-					<ListItemText primary={category} />
+					<ListItemText primary={firstLetterUppercased} />
 				</ListItem>
 			);
 		});
-
+		const titleFirstLetterUppercased =
+			category.slice(0, 1).toUpperCase() + category.slice(1);
 		return (
 			<WithWidth>
 				{({ width }) => (
@@ -312,10 +323,10 @@ class SongsList extends Component {
 													button
 													onClick={() => this.handleCategorySelect("")}
 												>
-													<ListItemText primary={"wszystkie"} />
+													<ListItemText primary={"Wszystkie"} />
 												</ListItem>
-												{categories}
 											</div>
+											{categories}
 										</Drawer>
 									</Fragment>
 								) : (
@@ -326,7 +337,7 @@ class SongsList extends Component {
 													button
 													onClick={() => this.handleCategorySelect("")}
 												>
-													<ListItemText primary={"wszystkie"} />
+													<ListItemText primary={"Wszystkie"} />
 												</ListItem>
 											}
 											{categories}
@@ -335,6 +346,11 @@ class SongsList extends Component {
 								)}
 							</Grid>
 							<Grid item md={8} className={classes.contentGrid}>
+								<Typography className={classes.categoryTitle}>
+									{category === ""
+										? "Wszystkie piosenki"
+										: titleFirstLetterUppercased}
+								</Typography>
 								<Button
 									onClick={() => this.handleSelectAll(songsList)}
 									variant="outlined"
@@ -352,7 +368,7 @@ class SongsList extends Component {
 								<div
 									style={{
 										width: "100%",
-										margin: "5px 0 15px 0",
+										marginBottom: 10,
 										padding: 8
 									}}
 								>
