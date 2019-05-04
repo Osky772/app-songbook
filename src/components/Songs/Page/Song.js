@@ -39,7 +39,7 @@ export const formatSongDescription = ({ description = "" }) => {
 export const styles = theme => ({
 	wrapper: {
 		zIndex: 9000,
-		paddingBottom: 115,
+		paddingBottom: 15,
 		[theme.breakpoints.down("sm")]: {
 			position: "relative",
 			paddingTop: 0
@@ -48,12 +48,14 @@ export const styles = theme => ({
 	verse: {
 		display: "flex",
 		justifyContent: "space-between",
-		margin: "10px 0"
+		marginTop: 7,
+		marginBottom: 0
 	},
 	text: {
 		width: "75%",
 		[theme.breakpoints.down("xs")]: {
-			width: "70%"
+			width: "70%",
+			lineHeight: 1.2
 		}
 	},
 	chords: {
@@ -117,7 +119,10 @@ class Song extends Component {
 										</span>
 									</p>
 								) : (
-									<br key={i} />
+									<span
+										key={i}
+										style={{ display: "block", height: 10, width: "100%" }}
+									/>
 								);
 							})}
 						</Fragment>

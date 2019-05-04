@@ -218,7 +218,6 @@ class Header extends Component {
 		} = this.props;
 
 		const isUserOnSongPage = window.location.pathname.includes("/-");
-		console.log(isUserOnSongPage);
 		return (
 			<WithWidth>
 				{({ width }) => (

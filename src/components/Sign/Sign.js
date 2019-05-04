@@ -112,17 +112,6 @@ class Sign extends Component {
 					alert("Logowanie sie powiodło!");
 					this.setState({ fetchInProgress: false });
 					this.props.handleClose();
-					db.ref("admins")
-						.once("value")
-						.then(snapshot => {
-							if (snapshot.val()) {
-								console.log("admin logged");
-								this.props.handleAdmin(true);
-							}
-						})
-						.catch(() => {
-							return;
-						});
 				})
 				.catch(error => {
 					alert(error.message);

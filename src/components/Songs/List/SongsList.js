@@ -21,7 +21,7 @@ const BASE_URL = "https://app-songbook.firebaseio.com";
 const styles = theme => ({
 	wrapper: {
 		[theme.breakpoints.down("xs")]: {
-			paddingBottom: "100px"
+			paddingBottom: 100
 		}
 	},
 	btn: {

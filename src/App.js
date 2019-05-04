@@ -44,6 +44,17 @@ class App extends Component {
 			this.setState({
 				user
 			});
+			db.ref("admins")
+				.once("value")
+				.then(snapshot => {
+					if (snapshot.val()) {
+						console.log("admin logged");
+						this.handleAdmin(true);
+					}
+				})
+				.catch(() => {
+					return;
+				});
 		});
 
 		this.setState({
@@ -78,14 +89,6 @@ class App extends Component {
 						/>
 					)}
 				/>
-				{/* <Header
-					selectedSongs={selectedSongs}
-					handleSelectSongs={this.handleSelectSongs}
-					user={user}
-					toggleDrawer={this.toggleDrawer}
-					handleAdmin={this.handleAdmin}
-					isAdmin={isAdmin}
-				/> */}
 				<Route
 					exact
 					path="/spiewnik"

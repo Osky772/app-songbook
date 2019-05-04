@@ -183,6 +183,8 @@ class CreateSongModal extends Component {
 							category: ""
 						}
 					});
+					const body = document.querySelector("body");
+					body.classList.remove("not-scrollable");
 				})
 				.catch(error => alert(error.message));
 		}
