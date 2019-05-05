@@ -36,6 +36,14 @@ export const formatSongDescription = ({ description = "" }) => {
 	return textWithChords;
 };
 
+const transposeChord = (chord, amount) => {
+	var scale = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+	return chord.replace(/[CDEFGAB]#?/g, function(match) {
+		var i = (scale.indexOf(match) + amount) % scale.length;
+		return scale[i < 0 ? i + scale.length : i];
+	});
+};
+
 export const styles = theme => ({
 	wrapper: {
 		zIndex: 9000,
@@ -98,6 +106,8 @@ class Song extends Component {
 		} = this.state;
 		const { classes } = this.props;
 		const textWithChords = formatSongDescription(song);
+
+		console.log(song);
 
 		return (
 			<PageWrapper className={classes.wrapper}>
