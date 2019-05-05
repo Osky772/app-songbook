@@ -5,6 +5,50 @@ import Loader from "react-loader-spinner";
 
 const BASE_URL = "https://app-songbook.firebaseio.com";
 
+const transposeChord = (chord, amount) => {
+	if (chord === chord.toUpperCase()) {
+		var scale = [
+			"C",
+			"Cis",
+			"D",
+			"Dis",
+			"E",
+			"F",
+			"Fis",
+			"G",
+			"Gis",
+			"A",
+			"Ais",
+			"H"
+		];
+		return chord.replace(/[CDEFGAH]#?/g, function(match) {
+			var i = (scale.indexOf(match) + amount) % scale.length;
+			return scale[i < 0 ? i + scale.length : i];
+		});
+	}
+
+	if (chord === chord.toLowerCase()) {
+		var scale = [
+			"c",
+			"cis",
+			"d",
+			"dis",
+			"e",
+			"f",
+			"fis",
+			"g",
+			"gis",
+			"a",
+			"ais",
+			"h"
+		];
+		return chord.replace(/[cdefgah]#?/g, function(match) {
+			var i = (scale.indexOf(match) + amount) % scale.length;
+			return scale[i < 0 ? i + scale.length : i];
+		});
+	}
+};
+
 export const formatSongDescription = ({ description = "" }) => {
 	let verses = description.split("\n");
 
@@ -18,6 +62,16 @@ export const formatSongDescription = ({ description = "" }) => {
 					.split(",")
 					.join(", ")
 			: null;
+		const chordsToTranspose = chords
+			? chords.split(",").map(chord => chord.trim())
+			: null;
+		const transposed = chordsToTranspose
+			? chordsToTranspose.map(chord => {
+					return chords !== null ? transposeChord(chord, 2) : null;
+			  })
+			: null;
+		console.log(transposed);
+
 		return { text, chords };
 	});
 
@@ -34,14 +88,6 @@ export const formatSongDescription = ({ description = "" }) => {
 	}
 
 	return textWithChords;
-};
-
-const transposeChord = (chord, amount) => {
-	var scale = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-	return chord.replace(/[CDEFGAB]#?/g, function(match) {
-		var i = (scale.indexOf(match) + amount) % scale.length;
-		return scale[i < 0 ? i + scale.length : i];
-	});
 };
 
 export const styles = theme => ({
