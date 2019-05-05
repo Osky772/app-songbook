@@ -67,11 +67,9 @@ export const formatSongDescription = ({ description = "" }) => {
 			: null;
 		const transposed = chordsToTranspose
 			? chordsToTranspose.map(chord => {
-					return chords !== null ? transposeChord(chord, 2) : null;
+					return chords !== null ? transposeChord(chord, 10) : null;
 			  })
 			: null;
-		console.log(transposed);
-
 		return { text, chords };
 	});
 
@@ -131,7 +129,8 @@ export const styles = theme => ({
 class Song extends Component {
 	state = {
 		song: {},
-		fetchInProgress: null
+		fetchInProgress: null,
+		transposeBy: 0
 	};
 
 	componentWillMount() {
@@ -144,11 +143,21 @@ class Song extends Component {
 			});
 	}
 
+	transpose = e => {
+		if (e.target.id === "+1") {
+			this.setState({ ...this.state, transposeBy: this.state.transposeBy + 1 });
+		}
+		if (e.target.id === "-1") {
+			this.setState({ ...this.state, transposeBy: this.state.transposeBy - 1 });
+		}
+	};
+
 	render() {
 		let {
 			song,
 			song: { performer = "", title = "", category = "" },
-			fetchInProgress
+			fetchInProgress,
+			transposeBy
 		} = this.state;
 		const { classes } = this.props;
 		const textWithChords = formatSongDescription(song);
@@ -164,7 +173,18 @@ class Song extends Component {
 						</div>
 					) : (
 						<Fragment>
-							<h2>{performer ? performer + " - " + title : title}</h2>
+							<h2>
+								{performer ? performer + " - " + title : title}
+								<span>
+									<button onClick={this.transpose} id="-1">
+										-1
+									</button>
+									<span>{transposeBy}</span>
+									<button onClick={this.transpose} id="+1">
+										+1
+									</button>
+								</span>
+							</h2>
 							<h4>{category}</h4>
 							{textWithChords.map((verse, i) => {
 								return verse.text !== null ? (
