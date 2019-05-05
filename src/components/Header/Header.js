@@ -330,6 +330,7 @@ class Header extends Component {
 											)}
 											{!isUserOnSongPage && <CreateSong />}
 											{user ? (
+												!isUserOnSongPage && 
 												<CreatePlaylist
 													editedPlaylist={editedPlaylist}
 													selectedSongs={selectedSongs}

@@ -12,7 +12,6 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import * as firebase from "firebase";
 import Loader from "react-loader-spinner";
-import { db } from "../../App";
 
 const styles = theme => ({
 	wrapper: {
