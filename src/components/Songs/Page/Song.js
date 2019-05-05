@@ -21,7 +21,7 @@ const transposeChord = (chord, amount) => {
 			"Ais",
 			"H"
 		];
-		return chord.replace(/[CDEFGAH]#?/g, function(match) {
+		return chord.replace(/[CDEFGAH](is)?/g, function(match) {
 			var i = (scale.indexOf(match) + amount) % scale.length;
 			return scale[i < 0 ? i + scale.length : i];
 		});
@@ -42,14 +42,14 @@ const transposeChord = (chord, amount) => {
 			"ais",
 			"h"
 		];
-		return chord.replace(/[cdefgah]#?/g, function(match) {
+		return chord.replace(/[cdefgah](is)?/g, function(match) {
 			var i = (scale.indexOf(match) + amount) % scale.length;
 			return scale[i < 0 ? i + scale.length : i];
 		});
 	}
 };
 
-export const formatSongDescription = ({ description = "" }) => {
+export const formatSongDescription = ({ description = "" }, transposeBy) => {
 	let verses = description.split("\n");
 
 	const textWithChords = verses.map(verse => {
@@ -62,15 +62,18 @@ export const formatSongDescription = ({ description = "" }) => {
 					.split(",")
 					.join(", ")
 			: null;
-		const chordsToTranspose = chords
+		const arrayOfChordsToTranspose = chords
 			? chords.split(",").map(chord => chord.trim())
 			: null;
-		const transposed = chordsToTranspose
-			? chordsToTranspose.map(chord => {
-					return chords !== null ? transposeChord(chord, 10) : null;
-			  })
+		const transposedChords = arrayOfChordsToTranspose
+			? arrayOfChordsToTranspose
+					.map(chord => {
+						return chords !== null ? transposeChord(chord, transposeBy) : null;
+					})
+					.join(",  ")
 			: null;
-		return { text, chords };
+
+		return { text, transposedChords };
 	});
 
 	if (
@@ -160,10 +163,7 @@ class Song extends Component {
 			transposeBy
 		} = this.state;
 		const { classes } = this.props;
-		const textWithChords = formatSongDescription(song);
-
-		console.log(song);
-
+		const textWithChords = formatSongDescription(song, transposeBy);
 		return (
 			<PageWrapper className={classes.wrapper}>
 				<SongPaper className={classes.container}>
@@ -176,12 +176,12 @@ class Song extends Component {
 							<h2>
 								{performer ? performer + " - " + title : title}
 								<span>
-									<button onClick={this.transpose} id="-1">
-										-1
-									</button>
-									<span>{transposeBy}</span>
 									<button onClick={this.transpose} id="+1">
 										+1
+									</button>
+									<span>{transposeBy}</span>
+									<button onClick={this.transpose} id="-1">
+										-1
 									</button>
 								</span>
 							</h2>
@@ -191,7 +191,7 @@ class Song extends Component {
 									<p key={i} className={classes.verse}>
 										<span className={classes.text}>{verse.text}</span>
 										<span className={classes.chords}>
-											{verse.chords ? verse.chords : null}
+											{verse.transposedChords ? verse.transposedChords : null}
 										</span>
 									</p>
 								) : (
