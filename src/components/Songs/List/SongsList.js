@@ -388,7 +388,7 @@ class SongsList extends Component {
 										/>
 									</div>
 								) : !sortedSongs.length && !fetchInProgress ? (
-									<Typography variant="h6">Nie znaleziono piosenek</Typography>
+									<Typography variant="h6">Nie znaleziono piosenki</Typography>
 								) : (
 									sortedSongs.map((song, id, songs) => (
 										<Fragment key={id}>

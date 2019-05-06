@@ -235,6 +235,10 @@ class Playlists extends Component {
 												height={120}
 											/>
 										</div>
+									) : !searchedPlaylists.length && !fetchInProgress ? (
+										<Typography variant="h6">
+											Nie znaleziono playlisty
+										</Typography>
 									) : (
 										searchedPlaylists.map(playlist => (
 											<PlaylistItem key={playlist.id}>
