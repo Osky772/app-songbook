@@ -7,7 +7,7 @@ const BASE_URL = "https://app-songbook.firebaseio.com";
 
 const transposeChord = (chord, amount) => {
 	if (chord === chord.toUpperCase()) {
-		var scale = [
+		let scale = [
 			"C",
 			"Cis",
 			"D",
@@ -22,13 +22,13 @@ const transposeChord = (chord, amount) => {
 			"H"
 		];
 		return chord.replace(/[CDEFGAH](is)?/g, function(match) {
-			var i = (scale.indexOf(match) + amount) % scale.length;
+			let i = (scale.indexOf(match) + amount) % scale.length;
 			return scale[i < 0 ? i + scale.length : i];
 		});
 	}
 
 	if (chord === chord.toLowerCase()) {
-		var scale = [
+		let scale = [
 			"c",
 			"cis",
 			"d",
@@ -43,7 +43,7 @@ const transposeChord = (chord, amount) => {
 			"h"
 		];
 		return chord.replace(/[cdefgah](is)?/g, function(match) {
-			var i = (scale.indexOf(match) + amount) % scale.length;
+			let i = (scale.indexOf(match) + amount) % scale.length;
 			return scale[i < 0 ? i + scale.length : i];
 		});
 	}

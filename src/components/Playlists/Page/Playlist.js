@@ -116,7 +116,9 @@ class Playlist extends Component {
 		isEditing: false,
 		playlist: {},
 		open: false,
-		fetchInProgress: null
+		fetchInProgress: null,
+		transposedSong: null,
+		transposeBy: 0
 	};
 
 	getPlaylist = () => {
@@ -187,12 +189,23 @@ class Playlist extends Component {
 			.catch(error => alert(error.message));
 	};
 
+	transposeUp = id => {
+		this.setState({
+			...this.state,
+			transposedSong: id,
+			transposeBy:
+				id !== this.state.transposedSong ? 1 : this.state.transposeBy + 1
+		});
+	};
+
 	render() {
 		const {
 			isEditing,
 			playlist,
 			playlist: { title, songs = [] },
-			fetchInProgress
+			fetchInProgress,
+			transposedSong,
+			transposeBy
 		} = this.state;
 		const { classes, selectedSongs, handleSelectSongs, user } = this.props;
 		const isLoggedIn = user !== null;
@@ -281,21 +294,34 @@ class Playlist extends Component {
 											: nr + 1 + ". " + song.title}
 									</Typography>
 								</ExpansionPanelSummary>
-								<ExpansionPanelDetails
-									onClick={() => console.log(nr.toString())}
-									className={classes.detailsContainer}
-								>
+								<ExpansionPanelDetails className={classes.detailsContainer}>
 									<Typography className={classes.title}>
 										{song.performer
 											? song.performer + " - " + song.title
 											: song.title}
+										<span>
+											<button onClick={() => this.transposeUp(song.id)} id="+1">
+												+1
+											</button>
+											<span>
+												{song.id === transposedSong ? transposeBy : 0}
+											</span>
+											<button onClick={this.transposeDown} id="-1">
+												-1
+											</button>
+										</span>
 									</Typography>
-									{formatSongDescription(song).map((verse, i) => {
+									{formatSongDescription(
+										song,
+										transposedSong === song.id ? transposeBy : 0
+									).map((verse, i) => {
 										return verse.text !== null ? (
 											<Typography className={classes.verse} key={i}>
 												<span className={classes.text}>{verse.text}</span>
 												<span className={classes.chords}>
-													{verse.chords ? verse.chords : null}
+													{verse.transposedChords
+														? verse.transposedChords
+														: null}
 												</span>
 											</Typography>
 										) : (
