@@ -23,7 +23,11 @@ const ModalPreviewSong = props => {
 			<ContainerModal>
 				<WrapperInModal>
 					<div
-						style={{ padding: "20px 30px", height: "100%", overflow: "auto" }}
+						style={{
+							padding: "20px 30px 80px 30px",
+							height: "100%",
+							overflow: "auto"
+						}}
 					>
 						<h2>{performer ? performer + " - " + title : title}</h2>
 						<h4>{category}</h4>
