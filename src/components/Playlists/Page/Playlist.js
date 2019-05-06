@@ -198,6 +198,15 @@ class Playlist extends Component {
 		});
 	};
 
+	transposeDown = id => {
+		this.setState({
+			...this.state,
+			transposedSong: id,
+			transposeBy:
+				id !== this.state.transposedSong ? -1 : this.state.transposeBy - 1
+		});
+	};
+
 	render() {
 		const {
 			isEditing,
@@ -306,7 +315,10 @@ class Playlist extends Component {
 											<span>
 												{song.id === transposedSong ? transposeBy : 0}
 											</span>
-											<button onClick={this.transposeDown} id="-1">
+											<button
+												onClick={() => this.transposeDown(song.id)}
+												id="-1"
+											>
 												-1
 											</button>
 										</span>
