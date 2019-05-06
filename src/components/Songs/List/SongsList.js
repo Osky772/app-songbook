@@ -94,7 +94,7 @@ class SongsList extends Component {
 		searchText: "",
 		selectedSongs: [],
 		checked: {},
-		fetchInProgress: null
+		fetchInProgress: true
 	};
 
 	fetchSongs = () => {
@@ -387,6 +387,8 @@ class SongsList extends Component {
 											height={120}
 										/>
 									</div>
+								) : !sortedSongs.length && !fetchInProgress ? (
+									<Typography variant="h6">Nie znaleziono piosenek</Typography>
 								) : (
 									sortedSongs.map((song, id, songs) => (
 										<Fragment key={id}>
