@@ -1,16 +1,16 @@
 {
-  "main.css": "/spiewnik/static/css/main.39d30c54.chunk.css",
-  "main.js": "/spiewnik/static/js/main.4bbcf50b.chunk.js",
-  "main.js.map": "/spiewnik/static/js/main.4bbcf50b.chunk.js.map",
+  "main.css": "/spiewnik/static/css/main.1b99653d.chunk.css",
+  "main.js": "/spiewnik/static/js/main.59ce13f8.chunk.js",
+  "main.js.map": "/spiewnik/static/js/main.59ce13f8.chunk.js.map",
   "runtime~main.js": "/spiewnik/static/js/runtime~main.1f9be47d.js",
   "runtime~main.js.map": "/spiewnik/static/js/runtime~main.1f9be47d.js.map",
   "static/css/2.5166fc41.chunk.css": "/spiewnik/static/css/2.5166fc41.chunk.css",
-  "static/js/2.d239022e.chunk.js": "/spiewnik/static/js/2.d239022e.chunk.js",
-  "static/js/2.d239022e.chunk.js.map": "/spiewnik/static/js/2.d239022e.chunk.js.map",
+  "static/js/2.dd58e74a.chunk.js": "/spiewnik/static/js/2.dd58e74a.chunk.js",
+  "static/js/2.dd58e74a.chunk.js.map": "/spiewnik/static/js/2.dd58e74a.chunk.js.map",
   "index.html": "/spiewnik/index.html",
-  "precache-manifest.2324792c8148bb73ca43bde3d7199bab.js": "/spiewnik/precache-manifest.2324792c8148bb73ca43bde3d7199bab.js",
+  "precache-manifest.4e963381e18c8c77386db8bf990ac6f9.js": "/spiewnik/precache-manifest.4e963381e18c8c77386db8bf990ac6f9.js",
   "service-worker.js": "/spiewnik/service-worker.js",
   "static/css/2.5166fc41.chunk.css.map": "/spiewnik/static/css/2.5166fc41.chunk.css.map",
-  "static/css/main.39d30c54.chunk.css.map": "/spiewnik/static/css/main.39d30c54.chunk.css.map",
+  "static/css/main.1b99653d.chunk.css.map": "/spiewnik/static/css/main.1b99653d.chunk.css.map",
   "static/media/index.css": "/spiewnik/static/media/montserrat-latin-900italic.d785fb9f.woff2"
 }
