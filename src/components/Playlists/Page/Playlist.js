@@ -108,6 +108,23 @@ const styles = theme => ({
 	spinnerWrapper: {
 		display: "flex",
 		justifyContent: "center"
+	},
+	transposeBtnWrapper: {
+		display: "flex",
+		justifyContent: "flex-end",
+		alignItems: "center",
+		margin: 0
+	},
+	transposeBtn: {
+		borderRadius: "100%",
+		height: "30px",
+		width: "30px",
+		backgroundColor: "#039be5",
+		color: "white",
+		border: "none",
+		fontSize: "15px",
+		margin: "0 5px",
+		cursor: "pointer"
 	}
 });
 
@@ -308,21 +325,24 @@ class Playlist extends Component {
 										{song.performer
 											? song.performer + " - " + song.title
 											: song.title}
-										<span>
-											<button onClick={() => this.transposeUp(song.id)} id="+1">
-												+1
-											</button>
-											<span>
-												{song.id === transposedSong ? transposeBy : 0}
-											</span>
-											<button
-												onClick={() => this.transposeDown(song.id)}
-												id="-1"
-											>
-												-1
-											</button>
-										</span>
 									</Typography>
+									<p className={classes.transposeBtnWrapper}>
+										<button
+											onClick={() => this.transposeUp(song.id)}
+											className={classes.transposeBtn}
+											id="+1"
+										>
+											+1
+										</button>
+										<span>{song.id === transposedSong ? transposeBy : 0}</span>
+										<button
+											onClick={() => this.transposeDown(song.id)}
+											className={classes.transposeBtn}
+											id="-1"
+										>
+											-1
+										</button>
+									</p>
 									{formatSongDescription(
 										song,
 										transposedSong === song.id ? transposeBy : 0
