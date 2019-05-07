@@ -65,20 +65,16 @@ const FormAddSong = props => {
 	return (
 		<FormWrapper>
 			<Typography className={classes.modalTitle}>DODAJ PIOSENKĘ</Typography>
-			{/* {isError && screenSize !== "xs" && screenSize !== "sm" && (
-				<ErrorValidateInfo type="song" error={error} />
-			)} */}
 			<form onSubmit={handleSubmit} className={classes.form}>
 				<TextField
 					id="outlined-full-width"
-					label="Tytuł *"
-					error={error.title}
-					name="title"
+					label="Wykonawca"
+					name="performer"
 					style={styles.textField}
 					onChange={handleChange}
-					value={title}
+					value={performer}
 					autoComplete="off"
-					placeholder="Wpisz nazwę utworu"
+					placeholder="Podaj wykonawcę"
 					margin="normal"
 					fullWidth
 					variant="outlined"
@@ -88,13 +84,14 @@ const FormAddSong = props => {
 				/>
 				<TextField
 					id="outlined-full-width"
-					label="Wykonawca"
-					name="performer"
+					label="Tytuł *"
+					error={error.title}
+					name="title"
 					style={styles.textField}
 					onChange={handleChange}
-					value={performer}
+					value={title}
 					autoComplete="off"
-					placeholder="Wpisz wykonawcę utworu"
+					placeholder="Podaj nazwę utworu"
 					margin="normal"
 					fullWidth
 					variant="outlined"
