@@ -16,7 +16,7 @@ const ModalPreviewSong = props => {
 		song: { performer = "", title = "", category = "" }
 	} = props;
 
-	const textWithChords = formatSongDescription(song);
+	const textWithChords = formatSongDescription(song, 0);
 
 	return (
 		<Modal open={isPreviewed} style={{ zIndex: 11000 }}>
@@ -36,7 +36,7 @@ const ModalPreviewSong = props => {
 								<p key={i} className={classes.verse}>
 									<span className={classes.text}>{verse.text}</span>
 									<span className={classes.chords}>
-										{verse.chords ? verse.chords : null}
+										{verse.transposedChords ? verse.transposedChords : null}
 									</span>
 								</p>
 							) : (

@@ -158,12 +158,12 @@ class AdminPage extends Component {
 								</Typography>
 							</ExpansionPanelSummary>
 							<ExpansionPanelDetails style={{ display: "block" }}>
-								{formatSongDescription(song).map((verse, i) => {
+								{formatSongDescription(song, 0).map((verse, i) => {
 									return verse.text !== null ? (
 										<p key={i} className={classes.verse}>
 											<span className={classes.text}>{verse.text}</span>
 											<span className={classes.chords}>
-												{verse.chords ? verse.chords : null}
+												{verse.transposedChords ? verse.transposedChords : null}
 											</span>
 										</p>
 									) : (
