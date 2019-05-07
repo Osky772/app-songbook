@@ -191,7 +191,7 @@ class Playlists extends Component {
 											button
 											onClick={() => this.handleCategorySelect("public")}
 										>
-											<ListItemText primary={"publiczne"} />
+											<ListItemText primary={"Publiczne playlisty"} />
 										</ListItem>
 										{user && (
 											<Fragment>
@@ -203,13 +203,13 @@ class Playlists extends Component {
 															: null
 													}
 												>
-													<ListItemText primary={"prywatne"} />
+													<ListItemText primary={"Prywatne playlisty"} />
 												</ListItem>
 												<ListItem
 													button
 													onClick={() => this.handleCategorySelect("yours")}
 												>
-													<ListItemText primary={"twoje"} />
+													<ListItemText primary={"Twoje playlisty"} />
 												</ListItem>
 											</Fragment>
 										)}
