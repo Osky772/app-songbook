@@ -11,6 +11,7 @@ const SearchForm = ({ handleChange, label, placeholder }) => {
 				fullWidth
 				onChange={handleChange}
 				margin="normal"
+				style={{ marginTop: 0 }}
 				InputLabelProps={{
 					shrink: true
 				}}

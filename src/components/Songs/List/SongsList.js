@@ -60,7 +60,8 @@ const styles = theme => ({
 	categoryTitle: {
 		fontSize: 25,
 		fontWeight: "bold",
-		marginBottom: 10,
+		marginTop: 10,
+		marginBottom: 8,
 		marginLeft: 8
 	},
 	spinnerWrapper: {
@@ -346,11 +347,18 @@ class SongsList extends Component {
 								)}
 							</Grid>
 							<Grid item md={8} className={classes.contentGrid}>
-								<Typography className={classes.categoryTitle}>
-									{category === ""
-										? "Wszystkie piosenki"
-										: titleFirstLetterUppercased}
-								</Typography>
+								<div
+									style={{
+										width: "100%",
+										padding: 8
+									}}
+								>
+									<SearchForm
+										handleChange={this.handleChangeForm}
+										placeholder="Wpisz nazwę artysty lub tytuł piosenki..."
+										label="Wyszukaj piosenkę"
+									/>
+								</div>
 								<Button
 									onClick={() => this.handleSelectAll(songsList)}
 									variant="outlined"
@@ -365,19 +373,11 @@ class SongsList extends Component {
 								>
 									Wyczyść
 								</Button>
-								<div
-									style={{
-										width: "100%",
-										marginBottom: 10,
-										padding: 8
-									}}
-								>
-									<SearchForm
-										handleChange={this.handleChangeForm}
-										placeholder="Wpisz nazwę artysty lub tytuł piosenki..."
-										label="Wyszukaj piosenkę"
-									/>
-								</div>
+								<Typography className={classes.categoryTitle}>
+									{category === ""
+										? "Wszystkie piosenki"
+										: titleFirstLetterUppercased}
+								</Typography>
 								{fetchInProgress ? (
 									<div className={classes.spinnerWrapper}>
 										<Loader

@@ -126,6 +126,23 @@ export const styles = theme => ({
 	spinnerWrapper: {
 		display: "flex",
 		justifyContent: "center"
+	},
+	transposeBtnWrapper: {
+		display: "flex",
+		justifyContent: "flex-end",
+		alignItems: "center",
+		margin: 0
+	},
+	transposeBtn: {
+		borderRadius: "100%",
+		height: "30px",
+		width: "30px",
+		backgroundColor: "#039be5",
+		color: "white",
+		border: "none",
+		fontSize: "15px",
+		margin: "0 5px",
+		cursor: "pointer"
 	}
 });
 
@@ -173,19 +190,27 @@ class Song extends Component {
 						</div>
 					) : (
 						<Fragment>
-							<h2>
+							<h2 style={{ margin: "10px 0" }}>
 								{performer ? performer + " - " + title : title}
-								<span>
-									<button onClick={this.transpose} id="+1">
-										+1
-									</button>
-									<span>{transposeBy}</span>
-									<button onClick={this.transpose} id="-1">
-										-1
-									</button>
-								</span>
 							</h2>
-							<h4>{category}</h4>
+							<h4 style={{ margin: 0 }}>{category}</h4>
+							<p className={classes.transposeBtnWrapper}>
+								<button
+									onClick={this.transpose}
+									className={classes.transposeBtn}
+									id="+1"
+								>
+									+1
+								</button>
+								<span>{transposeBy}</span>
+								<button
+									onClick={this.transpose}
+									className={classes.transposeBtn}
+									id="-1"
+								>
+									-1
+								</button>
+							</p>
 							{textWithChords.map((verse, i) => {
 								return verse.text !== null ? (
 									<p key={i} className={classes.verse}>

@@ -30,7 +30,7 @@ const styles = theme => ({
 		}
 	},
 	playlistsContainer: {
-		padding: 10
+		padding: 0
 	},
 	playlistTitle: {
 		fontSize: 18,
@@ -218,14 +218,14 @@ class Playlists extends Component {
 							</Grid>
 							<Grid item md={8} xs={12}>
 								<ListContainer className={classes.playlistsContainer}>
-									<Typography className={classes.categoryTitle}>
-										{title()}
-									</Typography>
 									<SearchForm
 										handleChange={this.handleInputChange}
 										label="Wyszukaj playlistę"
 										placeholder="Wpisz nazwę playlisty"
 									/>
+									<Typography className={classes.categoryTitle}>
+										{title()}
+									</Typography>
 									{fetchInProgress ? (
 										<div className={classes.spinnerWrapper}>
 											<Loader
