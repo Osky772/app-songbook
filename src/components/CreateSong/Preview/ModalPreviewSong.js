@@ -40,7 +40,10 @@ const ModalPreviewSong = props => {
 									</span>
 								</p>
 							) : (
-								<br key={i} />
+								<span
+									key={i}
+									style={{ display: "block", height: 10, width: "100%" }}
+								/>
 							);
 						})}
 						<Button onClick={handleSongPreview}>Wróć</Button>

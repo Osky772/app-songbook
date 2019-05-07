@@ -236,7 +236,7 @@ class Header extends Component {
 										color="inherit"
 										className={classes.logoText}
 									>
-										Śpiewnik
+										Śpiewownik
 									</Typography>
 									{isAdmin && (
 										<Button onClick={this.goToAdminPage}>Admin</Button>
@@ -329,15 +329,16 @@ class Header extends Component {
 												</Fab>
 											)}
 											{!isUserOnSongPage && <CreateSong />}
-											{user ? (
-												!isUserOnSongPage && 
-												<CreatePlaylist
-													editedPlaylist={editedPlaylist}
-													selectedSongs={selectedSongs}
-													handleSelectSongs={handleSelectSongs}
-													user={user}
-												/>
-											) : null}
+											{user
+												? !isUserOnSongPage && (
+														<CreatePlaylist
+															editedPlaylist={editedPlaylist}
+															selectedSongs={selectedSongs}
+															handleSelectSongs={handleSelectSongs}
+															user={user}
+														/>
+												  )
+												: null}
 											{!isUserOnSongPage && (
 												<CreatePDF isButton songs={selectedSongs} />
 											)}

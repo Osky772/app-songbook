@@ -80,7 +80,7 @@ const getFirstLetter = (song, id, songs, letters) => {
 		: null;
 
 	return previousSong
-		? songTitle === previousSongTitle
+		? songTitle.charAt(0) === previousSongTitle.charAt(0)
 			? null
 			: letters[songTitle.charAt(0)]
 		: letters[songTitle.charAt(0)];
@@ -282,7 +282,9 @@ class SongsList extends Component {
 				})
 			)
 		]
-			.map(performer => performer.charAt(0))
+			.map(title => {
+				return title.charAt(0);
+			})
 			.reduce((acc, next) => {
 				return {
 					...acc,
