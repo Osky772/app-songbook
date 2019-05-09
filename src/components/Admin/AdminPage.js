@@ -61,11 +61,11 @@ class AdminPage extends Component {
 				this.setState({
 					songs: arraySongs || [],
 					isAdmin: true,
-					ref: db.ref("songs"),
+					ref: db.ref("songs-to-approve"),
 					user
 				});
 			})
-			.catch(error => alert("Probably permission denied"));
+			.catch(error => alert("Permission denied"));
 
 		db.ref("songs-to-approve").on("value", snapshot => {
 			const songs = snapshot.val() || {};
@@ -89,6 +89,7 @@ class AdminPage extends Component {
 
 	componentDidUpdate(prevProps) {
 		if (this.props.user !== prevProps.user) {
+			console.log("admin page");
 			this.getSongs();
 			this.setState({ user: this.props.user });
 		}

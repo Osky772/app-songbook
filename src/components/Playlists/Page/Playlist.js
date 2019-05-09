@@ -201,7 +201,7 @@ class Playlist extends Component {
 					.then(() => {
 						alert("Usunąłeś swoją playlistę ");
 					})
-					.then(() => this.props.history.push("/spiewnik/playlisty"));
+					.then(() => this.props.history.push("/playlisty"));
 			})
 			.catch(error => alert(error.message));
 	};

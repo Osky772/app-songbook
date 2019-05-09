@@ -247,7 +247,7 @@ class PlaylistModal extends Component {
 					.then(() => {
 						userPlaylistRef.update(playlist).then(() => {
 							alert("Zmieniłeś publiczną playlistę na prywatną");
-							this.props.routerHistory.push("/spiewnik/playlisty");
+							this.props.routerHistory.push("/playlisty");
 							this.props.fetchData();
 							this.props.handleSelectSongs([]);
 							this.props.handleClose();
@@ -278,7 +278,7 @@ class PlaylistModal extends Component {
 						this.props.handleClose();
 					})
 					.then(() => {
-						this.props.routerHistory.push("/spiewnik/playlisty");
+						this.props.routerHistory.push("/playlisty");
 						this.props.fetchData();
 					})
 					.then(() => this.props.fetchData())

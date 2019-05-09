@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import Toolbar from "@material-ui/core/Toolbar";
+import Badge from "@material-ui/core/Badge";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Tabs from "@material-ui/core/Tabs";
@@ -20,6 +21,7 @@ import "typeface-montserrat";
 import "../../App.css";
 import withWidth from "@material-ui/core/withWidth";
 import toRenderProps from "recompose/toRenderProps";
+import { db } from "../../App";
 
 const WithWidth = toRenderProps(withWidth());
 
@@ -162,7 +164,9 @@ class Header extends Component {
 	state = {
 		value: 0,
 		signUp: false,
-		isOpen: false
+		isOpen: false,
+		isAdmin: false,
+		quantity: 0
 	};
 
 	componentDidMount() {
@@ -174,6 +178,38 @@ class Header extends Component {
 			window.location.pathname.includes("/playlists")
 		) {
 			this.setState({ value: 1 });
+		}
+		this.getAdminSongs();
+	}
+
+	componentDidUpdate(prevProps) {
+		if (this.props.isAdmin !== prevProps.isAdmin) {
+			this.getAdminSongs();
+			this.setState({ isAdmin: this.props.isAdmin });
+		}
+	}
+
+	getAdminSongs = () => {
+		db.ref("songs-to-approve")
+			.once("value")
+			.then(snapshot => {
+				const object = snapshot.val() || {};
+				const quantity = Object.keys(object).length;
+				this.setState({ quantity, ref: db.ref("songs-to-approve") });
+			});
+
+		db.ref("songs-to-approve").on("value", snapshot => {
+			const object = snapshot.val() || {};
+			const quantity = Object.keys(object).length;
+			this.setState({ quantity: quantity || 0 });
+		});
+	};
+
+	componentWillUnmount() {
+		console.log("unmount");
+		this.state.ref && this.state.ref.off();
+		if (!this.props.isAdmin) {
+			this.setState({ ...this.state, isAdmin: this.props.isAdmin });
 		}
 	}
 
@@ -205,19 +241,18 @@ class Header extends Component {
 	};
 
 	goToAdminPage = () => {
-		this.props.history.push("/spiewnik/admin");
+		this.props.history.push("/admin");
 	};
 
 	render() {
-		const { value, signUp, isOpen } = this.state;
+		const { value, signUp, isOpen, isAdmin, quantity } = this.state;
 		const {
 			classes,
 			user,
 			selectedSongs,
 			editedPlaylist,
 			handleSelectSongs,
-			handleAdmin,
-			isAdmin
+			handleAdmin
 		} = this.props;
 
 		const isUserOnSongPage = window.location.pathname.includes("/-");
@@ -231,7 +266,7 @@ class Header extends Component {
 									<FaItunesNote className={classes.logoIcon} />
 									<Typography
 										component={Link}
-										to="/spiewnik/lista-piosenek"
+										to="/lista-piosenek"
 										variant="h6"
 										color="inherit"
 										className={classes.logoText}
@@ -239,7 +274,11 @@ class Header extends Component {
 										Śpiewownik
 									</Typography>
 									{isAdmin && (
-										<Button onClick={this.goToAdminPage}>Admin</Button>
+										<Badge badgeContent={quantity} color="secondary">
+											<Button onClick={this.goToAdminPage} variant="outlined">
+												Admin
+											</Button>
+										</Badge>
 									)}
 								</div>
 								<div className={classes.userContainer}>
@@ -296,7 +335,7 @@ class Header extends Component {
 										<Tabs value={value} onChange={this.handleChange}>
 											<Tab
 												component={Link}
-												to="/spiewnik/lista-piosenek"
+												to="/lista-piosenek"
 												label="Lista piosenek"
 												classes={{
 													label: "logo-text"
@@ -304,7 +343,7 @@ class Header extends Component {
 											/>
 											<Tab
 												component={Link}
-												to="/spiewnik/playlisty"
+												to="/playlisty"
 												label="Playlisty"
 												classes={{
 													label: "logo-text"
@@ -321,8 +360,7 @@ class Header extends Component {
 													className={classes.filterBtn}
 													onClick={() => this.props.toggleDrawer(true)}
 													disabled={
-														window.location.pathname !==
-														"/spiewnik/lista-piosenek"
+														window.location.pathname !== "/lista-piosenek"
 													}
 												>
 													<MdFilterList />

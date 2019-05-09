@@ -40,7 +40,7 @@ const SongRow = props => {
 				checked={checked[id] ? checked[id] : false}
 				onChange={handleCheckboxSelect}
 			/>
-			<Link to={`/spiewnik/lista-piosenek/${id}`} className={classes.link}>
+			<Link to={`/lista-piosenek/${id}`} className={classes.link}>
 				<Typography className={classes.title}>
 					{performer ? performer + " - " + title : title}
 				</Typography>
