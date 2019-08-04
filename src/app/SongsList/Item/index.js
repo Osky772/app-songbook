@@ -2,27 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import Checkbox from "@material-ui/core/Checkbox";
+import Paper from "@material-ui/core/Paper";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
-import { SongsListRow } from "../../../containers/StyledContainers";
 import { withStyles } from "@material-ui/core/styles";
+import styles from './styles';
 
-const styles = theme => ({
-	link: {
-		textDecoration: "none"
-	},
-	title: {
-		fontSize: 16
-	},
-	category: {
-		fontSize: 13
-	},
-	checkbox: {
-		width: "auto",
-		padding: "0 10px 0 0"
-	}
-});
-
-const SongRow = props => {
+const SongsListItem = props => {
 	const {
 		song: { id, performer, title, category },
 		handleCheckboxSelect,
@@ -30,7 +15,7 @@ const SongRow = props => {
 		classes
 	} = props;
 	return (
-		<SongsListRow elevation={1}>
+		<Paper className={classes.container} elevation={1}>
 			<Checkbox
 				name={id}
 				color="primary"
@@ -46,8 +31,8 @@ const SongRow = props => {
 				</Typography>
 				<Typography className={classes.category}>{" " + category}</Typography>
 			</Link>
-		</SongsListRow>
+		</Paper>
 	);
 };
 
-export default withStyles(styles)(SongRow);
+export default withStyles(styles)(SongsListItem);

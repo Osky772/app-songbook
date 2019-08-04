@@ -4,71 +4,21 @@ import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import SearchForm from "../../common/SearchForm";
-import { PageWrapper } from "../../containers/StyledContainers";
-import SongRow from "./Row/SongRow";
+import SearchForm from "../common/SearchForm";
+import { PageWrapper } from "../containers/StyledContainers";
+import SongRow from "./Item";
 import Button from "@material-ui/core/Button";
-import { db } from "../../../App";
+import { db } from "../../App";
 import { withStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import withWidth from "@material-ui/core/withWidth";
 import toRenderProps from "recompose/toRenderProps";
 import Drawer from "@material-ui/core/Drawer";
 import Loader from "react-loader-spinner";
+import styles from './styles';
+import CategoryDrawer from './Category/Drawer';
 
 const BASE_URL = "https://app-songbook.firebaseio.com";
-
-const styles = theme => ({
-	wrapper: {
-		[theme.breakpoints.down("sm")]: {
-			paddingBottom: 100,
-			paddingTop: 15
-		}
-	},
-	btn: {
-		textTransform: "none",
-		marginLeft: 8
-	},
-	xs: {
-		fontSize: 35,
-		position: "fixed",
-		width: 50,
-		height: 50,
-		padding: 0,
-		borderRadius: 50,
-		bottom: 20,
-		right: 270,
-		zIndex: 4000,
-		backgroundColor: theme.palette.primary.main,
-		color: "white",
-		boxShadow: "#464646 1px 2px 4px 0",
-		"&:hover": {
-			backgroundColor: theme.palette.primary.main,
-			color: "white"
-		}
-	},
-	contentGrid: {
-		width: "100%"
-	},
-	drawer: {
-		zIndex: 9600
-	},
-	categories: {
-		position: "sticky",
-		top: 95
-	},
-	categoryTitle: {
-		fontSize: 25,
-		fontWeight: "bold",
-		marginTop: 10,
-		marginBottom: 8,
-		marginLeft: 8
-	},
-	spinnerWrapper: {
-		display: "flex",
-		justifyContent: "center"
-	}
-});
 
 const getFirstLetter = (song, id, songs, letters) => {
 	const songTitle = song.performer ? song.performer : song.title;
@@ -315,23 +265,12 @@ class SongsList extends Component {
 						<Grid container spacing={width === "xs" || width === "sm" ? 0 : 24}>
 							<Grid item md={4}>
 								{width === "xs" || width === "sm" ? (
-									<Fragment>
-										<Drawer
-											open={isDrawerOpen}
-											onClose={() => this.props.toggleDrawer(false)}
-											className={classes.drawer}
-										>
-											<div>
-												<ListItem
-													button
-													onClick={() => this.handleCategorySelect("")}
-												>
-													<ListItemText primary={"Wszystkie"} />
-												</ListItem>
-											</div>
-											{categories}
-										</Drawer>
-									</Fragment>
+									<CategoryDrawer
+										isDrawerOpen={isDrawerOpen}
+										toggleDrawer={this.props.toggleDrawer}
+										handleCategorySelect={this.handleCategorySelect}
+										categories={categories}
+									/>
 								) : (
 									<Paper className={classes.categories}>
 										<List component="nav" style={{ background: "white" }}>

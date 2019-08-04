@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from "react";
 import Header from "./app/Header/Header";
 import Playlists from "./app/Playlists/List/Playlists";
-import SongsList from "./app/Songs/List/SongsList";
+import SongsList from "./app/SongsList";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Route } from "react-router-dom";
 import Song from "./app/Song/Song";
-import InitPage from "./app/InitPage";
+import Initial from "./app/Initial";
 import Playlist from "./app/Playlist/Playlist";
 import * as firebase from "firebase";
 import AdminPage from "./app/Admin/AdminPage";
@@ -89,7 +89,7 @@ class App extends Component {
 						/>
 					)}
 				/>
-				<Route exact path="" render={props => <InitPage {...props} />} />
+				<Route exact path="" render={props => <Initial {...props} />} />
 				<Route exact path={"/lista-piosenek/:songId"} component={Song} />
 				<Route
 					exact
