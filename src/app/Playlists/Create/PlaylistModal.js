@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import { ContainerModal, FormWrapper } from "../../containers/StyledContainers";
 import { DragDropContext } from "react-beautiful-dnd";
 import SongsContainer from "../UI/SongsContainer";
-import InfoSnackBar from "../../SharedComponents/InfoSnackBar";
+import InfoSnackBar from "../../common/InfoSnackBar";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";

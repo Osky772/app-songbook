@@ -1,14 +1,14 @@
 import React, { Component, Fragment } from "react";
-import Header from "./components/Header/Header";
-import Playlists from "./components/Playlists/List/Playlists";
-import SongsList from "./components/Songs/List/SongsList";
+import Header from "./app/Header/Header";
+import Playlists from "./app/Playlists/List/Playlists";
+import SongsList from "./app/Songs/List/SongsList";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Route } from "react-router-dom";
-import Song from "./components/Songs/Page/Song";
-import InitPage from "./components/InitPage";
-import Playlist from "./components/Playlists/Page/Playlist";
+import Song from "./app/Song/Song";
+import InitPage from "./app/InitPage";
+import Playlist from "./app/Playlist/Playlist";
 import * as firebase from "firebase";
-import AdminPage from "./components/Admin/AdminPage";
+import AdminPage from "./app/Admin/AdminPage";
 
 var config = {
 	apiKey: "AIzaSyC8W028Pyt7eD2EXrvnqlAmXSD0zB007t4",

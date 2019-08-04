@@ -2,17 +2,17 @@ import React, { Component, Fragment } from "react";
 import {
 	PageWrapper,
 	SongPaper as PlaylistPaper
-} from "../../containers/StyledContainers";
+} from "../containers/StyledContainers";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { formatSongDescription } from "../../Songs/Page/Song";
-import CreatePDF from "../../SharedComponents/CreatePDF";
+import { formatSongDescription } from "../Song/Song";
+import CreatePDF from "../common/CreatePDF";
 import Button from "@material-ui/core/Button";
-import PlaylistModal from "../Create/PlaylistModal";
-import { db } from "../../../App";
+import PlaylistModal from "../Playlists/Create/PlaylistModal";
+import { db } from "../../App";
 import { withStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Loader from "react-loader-spinner";

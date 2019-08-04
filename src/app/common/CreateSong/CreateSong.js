@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from "react";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
-import { ContainerModal } from "../containers/StyledContainers";
+import { ContainerModal } from "../../containers/StyledContainers";
 import FormAddSong from "./Form/FormAddSong";
 import ModalPreviewSong from "./Preview/ModalPreviewSong";
-import { db } from "../../App";
+import { db } from "../../../App";
 import { withStyles } from "@material-ui/core/styles";
 import { MdAdd } from "react-icons/md";
 import Fab from "@material-ui/core/Fab";

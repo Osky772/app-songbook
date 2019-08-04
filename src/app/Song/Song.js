@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { PageWrapper, SongPaper } from "../../containers/StyledContainers";
+import { PageWrapper, SongPaper } from "../containers/StyledContainers";
 import { withStyles } from "@material-ui/core/styles";
 import Loader from "react-loader-spinner";
 

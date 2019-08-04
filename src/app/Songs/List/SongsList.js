@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import SearchForm from "../../SharedComponents/SearchForm";
+import SearchForm from "../../common/SearchForm";
 import { PageWrapper } from "../../containers/StyledContainers";
 import SongRow from "./Row/SongRow";
 import Button from "@material-ui/core/Button";
