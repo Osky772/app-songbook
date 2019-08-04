@@ -264,6 +264,7 @@ class SongsList extends Component {
 					<PageWrapper className={classes.wrapper}>
 						<Grid container spacing={width === "xs" || width === "sm" ? 0 : 24}>
 							<Grid item md={4}>
+								
 								{width === "xs" || width === "sm" ? (
 									<CategoryDrawer
 										isDrawerOpen={isDrawerOpen}
