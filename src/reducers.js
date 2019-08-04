@@ -1,5 +1,8 @@
-// import { combineReducers } from 'redux'
+import { combineReducers } from 'redux'
+function todos(state = {}, action) {
+    return state
+}
 
-// export default combineReducers({
-//     zero: {}
-// })
+export default combineReducers({
+    todos
+})
