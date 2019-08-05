@@ -13,7 +13,6 @@ import { withStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import withWidth from "@material-ui/core/withWidth";
 import toRenderProps from "recompose/toRenderProps";
-import Drawer from "@material-ui/core/Drawer";
 import Loader from "react-loader-spinner";
 import styles from './styles';
 import CategoryDrawer from './Category/Drawer';
@@ -264,13 +263,13 @@ class SongsList extends Component {
 					<PageWrapper className={classes.wrapper}>
 						<Grid container spacing={width === "xs" || width === "sm" ? 0 : 24}>
 							<Grid item md={4}>
-								
 								{width === "xs" || width === "sm" ? (
 									<CategoryDrawer
 										isDrawerOpen={isDrawerOpen}
 										toggleDrawer={this.props.toggleDrawer}
 										handleCategorySelect={this.handleCategorySelect}
 										categories={categories}
+										
 									/>
 								) : (
 									<Paper className={classes.categories}>
