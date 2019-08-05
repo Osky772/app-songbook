@@ -2,10 +2,9 @@ import React, { Component, Fragment } from "react";
 import Grid from "@material-ui/core/Grid";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import SearchInputField from "../common/SearchInputField";
+import SearchSong from "./components/SearchSong";
 import { PageWrapper } from "../containers/StyledContainers";
 import SongsListRow from "./components/Row";
-import Button from "@material-ui/core/Button";
 import { db } from "../../App";
 import { withStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
@@ -269,18 +268,9 @@ class SongsList extends Component {
 								categories={categories}
 							/>
 							<Grid item md={8} className={classes.contentGrid}>
-								<div
-									style={{
-										width: "100%",
-										padding: 8
-									}}
-								>
-									<SearchInputField
-										handleChange={this.handleChangeForm}
-										placeholder="Wpisz nazwę artysty lub tytuł piosenki..."
-										label="Wyszukaj piosenkę"
-									/>
-								</div>
+								<SearchSong 
+									handleChangeForm={this.handleChangeForm}
+								/>
 								<Buttons
 									handleSelectAll={this.handleSelectAll}
 									handleClearSelectAll={this.handleClearSelectAll}
