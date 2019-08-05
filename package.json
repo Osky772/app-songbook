@@ -10,6 +10,7 @@
 		"firebase-admin": "^7.2.0",
 		"gh-pages": "^2.0.1",
 		"pdfmake": "^0.1.54",
+		"prop-types": "^15.7.2",
 		"react": "^16.8.4",
 		"react-beautiful-dnd": "^10.1.1",
 		"react-dom": "^16.8.4",

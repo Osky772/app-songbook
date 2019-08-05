@@ -13,8 +13,7 @@ import withWidth from "@material-ui/core/withWidth";
 import toRenderProps from "recompose/toRenderProps";
 import Loader from "react-loader-spinner";
 import styles from './styles';
-import CategoryDrawer from './Category/Drawer';
-import CategorySelector from './Category/Selector';
+import Category from './Category';
 
 const BASE_URL = "https://app-songbook.firebaseio.com";
 
@@ -261,21 +260,13 @@ class SongsList extends Component {
 				{({ width }) => (
 					<PageWrapper className={classes.wrapper}>
 						<Grid container spacing={width === "xs" || width === "sm" ? 0 : 24}>
-							<Grid item md={4}>
-								{width === "xs" || width === "sm" ? (
-									<CategoryDrawer
-										isDrawerOpen={isDrawerOpen}
-										toggleDrawer={this.props.toggleDrawer}
-										handleCategorySelect={this.handleCategorySelect}
-										categories={categories}
-									/>
-								) : (
-										<CategorySelector
-											categories={categories}
-											handleCategorySelect={this.handleCategorySelect}
-										/>
-								)}
-							</Grid>
+							<Category
+								width={width}
+								isDrawerOpen={isDrawerOpen}
+								toggleDrawer={this.props.toggleDrawer}
+								handleCategorySelect={this.handleCategorySelect}
+								categories={categories}
+							/>
 							<Grid item md={8} className={classes.contentGrid}>
 								<div
 									style={{
