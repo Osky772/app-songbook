@@ -7,7 +7,7 @@ import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 import { withStyles } from "@material-ui/core/styles";
 import styles from './styles';
 
-const SongsListItem = props => {
+const SongsListRow = props => {
 	const {
 		song: { id, performer, title, category },
 		handleCheckboxSelect,
@@ -35,4 +35,4 @@ const SongsListItem = props => {
 	);
 };
 
-export default withStyles(styles)(SongsListItem);
+export default withStyles(styles)(SongsListRow);

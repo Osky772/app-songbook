@@ -1,7 +1,7 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 
-const SearchForm = ({ handleChange, label, placeholder }) => {
+export default ({ handleChange, label, placeholder }) => {
 	return (
 		<form noValidate autoComplete="off">
 			<TextField
@@ -19,5 +19,3 @@ const SearchForm = ({ handleChange, label, placeholder }) => {
 		</form>
 	);
 };
-
-export default SearchForm;

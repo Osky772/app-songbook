@@ -2,9 +2,9 @@ import React, { Component, Fragment } from "react";
 import Grid from "@material-ui/core/Grid";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import SearchForm from "../common/SearchForm";
+import SearchInputField from "../common/SearchInputField";
 import { PageWrapper } from "../containers/StyledContainers";
-import SongRow from "./Item";
+import SongsListRow from "./components/Row";
 import Button from "@material-ui/core/Button";
 import { db } from "../../App";
 import { withStyles } from "@material-ui/core/styles";
@@ -13,7 +13,8 @@ import withWidth from "@material-ui/core/withWidth";
 import toRenderProps from "recompose/toRenderProps";
 import Loader from "react-loader-spinner";
 import styles from './styles';
-import Category from './Category';
+import Category from './components/Category';
+import Buttons from './components/Buttons';
 
 const BASE_URL = "https://app-songbook.firebaseio.com";
 
@@ -274,26 +275,17 @@ class SongsList extends Component {
 										padding: 8
 									}}
 								>
-									<SearchForm
+									<SearchInputField
 										handleChange={this.handleChangeForm}
 										placeholder="Wpisz nazwę artysty lub tytuł piosenki..."
 										label="Wyszukaj piosenkę"
 									/>
 								</div>
-								<Button
-									onClick={() => this.handleSelectAll(songsList)}
-									variant="outlined"
-									className={classes.btn}
-								>
-									Zaznacz wszystkie
-								</Button>
-								<Button
-									onClick={this.handleClearSelectAll}
-									variant="outlined"
-									className={classes.btn}
-								>
-									Wyczyść
-								</Button>
+								<Buttons
+									handleSelectAll={this.handleSelectAll}
+									handleClearSelectAll={this.handleClearSelectAll}
+									songsList={songsList}
+								/>
 								<Typography className={classes.categoryTitle}>
 									{category === ""
 										? "Wszystkie piosenki"
@@ -316,7 +308,7 @@ class SongsList extends Component {
 											<Typography variant="h4" style={{ paddingLeft: 10 }}>
 												{getFirstLetter(song, id, songs, firstLetters)}
 											</Typography>
-											<SongRow
+											<SongsListRow
 												key={song.id}
 												song={song}
 												checked={checked}

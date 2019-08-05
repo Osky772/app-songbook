@@ -8,7 +8,7 @@ import {
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import SearchForm from "../../common/SearchForm";
+import SearchInputField from "../../common/SearchInputField";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -218,7 +218,7 @@ class Playlists extends Component {
 							</Grid>
 							<Grid item md={8} xs={12}>
 								<ListContainer className={classes.playlistsContainer}>
-									<SearchForm
+									<SearchInputField
 										handleChange={this.handleInputChange}
 										label="Wyszukaj playlistę"
 										placeholder="Wpisz nazwę playlisty"
