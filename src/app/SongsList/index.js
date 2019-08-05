@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from "react";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import SearchForm from "../common/SearchForm";
@@ -16,6 +14,7 @@ import toRenderProps from "recompose/toRenderProps";
 import Loader from "react-loader-spinner";
 import styles from './styles';
 import CategoryDrawer from './Category/Drawer';
+import CategorySelector from './Category/Selector';
 
 const BASE_URL = "https://app-songbook.firebaseio.com";
 
@@ -271,19 +270,10 @@ class SongsList extends Component {
 										categories={categories}
 									/>
 								) : (
-									<Paper className={classes.categories}>
-										<List component="nav" style={{ background: "white" }}>
-											{
-												<ListItem
-													button
-													onClick={() => this.handleCategorySelect("")}
-												>
-													<ListItemText primary={"Wszystkie"} />
-												</ListItem>
-											}
-											{categories}
-										</List>
-									</Paper>
+										<CategorySelector
+											categories={categories}
+											handleCategorySelect={this.handleCategorySelect}
+										/>
 								)}
 							</Grid>
 							<Grid item md={8} className={classes.contentGrid}>

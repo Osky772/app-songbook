@@ -8,7 +8,6 @@ export default ({ isDrawerOpen, toggleDrawer, categories, handleCategorySelect }
         <Drawer
             open={isDrawerOpen}
             onClose={() => toggleDrawer(false)}
-            // className={classes.drawer}
             style={{ zIndex: 9600 }}
         >
             <div>
