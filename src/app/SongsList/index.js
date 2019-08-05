@@ -269,7 +269,6 @@ class SongsList extends Component {
 										toggleDrawer={this.props.toggleDrawer}
 										handleCategorySelect={this.handleCategorySelect}
 										categories={categories}
-										
 									/>
 								) : (
 									<Paper className={classes.categories}>
