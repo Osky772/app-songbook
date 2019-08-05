@@ -5,10 +5,6 @@ export default theme => ({
             paddingTop: 15
         }
     },
-    btn: {
-        textTransform: "none",
-        marginLeft: 8
-    },
     xs: {
         fontSize: 35,
         position: "fixed",
@@ -29,20 +25,6 @@ export default theme => ({
     },
     contentGrid: {
         width: "100%"
-    },
-    drawer: {
-        zIndex: 9600
-    },
-    categories: {
-        position: "sticky",
-        top: 95
-    },
-    categoryTitle: {
-        fontSize: 25,
-        fontWeight: "bold",
-        marginTop: 10,
-        marginBottom: 8,
-        marginLeft: 8
     },
     spinnerWrapper: {
         display: "flex",

@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import Grid from "@material-ui/core/Grid";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
+
 import SearchSong from "./components/SearchSong";
 import { PageWrapper } from "../containers/StyledContainers";
 import SongsListRow from "./components/Row";
@@ -14,6 +13,7 @@ import Loader from "react-loader-spinner";
 import styles from './styles';
 import Category from './components/Category';
 import Buttons from './components/Buttons';
+import Title from './components/Title';
 
 const BASE_URL = "https://app-songbook.firebaseio.com";
 
@@ -239,22 +239,6 @@ class SongsList extends Component {
 				};
 			}, {});
 
-		const uniqueCategories = [...new Set(songs.map(song => song.category))];
-		const categories = uniqueCategories.map(category => {
-			const firstLetterUppercased =
-				category.slice(0, 1).toUpperCase() + category.slice(1);
-			return (
-				<ListItem
-					button
-					onClick={() => this.handleCategorySelect(category)}
-					key={category}
-				>
-					<ListItemText primary={firstLetterUppercased} />
-				</ListItem>
-			);
-		});
-		const titleFirstLetterUppercased =
-			category.slice(0, 1).toUpperCase() + category.slice(1);
 		return (
 			<WithWidth>
 				{({ width }) => (
@@ -265,7 +249,7 @@ class SongsList extends Component {
 								isDrawerOpen={isDrawerOpen}
 								toggleDrawer={this.props.toggleDrawer}
 								handleCategorySelect={this.handleCategorySelect}
-								categories={categories}
+								songs={songs}
 							/>
 							<Grid item md={8} className={classes.contentGrid}>
 								<SearchSong 
@@ -276,11 +260,9 @@ class SongsList extends Component {
 									handleClearSelectAll={this.handleClearSelectAll}
 									songsList={songsList}
 								/>
-								<Typography className={classes.categoryTitle}>
-									{category === ""
-										? "Wszystkie piosenki"
-										: titleFirstLetterUppercased}
-								</Typography>
+								<Title 
+									category={category}
+								/>
 								{fetchInProgress ? (
 									<div className={classes.spinnerWrapper}>
 										<Loader
